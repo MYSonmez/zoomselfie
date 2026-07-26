@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+    <defs>
+      <linearGradient id="grad_herokioskjpg" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#ff7a00" />
+        <stop offset="100%" stop-color="#ff3a00" />
+      </linearGradient>
+    </defs>
+    <rect width="800" height="600" fill="url(#grad_herokioskjpg)" />
+    <circle cx="400" cy="260" r="80" fill="white" opacity="0.2" />
+    <path d="M360 260 L440 260 M400 220 L400 300" stroke="white" stroke-width="8" stroke-linecap="round" opacity="0.6" />
+    <text x="400" y="420" font-family="system-ui, sans-serif" font-size="36" font-weight="bold" fill="white" text-anchor="middle">ZoomSelfie AI Kiosk</text>
+    <text x="400" y="460" font-family="system-ui, sans-serif" font-size="20" fill="white" opacity="0.8" text-anchor="middle">ZoomSelfie Digital Memory</text>
+  </svg>
