@@ -542,12 +542,23 @@ export function Home() {
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-accent px-3 py-1 text-xs font-bold text-primary">
               <Sparkles className="h-3.5 w-3.5" /> The AI Magic
             </span>
-            <h2 className="mt-5 text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.15]">
-              From a snapshot<br />to a cinematic memory.
-            </h2>
+            <Link to="/gallery" className="group block">
+              <h2 className="mt-5 text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.15] group-hover:text-primary transition-colors inline-flex items-center gap-3">
+                <span>From a snapshot<br />to a cinematic memory.</span>
+                <ArrowRight className="h-7 w-7 text-primary transition-transform group-hover:translate-x-2 shrink-0 hidden sm:inline-block" />
+              </h2>
+            </Link>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-md">
               In under 3 seconds, ZoomSelfie's AI engine captures, enhances, and delivers a stunning branded 4K video memory — no app, no waiting.
             </p>
+
+            <div className="mt-5">
+              <Button asChild variant="outline" size="sm" className="rounded-full gap-2 border-primary/40 text-foreground hover:text-primary hover:border-primary">
+                <Link to="/gallery">
+                  Explore Full Gallery <ArrowRight className="h-4 w-4 text-primary" />
+                </Link>
+              </Button>
+            </div>
 
             <div className="mt-8 space-y-5">
               {[
@@ -568,8 +579,8 @@ export function Home() {
             </div>
           </motion.div>
 
-          {/* RIGHT — Cards */}
-          <div className="flex items-end justify-center gap-6 sm:gap-10">
+          {/* RIGHT — Cards (Clickable link to Gallery) */}
+          <Link to="/gallery" className="group flex items-end justify-center gap-6 sm:gap-10 hover:scale-[1.02] transition-transform duration-300">
             {/* Photo card */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -587,7 +598,7 @@ export function Home() {
                 />
               </div>
               <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                <span className="inline-flex items-center gap-1 rounded-full bg-white border border-border px-3 py-1 text-[10px] font-bold text-foreground shadow-sm">
+                <span className="inline-flex items-center gap-1 rounded-full bg-white border border-border px-3 py-1 text-[10px] font-bold text-foreground shadow-sm group-hover:border-primary">
                   <Camera className="h-2.5 w-2.5 text-primary" /> Raw capture
                 </span>
               </div>
@@ -618,7 +629,7 @@ export function Home() {
                 </span>
               </div>
             </motion.div>
-          </div>
+          </Link>
         </div>
       </Section>
 
