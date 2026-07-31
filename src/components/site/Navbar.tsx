@@ -144,18 +144,20 @@ export function Navbar() {
             )}>
               <div className={cn(
                 "grid grid-cols-[1.08fr_.92fr] gap-3 rounded-[2rem] border p-4 shadow-[0_30px_90px_-35px_rgba(0,0,0,.5)] backdrop-blur-xl",
-                isPhotoSoft ? "border-white/10 bg-[#0b0e10]/98" : "border-border bg-white/98",
+                isPhotoSoft ? "border-white/10 bg-[#0b0e10]" : "border-border bg-white",
               )}>
-                <Link to="/kiosk" onClick={() => setProductsOpen(false)} className="group relative min-h-[350px] overflow-hidden rounded-[1.55rem] bg-zinc-950 p-7 text-white">
+                <Link to="/kiosk" onClick={() => setProductsOpen(false)} className="group relative min-h-[350px] overflow-hidden rounded-[1.55rem] bg-zinc-950 text-white">
                   <div className="absolute -bottom-16 -right-12 h-72 w-72 rounded-full bg-primary/20 blur-3xl" />
-                  <img src={kioskModelPro} alt="" className="absolute -bottom-2 right-0 h-[78%] w-[54%] object-contain object-bottom transition-transform duration-500 group-hover:scale-105" />
-                  <div className="relative z-10 flex h-full max-w-[58%] flex-col">
+                  <div className="absolute bottom-5 right-5 h-[76%] w-[40%] overflow-hidden rounded-[1.35rem] border border-white/10 bg-white shadow-[0_18px_45px_-20px_rgba(0,0,0,.7)]">
+                    <img src={kioskModelPro} alt="" className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.035]" />
+                  </div>
+                  <div className="relative z-10 flex min-h-[350px] max-w-[52%] flex-col p-7 pr-0">
                     <span className="grid h-11 w-11 place-items-center rounded-full bg-primary text-black"><ScanFace className="h-5 w-5" /></span>
                     <div className="mt-auto">
-                      <span className="inline-flex rounded-full bg-primary px-2.5 py-1 text-[8px] font-black uppercase tracking-[.14em] text-black">Kiosk systems for sale</span>
-                      <h3 className="mt-3 text-2xl font-extrabold leading-tight">Configure and buy your kiosk.</h3>
-                      <p className="mt-3 text-[11px] leading-5 text-white/48">Choose a model, format, finish and optional features for your venue.</p>
-                      <span className="mt-5 inline-flex items-center gap-2 text-xs font-bold text-primary">Open configurator <span aria-hidden="true">→</span></span>
+                      <span className="inline-flex rounded-full bg-primary px-2.5 py-1 text-[8px] font-black uppercase tracking-[.12em] text-black">Kiosk for sale</span>
+                      <h3 className="mt-3 text-[1.35rem] font-extrabold leading-[1.08]">Configure and buy your kiosk.</h3>
+                      <p className="mt-3 text-[10px] leading-[1.65] text-white/48">Choose a model, format, finish and optional features.</p>
+                      <span className="mt-5 inline-flex items-center gap-2 text-[11px] font-bold text-primary">Open configurator <span aria-hidden="true">→</span></span>
                     </div>
                   </div>
                 </Link>
