@@ -1,0 +1,751 @@
+PhotoSoft Ürün ve Pazarlama Anlatım Dokümanı
+
+1. PhotoSoft nedir?
+
+PhotoSoft, müzeler, tema parkları, akvaryumlar, gözlem kuleleri, hayvanat bahçeleri, bilim merkezleri ve turistik ziyaret noktalarında faaliyet gösteren fotoğraf işletmeleri için geliştirilmiş uçtan uca bir fotoğraf operasyonu ve satış platformudur.
+
+PhotoSoft’un görevi yalnızca fotoğraf çekmek veya fotoğrafa bir arka plan eklemek değildir.
+
+Platform; ziyaretçinin fotoğrafının çekildiği ilk noktadan başlayarak, fotoğrafın ziyaretçiyle eşleştirilmesini, farklı fotoğraf ve video ürünlerine dönüştürülmesini, ziyaretçiye gösterilmesini, satılmasını, teslim edilmesini ve tüm sürecin performansının analiz edilmesini sağlar.
+
+PhotoSoft, bir turistik attraction içindeki fotoğraf operasyonunun tamamını tek platform üzerinden yönetir.
+
+En basit ifadeyle:
+
+PhotoSoft, fotoğrafın çekildiği andan satıldığı ana kadar olan bütün süreci yönetir.
+
+---
+
+2. PhotoSoft hangi problemi çözer?
+
+Turistik ziyaret noktalarında fotoğraf operasyonu genellikle birçok farklı aşamadan oluşur:
+
+- Fotoğrafın çekilmesi,
+- Fotoğrafın doğru ziyaretçiyle eşleştirilmesi,
+- Fotoğrafa özel arka plan veya tema uygulanması,
+- Fotoğraftan farklı ürünler oluşturulması,
+- Fotoğrafın satış noktasına gönderilmesi,
+- Ziyaretçinin fotoğrafını bulması,
+- Kiosk veya kasadan satın alma işlemi yapması,
+- Dijital veya basılı teslimat,
+- Satış ve operasyon sonuçlarının raporlanması.
+
+Bu süreç farklı yazılımlar, cihazlar ve manuel işlemlerle yürütüldüğünde önemli problemler ortaya çıkar.
+
+Ziyaretçi fotoğrafını bulamayabilir.
+
+Fotoğrafların satış ekranına ulaşması zaman alabilir.
+
+Yanlış ziyaretçiye yanlış fotoğraf gösterilebilir.
+
+Kalitesi düşük çekimler satışa sunulabilir.
+
+Kasiyer veya satış personeli fotoğrafı bulmak için uzun süre uğraşabilir.
+
+Ziyaretçi tesisten çıktıktan sonra fotoğrafını satın alma fırsatını kaybedebilir.
+
+İşletme hangi fotoğrafın, hangi temanın veya hangi satış noktasının daha iyi performans gösterdiğini anlayamayabilir.
+
+PhotoSoft bütün bu süreci tek bir merkezi sistemde birleştirir.
+
+---
+
+3. PhotoSoft nasıl çalışır?
+
+PhotoSoft’un çalışma modeli yedi temel aşamadan oluşur.
+
+Aşama 1: Fotoğraf çekimi
+
+Ziyaretçi, attraction’ın girişinde veya deneyim içerisindeki belirli bir fotoğraf çekim noktasında görüntülenir.
+
+Bu çekim noktası şunlardan biri olabilir:
+
+- Profesyonel fotoğraf stüdyosu,
+- Green screen alanı,
+- Tematik fotoğraf noktası,
+- Otomatik kamera sistemi,
+- Gezici fotoğrafçı,
+- Etkinlik fotoğraf alanı,
+- Ride veya aktivite kamerası,
+- Sabit veya hareketli capture point.
+
+Fotoğraf profesyonel bir fotoğrafçı tarafından çekilebileceği gibi otomatik kamera sistemleri tarafından da oluşturulabilir.
+
+Aşama 2: Fotoğrafın ziyaretçiyle eşleştirilmesi
+
+Fotoğraf çekildikten sonra ziyaretçiye QR kodlu bir fotoğraf bileti verilebilir.
+
+Bu QR kod, çekilen fotoğrafların ziyaretçiyle ilişkilendirilmesini sağlar.
+
+Ziyaretçi daha sonra kioskta, satış noktasında veya telefonunda QR kodu okutarak yalnızca kendisine ait fotoğraf ve videolara ulaşır.
+
+Eşleştirme farklı yöntemlerle de yapılabilir:
+
+- QR kod,
+- Fotoğraf bileti,
+- Bileklik,
+- Attraction giriş bileti,
+- Sipariş numarası,
+- Ziyaretçi hesabı,
+- Sistem entegrasyonu,
+- API bağlantısı.
+
+Aşama 3: Otomatik içerik üretimi
+
+PhotoSoft, çekilen tek bir fotoğraftan çok sayıda farklı ürün oluşturabilir.
+
+Örneğin bir akvaryumda çekilen normal bir aile fotoğrafı şu ürünlere dönüştürülebilir:
+
+- Deniz altında çekilmiş tematik fotoğraf,
+- Köpek balığı temalı fotoğraf,
+- Akvaryum logosunu içeren markalı fotoğraf,
+- Dikey sosyal medya görseli,
+- Hareketli video,
+- Slayt video,
+- Farklı çerçeve ve arka plan seçenekleri,
+- Basılı hatıra ürünü,
+- Dijital fotoğraf paketi.
+
+Böylece tek bir çekim, ziyaretçiye sunulabilecek birçok farklı satış ürününe dönüşür.
+
+İçerikler attraction’ın temasına, marka kimliğine ve özel kampanyalarına göre hazırlanabilir.
+
+Aşama 4: Kişisel galeri
+
+Ziyaretçi attraction’ın çıkış alanına ulaştığında QR kodunu bir kioska okutabilir.
+
+PhotoSoft ziyaretçinin fotoğraf ve videolarını otomatik olarak ekranda gösterir.
+
+Ziyaretçi:
+
+- Fotoğraflarını inceleyebilir,
+- Farklı tasarımları karşılaştırabilir,
+- Videoları izleyebilir,
+- Paket seçeneklerini görebilir,
+- Dijital veya basılı ürün seçebilir,
+- Satın alma işlemini tamamlayabilir.
+
+Bu galeri kioskta, satış görevlisinin ekranında veya ziyaretçinin telefonunda açılabilir.
+
+Aşama 5: Çok kanallı satış
+
+PhotoSoft, fotoğraf ve video ürünlerinin farklı satış kanallarında sunulmasını sağlar.
+
+Satış kanalları şunlardır:
+
+- Self-servis kiosk,
+- Kasiyer ekranı,
+- Fotoğraf satış mağazası,
+- Mobil telefon,
+- Online web galerisi,
+- E-posta bağlantısı,
+- Attraction mobil uygulaması,
+- Harici e-ticaret veya bilet sistemleri.
+
+Ziyaretçi attraction içerisindeyken satın alma yapabileceği gibi, ziyaret sonrasında da online galerisine girerek fotoğrafını satın alabilir.
+
+Bu yapı satış fırsatının attraction’dan çıkış anında sona ermesini engeller.
+
+Aşama 6: Teslimat
+
+Satın alınan ürünler farklı biçimlerde teslim edilebilir:
+
+- Dijital indirme,
+- E-posta ile gönderim,
+- Mobil bağlantı,
+- Basılı fotoğraf,
+- Fotoğraf albümü,
+- Çerçeveli ürün,
+- Magnet,
+- Anahtarlık,
+- Özel hediyelik ürün,
+- Video dosyası,
+- Sosyal medya formatı.
+
+PhotoSoft, satın alma ve teslimat sürecinin merkezi olarak takip edilmesini sağlar.
+
+Aşama 7: Analiz ve optimizasyon
+
+PhotoSoft, fotoğraf operasyonunun performansını analiz eder.
+
+Sistem yalnızca kaç fotoğraf satıldığını göstermez.
+
+Fotoğrafın çekildiği andan satış gerçekleşene kadar olan bütün süreci ölçer.
+
+Örneğin şu bilgiler analiz edilebilir:
+
+- Kaç ziyaretçinin fotoğrafı çekildi?
+- Kaç kişi QR kodunu kullandı?
+- Kaç kişi galeri ekranını açtı?
+- Kaç kişi fotoğraflarını görüntüledi?
+- Kaç kişi satın alma yaptı?
+- Hangi fotoğraf çekim noktası daha fazla satış oluşturdu?
+- Hangi fotoğrafçı daha başarılı çekimler yaptı?
+- Hangi template daha fazla satın alındı?
+- Hangi video ürünü daha çok ilgi gördü?
+- Hangi kiosk daha yüksek satış yaptı?
+- Hangi saatlerde satış daha yüksek oldu?
+- Hangi paketler daha çok tercih edildi?
+- Online satış mı kiosk satışı mı daha güçlü?
+- Fotoğraf kalitesi satış oranını nasıl etkiledi?
+- Ziyaretçinin gözleri kapalı mı?
+- Fotoğraf bulanık mı?
+- Yüzler doğru biçimde görünüyor mu?
+- Fotoğraf satışa uygun mu?
+
+Bu bilgiler sayesinde işletme fotoğraf operasyonunu tahminlerle değil, gerçek verilerle yönetebilir.
+
+---
+
+4. PhotoSoft’un temel ürün döngüsü
+
+PhotoSoft’un temel çalışma döngüsü şu şekilde anlatılmalıdır:
+
+Capture → Match → Create → Show → Sell → Deliver → Analyse
+
+Türkçe karşılığı:
+
+Çek → Eşleştir → Oluştur → Göster → Sat → Teslim Et → Analiz Et
+
+Bu yedi adım PhotoSoft’un bütün pazarlama ve ürün anlatımlarında temel yapı olarak kullanılmalıdır.
+
+PhotoSoft’un gücü, bu adımların tamamını tek platform içerisinde birleştirmesidir.
+
+---
+
+5. PhotoSoft’un ana değer önerisi
+
+PhotoSoft’un temel değer önerisi şu cümledir:
+
+PhotoSoft, çekilen her ziyaretçi fotoğrafını kişiselleştirilmiş, satılabilir ve ölçülebilir bir medya ürününe dönüştürür.
+
+PhotoSoft attraction’a üç temel fayda sağlar.
+
+Daha iyi ziyaretçi deneyimi
+
+Ziyaretçi kendi fotoğrafını kolayca bulur.
+
+Uzun süre beklemez.
+
+Fotoğraflarına farklı cihazlardan ulaşabilir.
+
+Kendisine özel hazırlanmış fotoğraf ve videoları görebilir.
+
+İstediği ürünü kolayca satın alabilir.
+
+Daha yüksek gelir potansiyeli
+
+Tek bir fotoğraftan birden fazla ürün oluşturulur.
+
+Farklı paketler ve fiyat seçenekleri sunulur.
+
+Kiosk, kasiyer ve online kanallar birlikte kullanılır.
+
+Ziyaret sonrasında da satış yapılabilir.
+
+Dijital ve basılı ürünler aynı anda sunulabilir.
+
+Daha verimli operasyon
+
+Fotoğraf bulma ve eşleştirme süreçleri hızlanır.
+
+Manuel işlemler azalır.
+
+Satış noktalarındaki yoğunluk azalır.
+
+Birden fazla lokasyon merkezi olarak yönetilebilir.
+
+Performans verileri gerçek zamanlı izlenebilir.
+
+---
+
+6. PhotoSoft’un temel modülleri
+
+PhotoSoft Capture
+
+Fotoğraf çekim noktalarının yönetildiği modüldür.
+
+Kameralar, fotoğrafçılar, çekim istasyonları ve otomatik sistemler PhotoSoft’a bağlanabilir.
+
+PhotoSoft Guest Matching
+
+Çekilen fotoğrafların doğru ziyaretçiyle eşleştirilmesini sağlar.
+
+QR kod, bilet, hesap veya farklı tanımlama yöntemleri kullanılabilir.
+
+PhotoSoft Creative Engine
+
+Fotoğrafların otomatik olarak farklı template, arka plan, video ve ürünlere dönüştürülmesini sağlar.
+
+PhotoSoft Gallery
+
+Ziyaretçilerin kendilerine ait fotoğraf ve videoları görüntüleyebileceği kişisel galeridir.
+
+PhotoSoft Kiosk
+
+Ziyaretçinin QR kodunu okutarak fotoğraflarını incelemesini, ürün seçmesini ve satın alma yapmasını sağlar.
+
+PhotoSoft POS
+
+Kasiyer veya satış personelinin fotoğraf bulmasını, ürün oluşturmasını, ödeme almasını ve sipariş yönetmesini sağlar.
+
+PhotoSoft Online Store
+
+Ziyaretçinin attraction’dan ayrıldıktan sonra fotoğraf ve videolarına erişmesini ve online satın alma yapmasını sağlar.
+
+PhotoSoft Delivery
+
+Dijital dosya, baskı veya hediyelik ürün teslimatlarını yönetir.
+
+PhotoSoft Quality Intelligence
+
+Fotoğrafların kalitesini analiz eder.
+
+Bulanık, hatalı veya satışa uygun olmayan görüntülerin belirlenmesine yardımcı olur.
+
+PhotoSoft Analytics
+
+Fotoğraf çekiminden satışa kadar olan bütün performans verilerini raporlar.
+
+PhotoSoft Multi-Site Management
+
+Birden fazla attraction, mağaza, kiosk, çekim noktası veya ülkenin tek merkezden yönetilmesini sağlar.
+
+---
+
+7. PhotoSoft ile ZoomSelfie arasındaki fark
+
+PhotoSoft ve ZoomSelfie aynı teknoloji ailesinde yer alabilir; ancak iki ürünün kullanım amacı ve çalışma modeli farklıdır.
+
+ZoomSelfie nedir?
+
+ZoomSelfie, kullanıcıların kiosk, web sayfası, online kampanya aracı veya API üzerinden kendi fotoğraf ve video içeriklerini self-servis olarak oluşturmasını sağlar.
+
+Kullanıcı bir kioskta fotoğraf çekebilir veya kendi fotoğrafını sisteme yükleyebilir.
+
+Daha sonra bir template, tema veya video seçerek kişiselleştirilmiş içerik oluşturur.
+
+ZoomSelfie’nin ana amacı, hızlı ve eğlenceli bir içerik deneyimi sunmaktır.
+
+PhotoSoft nedir?
+
+PhotoSoft, bir attraction içerisindeki profesyonel fotoğraf işletmesinin tamamını yönetir.
+
+Fotoğrafın capture point’te çekilmesiyle başlayan süreç, ziyaretçi eşleştirmesi, içerik üretimi, kiosk ve POS satışı, online satış, teslimat ve performans analiziyle devam eder.
+
+En basit fark
+
+ZoomSelfie, kullanıcının içerik oluşturmasını sağlar.
+
+PhotoSoft, fotoğraf işletmesinin tamamını yönetir.
+
+Bir başka anlatımla
+
+ZoomSelfie bir self-servis içerik oluşturma platformudur.
+
+PhotoSoft ise uçtan uca bir attraction fotoğraf operasyonu ve satış platformudur.
+
+Kiosk farkı
+
+ZoomSelfie’de kiosk genellikle içeriğin oluşturulduğu ana deneyim noktasıdır.
+
+PhotoSoft’ta kiosk, çok daha büyük bir sistemin yalnızca galeri ve satış noktalarından biridir.
+
+PhotoSoft’ta süreç kiosktan önce capture point’te başlar ve kiosktan sonra online satış, teslimat ve analiz ile devam eder.
+
+---
+
+8. PhotoSoft’un hedef müşterileri
+
+PhotoSoft aşağıdaki kuruluşlar için uygundur:
+
+- Tema parkları,
+- Müzeler,
+- Akvaryumlar,
+- Hayvanat bahçeleri,
+- Gözlem kuleleri,
+- Bilim merkezleri,
+- Turistik yapılar,
+- Tarihi mekânlar,
+- Su parkları,
+- Eğlence merkezleri,
+- Macera parkları,
+- Kayak merkezleri,
+- Stadyumlar,
+- Büyük etkinlik alanları,
+- Kruvaziyer terminalleri,
+- Turistik turlar,
+- Fotoğraf operasyon şirketleri,
+- Attraction fotoğraf işletmecileri.
+
+Ana hedef müşteri yalnızca attraction yönetimi değildir.
+
+PhotoSoft aynı zamanda attraction içerisinde fotoğraf operasyonu yapan işletmeciler, fotoğraf şirketleri ve gelir paylaşımı modeliyle çalışan operasyon firmaları için de geliştirilmiştir.
+
+---
+
+9. Web sitesinde kullanılacak ana mesaj
+
+Ana başlık
+
+Fotoğrafın Çekildiği Andan Satıldığı Ana Kadar Tüm Süreci Yönetin
+
+Alt başlık
+
+PhotoSoft; capture point, ziyaretçi eşleştirme, otomatik fotoğraf ve video üretimi, kişisel galeri, kiosk, POS, online satış, teslimat ve performans analizini tek platformda birleştirir.
+
+Ana çağrı butonu
+
+Demo Talep Edin
+
+İkinci çağrı butonu
+
+PhotoSoft Nasıl Çalışır?
+
+---
+
+10. Alternatif ana sayfa başlıkları
+
+Seçenek 1
+
+Attraction Fotoğraf Operasyonunuzun Tamamı Tek Platformda
+
+Seçenek 2
+
+Her Ziyaretçi Anını Satılabilir Bir Hatıraya Dönüştürün
+
+Seçenek 3
+
+Çekimden Satışa Uçtan Uca Fotoğraf Platformu
+
+Seçenek 4
+
+Fotoğraf Çekin, Ürün Oluşturun, Her Kanaldan Satın
+
+Seçenek 5
+
+The Operating System for Attraction Photography
+
+---
+
+11. Ana sayfa için kısa açıklama
+
+PhotoSoft, turistik attraction’lardaki fotoğraf işletmesini baştan sona yöneten bir platformdur.
+
+Ziyaretçinin fotoğrafı capture point’te çekilir, QR kodla eşleştirilir, otomatik olarak farklı fotoğraf ve video ürünlerine dönüştürülür ve kişisel galeride ziyaretçiye sunulur.
+
+Ziyaretçi ürünlerini kiosk, satış görevlisi veya online galeri üzerinden satın alabilir.
+
+İşletme ise tüm çekim, görüntüleme, satış ve performans verilerini tek bir merkezi panelden takip eder.
+
+---
+
+12. “PhotoSoft nasıl çalışır?” web sitesi bölümü
+
+1. Fotoğrafı çekin
+
+Ziyaretçinin fotoğrafını profesyonel veya otomatik capture point’te çekin.
+
+2. Ziyaretçiyle eşleştirin
+
+Fotoğrafı QR kod, bilet veya ziyaretçi hesabıyla doğru kişiyle ilişkilendirin.
+
+3. İçerikleri otomatik oluşturun
+
+Tek bir çekimden farklı fotoğraf, video ve tematik ürünler hazırlayın.
+
+4. Kişisel galeride gösterin
+
+Ziyaretçinin yalnızca kendisine ait içerikleri kolayca görüntülemesini sağlayın.
+
+5. Her kanaldan satın
+
+Kiosk, POS, kasiyer veya online galeri üzerinden satış yapın.
+
+6. Ürünleri teslim edin
+
+Dijital indirme, baskı veya özel hediyelik ürün seçenekleri sunun.
+
+7. Sonuçları analiz edin
+
+Hangi çekimlerin, ürünlerin ve satış kanallarının daha iyi performans gösterdiğini ölçün.
+
+---
+
+13. “Neden PhotoSoft?” web sitesi bölümü
+
+Bir fotoğrafın çekilmiş olması, satılacağı anlamına gelmez.
+
+Fotoğrafın doğru ziyaretçiyle eşleştirilmesi, hızlı biçimde etkileyici bir ürüne dönüştürülmesi, doğru zamanda ziyaretçiye gösterilmesi ve kolayca satın alınabilmesi gerekir.
+
+PhotoSoft bu sürecin tamamını tek bir platformda birleştirir.
+
+Daha az manuel işlem, daha kolay ziyaretçi deneyimi, daha fazla satış kanalı ve daha görünür bir fotoğraf operasyonu sağlar.
+
+---
+
+14. Web sitesinde öne çıkarılacak faydalar
+
+Ziyaretçi fotoğrafını kolayca bulur
+
+QR kod sayesinde ziyaretçi yalnızca kendi fotoğraf ve videolarını görür.
+
+Tek çekimden birçok ürün oluşur
+
+Fotoğraflar farklı arka planlara, videolara, paketlere ve tematik ürünlere dönüştürülür.
+
+Satış farklı kanallardan yapılır
+
+Kiosk, kasiyer, POS ve online galeri aynı sistem üzerinde çalışır.
+
+Satış attraction’dan sonra da devam eder
+
+Ziyaretçi daha sonra online olarak fotoğrafına ulaşabilir ve satın alma yapabilir.
+
+Fotoğraf kalitesi kontrol edilir
+
+Düşük kaliteli veya hatalı çekimler analiz edilerek operasyon kalitesi geliştirilebilir.
+
+Tüm performans görünür olur
+
+Çekim sayısı, görüntüleme, dönüşüm, satış, ürün ve lokasyon performansı raporlanabilir.
+
+Birden fazla lokasyon yönetilebilir
+
+Farklı attraction’lar ve ülkeler tek merkezi panel üzerinden takip edilebilir.
+
+---
+
+15. Pazarlama ekibinin PhotoSoft’u anlatırken kullanması gereken dil
+
+PhotoSoft anlatılırken şu kavramlar kullanılmalıdır:
+
+- Uçtan uca platform,
+- Capture-to-commerce,
+- Fotoğraf operasyonu,
+- Ziyaretçi fotoğraf yolculuğu,
+- Çok kanallı satış,
+- Kişisel galeri,
+- Otomatik içerik üretimi,
+- Ziyaretçi eşleştirme,
+- Dijital hatıra,
+- Online satış,
+- Fotoğraf kalite analizi,
+- Operasyon analitiği,
+- Gelir performansı,
+- Merkezi yönetim,
+- Çok lokasyonlu yapı,
+- Ziyaret sonrası satış,
+- Kişiselleştirilmiş medya ürünü.
+
+---
+
+16. PhotoSoft’u anlatırken kullanılmaması gereken ifadeler
+
+PhotoSoft yalnızca aşağıdaki ifadelerden biriyle tanımlanmamalıdır:
+
+- Green screen yazılımı,
+- Fotoğraf kiosk yazılımı,
+- Fotoğraf düzenleme programı,
+- Fotoğraf satış ekranı,
+- Galeri yazılımı,
+- Baskı programı,
+- Template oluşturma aracı,
+- Fotoğraf çekme uygulaması.
+
+Bu özellikler PhotoSoft’un içinde bulunabilir; ancak PhotoSoft’un tamamını ifade etmez.
+
+Örneğin:
+
+Yanlış anlatım:
+
+“PhotoSoft, fotoğraflara arka plan ekleyen bir yazılımdır.”
+
+Doğru anlatım:
+
+“PhotoSoft, fotoğrafın çekildiği noktadan satış ve teslimat aşamasına kadar attraction fotoğraf operasyonunun tamamını yöneten uçtan uca bir platformdur.”
+
+---
+
+17. Pazarlama iletişiminde kullanılacak ana hikâye
+
+PhotoSoft pazarlaması özellik listesiyle başlamamalıdır.
+
+Önce müşterinin yaşadığı problem anlatılmalıdır.
+
+Problem
+
+Attraction’larda her gün binlerce ziyaretçi fotoğrafı çekilir; ancak fotoğrafın doğru ziyaretçiyle eşleştirilmesi, hızlı şekilde hazırlanması, ziyaretçiye gösterilmesi ve satılması karmaşık olabilir.
+
+Kayıp
+
+Ziyaretçi fotoğrafını bulamazsa veya satın alma süreci zor olursa satış fırsatı kaybolur.
+
+İşletme hangi fotoğrafın, temanın veya satış noktasının daha başarılı olduğunu göremezse operasyonu geliştiremez.
+
+Çözüm
+
+PhotoSoft tüm fotoğraf yolculuğunu tek bir platform altında birleştirir.
+
+Sonuç
+
+Ziyaretçi kendi fotoğrafına kolayca ulaşır.
+
+İşletme daha fazla ürün ve satış kanalı sunar.
+
+Operasyon daha hızlı ve ölçülebilir hale gelir.
+
+---
+
+18. Web sitesi tasarım yaklaşımı
+
+PhotoSoft web sitesi bir yazılım yönetim paneli gibi görünmemelidir.
+
+Site; ziyaretçi deneyimi, hatıra, fotoğraf, satış ve teknoloji kavramlarını birlikte göstermelidir.
+
+Ana sayfada ilk bakışta şu süreç anlaşılmalıdır:
+
+1. Bir ziyaretçinin fotoğrafı çekiliyor.
+2. Ziyaretçiye QR kod veriliyor.
+3. Fotoğraftan farklı içerikler oluşturuluyor.
+4. Ziyaretçi kiosk veya telefonunda galeriyi görüyor.
+5. Ürünü satın alıyor.
+6. İşletme sonuçları panelden analiz ediyor.
+
+Tasarım dili modern, teknolojik ve renkli olmalıdır.
+
+Ancak çocuklara yönelik bir oyun uygulaması gibi görünmemelidir.
+
+PhotoSoft kurumsal bir B2B platformdur.
+
+Görsellerde gerçek ziyaretçi deneyimi, attraction ortamı, kiosk, fotoğraf çekim noktası ve analiz ekranları birlikte gösterilmelidir.
+
+---
+
+19. Web sitesi menü yapısı
+
+Önerilen ana menü:
+
+- Platform
+- Nasıl Çalışır?
+- Çözümler
+- Sektörler
+- Ürün Modülleri
+- Gelir ve Analitik
+- Referanslar
+- Hakkımızda
+- Demo Talep Edin
+
+Platform sayfası
+
+PhotoSoft’un genel yapısını anlatmalıdır.
+
+Nasıl Çalışır sayfası
+
+Capture’tan analize kadar yedi aşamalı süreci göstermelidir.
+
+Çözümler sayfası
+
+Capture, kiosk, POS, online satış, template üretimi ve analitik gibi çözüm alanlarını anlatmalıdır.
+
+Sektörler sayfası
+
+Müzeler, tema parkları, akvaryumlar ve diğer attraction türlerine özel kullanım senaryolarını göstermelidir.
+
+Gelir ve Analitik sayfası
+
+Satış kanalları, dönüşüm ve performans ölçümünü anlatmalıdır.
+
+Referanslar sayfası
+
+PhotoSoft’un kullanıldığı veya desteklediği önemli attraction örneklerini göstermelidir.
+
+---
+
+20. Web sitesinde gösterilecek temel ekran ve görseller
+
+Web tasarım ekibi aşağıdaki görselleri kullanmalıdır:
+
+- Fotoğraf çekilen bir aile,
+- Capture point,
+- QR kodlu fotoğraf bileti,
+- Kioskta galeri görüntüleyen ziyaretçi,
+- Aynı fotoğraftan oluşturulmuş farklı template’ler,
+- Fotoğraf ve video paketleri,
+- Kasiyer satış ekranı,
+- Mobil online galeri,
+- Baskı ve dijital ürün seçenekleri,
+- Operasyon ve satış dashboard’u,
+- Çok lokasyonlu yönetim ekranı,
+- Fotoğraf kalite kontrolü.
+
+Her görsel, PhotoSoft sürecinin bir aşamasını anlatmalıdır.
+
+Yalnızca kiosk görselleri kullanılırsa PhotoSoft yanlışlıkla kiosk ürünü gibi algılanabilir.
+
+Yalnızca template görselleri kullanılırsa PhotoSoft fotoğraf efekt yazılımı gibi algılanabilir.
+
+Bu nedenle capture, commerce ve analytics birlikte gösterilmelidir.
+
+---
+
+21. Kısa ürün tanımları
+
+10 kelimelik tanım
+
+Attraction fotoğraf operasyonunu çekimden satışa kadar yöneten platform.
+
+20 kelimelik tanım
+
+PhotoSoft, ziyaretçi fotoğrafının çekilmesi, işlenmesi, gösterilmesi, satılması ve analiz edilmesini tek platformda yöneten attraction çözümüdür.
+
+50 kelimelik tanım
+
+PhotoSoft, müze, tema parkı, akvaryum ve turistik attraction’larda fotoğrafın çekildiği capture point’ten başlayarak ziyaretçi eşleştirme, otomatik fotoğraf ve video üretimi, kişisel galeri, kiosk, POS, online satış, teslimat ve performans analizine kadar bütün fotoğraf operasyonunu yöneten uçtan uca bir platformdur.
+
+---
+
+22. Satış toplantısında kullanılacak kısa anlatım
+
+PhotoSoft, turistik attraction’lardaki fotoğraf işletmesinin tamamını yöneten bir platformdur.
+
+Ziyaretçinin fotoğrafı capture point’te çekilir ve QR kodla ziyaretçiyle eşleştirilir.
+
+Sistem bu fotoğraftan otomatik olarak farklı fotoğraf ve video ürünleri oluşturur.
+
+Ziyaretçi ürünlerini kioskta, satış görevlisinde veya online galeride görüntüleyip satın alabilir.
+
+İşletme ise hangi çekim noktasının, ürünün veya satış kanalının daha iyi performans gösterdiğini tek panelden analiz eder.
+
+---
+
+23. PhotoSoft slogan alternatifleri
+
+- From Capture to Commerce
+- The Operating System for Attraction Photography
+- Capture Every Moment. Sell Everywhere.
+- Every Photo. Every Channel. One Platform.
+- Turn Visitor Moments into Lasting Value
+- Çekimden Satışa Tek Platform
+- Her Ziyaretçi Anını Değere Dönüştürün
+- Fotoğraf Operasyonunuzun Dijital İşletim Sistemi
+- Çekin, Oluşturun, Satın ve Ölçün
+- Her Fotoğraf, Her Kanal, Tek Platform
+
+---
+
+24. PhotoSoft’un nihai kurumsal tanımı
+
+PhotoSoft, ziyaretçi fotoğrafının capture point’te çekilmesinden doğru ziyaretçiyle eşleştirilmesine, otomatik fotoğraf ve video ürünlerinin oluşturulmasından kiosk, POS ve online satışa, dijital veya basılı teslimattan operasyon ve satış performansının analizine kadar attraction fotoğraf işletmesinin tüm yaşam döngüsünü yöneten uçtan uca bir medya ticareti platformudur.
+
+İngilizce kurumsal tanım:
+
+PhotoSoft is an end-to-end attraction media commerce platform that manages the complete guest photography journey, from capture and guest association to automated content creation, gallery presentation, omnichannel sales, delivery and performance analytics.
+
+---
+
+25. Ekibin aklında kalması gereken tek cümle
+
+PhotoSoft’u anlatırken herkesin aklında şu cümle olmalıdır:
+
+PhotoSoft bir fotoğraf programı değildir; attraction fotoğraf işletmesinin dijital işletim sistemidir.

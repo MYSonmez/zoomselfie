@@ -9,10 +9,10 @@ import {
 export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
-      { title: "FAQ — ZoomSelfie Platform & Hardware" },
-      { name: "description", content: "Answers to the most common questions about the ZoomSelfie platform, hardware kiosks, pricing, and global venue deployment." },
+      { title: "FAQ | ZoomSelfie" },
+      { name: "description", content: "Answers about creating a ZoomSelfie, kiosk and web campaigns, product integrations, and PhotoSoft." },
       { property: "og:title", content: "FAQ — ZoomSelfie" },
-      { property: "og:description", content: "Everything venues ask before rolling out ZoomSelfie." },
+      { property: "og:description", content: "How the ZoomSelfie experience and product family work." },
     ],
   }),
   component: Faq,
@@ -20,28 +20,30 @@ export const Route = createFileRoute("/faq")({
 
 const groups = [
   {
-    title: "Platform & Software",
+    title: "Using ZoomSelfie",
     items: [
-      { q: "What is ZoomSelfie?", a: "ZoomSelfie is an AI-powered visitor experience platform that captures, animates, and delivers branded 4K video souvenir memories directly to guests' smartphones via QR." },
-      { q: "How long does venue deployment take?", a: "Standard turn-key models ship in 2-3 weeks. Most venue rollouts are fully live in under two weeks with remote setup and staff handoff." },
-      { q: "Do guests need to download an application?", a: "Never. Guests scan a personalized QR code on the kiosk screen or printed ticket and immediately stream, save, or share their 4K memory in any web browser." },
+      { q: "What is ZoomSelfie?", a: "ZoomSelfie is a self-service photo and video experience. A person takes or uploads a photo, chooses a location or theme, and receives personalized content ready to download and share." },
+      { q: "Where can I create a ZoomSelfie?", a: "The experience can be available at a physical ZoomSelfie kiosk or through a web campaign. It can also be integrated into another app or service through the ZoomSelfie API." },
+      { q: "Do I need to install an app?", a: "No. Kiosk and web experiences are designed to work without an app download. The finished content can be opened through a QR code, link or email, depending on the campaign setup." },
+      { q: "What do I choose during the experience?", a: "You can choose from templates created for a location, event, brand or visual theme. Your photo is then placed into the selected ZoomSelfie story." },
     ],
   },
   {
-    title: "Kiosk Hardware & Purchasing",
+    title: "For brands, venues and events",
     items: [
-      { q: "What is the difference between Cabin and Open-Air Stand models?", a: "Enclosed Pavilion Cabins feature full architectural booth structures with privacy walls, climate control, and optional solar glass domes. Open-Air Stands offer a compact footprint optimized for high-volume foot traffic and fast indoor throughput." },
-      { q: "What is the typical fabrication and shipping lead time?", a: "Standard turn-key models ship within 2 to 3 weeks globally. Custom Enterprise Pavilion kiosks (such as heritage Roman, Parisian, or Ottoman structures) require 4 to 6 weeks for custom fabrication, solar fitting, and international logistics." },
-      { q: "Are leasing and revenue-share options available?", a: "Yes! Qualified high-volume venues (theme parks, ski resorts, and major monuments) can opt for our $0 upfront hardware placement program with a simple revenue share split." },
-      { q: "Can we brand the kiosk hardware and wraps?", a: "Yes — from custom 360-degree vinyl wraps to logo cutouts, LED lighting accents, and custom on-screen intro cards, everything is brandable." },
-      { q: "How does remote telemetry and maintenance work?", a: "Every kiosk includes an integrated cloud telemetry modem. Our engineers monitor printer ink levels, solar battery status, camera focus, and internet connectivity 24/7, deploying OTA updates remotely." },
+      { q: "What is the ZoomSelfie Kiosk?", a: "It is the on-location version of the ZoomSelfie experience. The touchscreen guides visitors through taking a photo, choosing a template and receiving their finished content." },
+      { q: "Can ZoomSelfie work without a kiosk?", a: "Yes. The Campaign Tool can publish an experience to the web, allowing people to upload a photo and create their ZoomSelfie from a browser." },
+      { q: "Can the experience match our brand?", a: "Yes. Campaign visuals, messages and templates can be prepared around your brand, event, location or promotion." },
+      { q: "Can a campaign be free or paid?", a: "The campaign setup can support free access or a paid experience, depending on the project and payment integration." },
+      { q: "How are kiosks and campaigns managed?", a: "The ZoomSelfie Web Panel brings campaign, kiosk, template, usage and credit management into one central interface." },
     ],
   },
   {
-    title: "Data Privacy & Compliance",
+    title: "Products and integrations",
     items: [
-      { q: "Is ZoomSelfie GDPR-compliant?", a: "Yes. We offer regional data residency, full consent workflows, end-to-end encryption, and documented automated deletion procedures." },
-      { q: "Where is guest photo data stored?", a: "In regional cloud infrastructure, with optional dedicated data residency in the EU, US, or APAC regions." },
+      { q: "Who is the Desktop App for?", a: "It is designed for photographers and event teams that need to process larger groups of photos efficiently using ZoomSelfie templates." },
+      { q: "What can the ZoomSelfie API do?", a: "The API can trigger photo-to-video creation, deliver the result through your preferred channel, track usage and manage campaigns or templates programmatically." },
+      { q: "What is the difference between ZoomSelfie and PhotoSoft?", a: "ZoomSelfie lets a user create their own personalized content through a kiosk, web campaign or integrated experience. PhotoSoft manages the complete professional photography operation inside an attraction, including capture points, guest matching, POS and online sales, delivery and analytics." },
     ],
   },
 ];
@@ -52,7 +54,7 @@ function Faq() {
       <PageHero
         eyebrow="Knowledge Base"
         title="Frequently asked questions."
-        description="Everything venues ask before rolling out ZoomSelfie hardware, cloud platform, and souvenir photo passes."
+        description="Clear answers about the user experience, kiosk, web campaigns, products and the difference between ZoomSelfie and PhotoSoft."
       />
       <Section>
         <div className="mx-auto max-w-3xl space-y-16">

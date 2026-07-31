@@ -3,8 +3,8 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function CTASection({
-  title = "Ready to redefine your visitor experience?",
-  description = "Book a personalized demo and see how ZoomSelfie transforms every visit into a premium, shareable memory.",
+  title = "Ready to create a ZoomSelfie experience?",
+  description = "Launch it on a kiosk, on the web or inside your own product. We’ll help you choose the right setup.",
 }: {
   title?: string;
   description?: string;

@@ -17,9 +17,9 @@ export const Route = createFileRoute("/solutions")({
   head: () => ({
     meta: [
       { title: "Venue Industry Solutions — ZoomSelfie" },
-      { name: "description", content: "AI visitor experience solutions for heritage monuments, theme parks, museums, hotels, aquariums, and world attractions." },
+      { name: "description", content: "Self-service ZoomSelfie experiences for landmarks, events, photographers, hotels, museums, aquariums and attractions." },
       { property: "og:title", content: "Solutions — ZoomSelfie" },
-      { property: "og:description", content: "Purpose-built visitor experience platforms for the world's most memorable venues." },
+      { property: "og:description", content: "Let people create personalized, shareable photo and video stories through kiosk or web experiences." },
     ],
   }),
   component: Solutions,
@@ -28,45 +28,45 @@ export const Route = createFileRoute("/solutions")({
 const industries = [
   {
     icon: Landmark,
-    title: "Heritage Monuments & Cultural Sites",
-    desc: "Bespoke architectural pavilions (Parisian Art Nouveau, Roman Temple, Ottoman Domes) designed to honor heritage site aesthetics while digitizing souvenir capture.",
+    title: "Landmarks & City Centers",
+    desc: "Let visitors step into the story of a place and create a panoramic video they can take home and share.",
     image: kioskParis,
-    challenges: ["Strict heritage preservation guidelines", "High international visitor volume", "Demand for premium branded souvenirs"],
+    challenges: ["Location-based video templates", "Self-service kiosk or web access", "Branded, shareable destination content"],
   },
   {
     icon: Ticket,
-    title: "Theme Parks & Thrill Rides",
-    desc: "High-throughput photo capture booths integrated with ride speed triggers and instant mobile QR photo passes.",
+    title: "Theme Parks & Attractions",
+    desc: "Add a playful content moment where guests can pose, choose a theme and receive a personalized souvenir video.",
     image: kioskPark,
-    challenges: ["Long physical photo counter queues", "Manual printing bottlenecks", "Missed upsell opportunities"],
+    challenges: ["Quick guided experience", "Free or paid campaign options", "Instant digital delivery"],
   },
   {
     icon: Building2,
-    title: "Luxury Hotels & Resorts",
-    desc: "Opulent marble and gold indoor kiosks offering 5-star concierge photo experiences for guests.",
+    title: "Hotels & Resorts",
+    desc: "Help guests turn the view, property and atmosphere around them into a personal digital memory.",
     image: kioskHotel,
-    challenges: ["Fewer memorable on-brand touchpoints", "Limited organic social attribution", "Lack of guest loyalty engagement"],
+    challenges: ["Property-specific templates", "A memorable guest touchpoint", "Content guests naturally share"],
   },
   {
     icon: TreePalm,
     title: "Aquariums & Zoos",
-    desc: "Underwater glow enclosures delivering instant aquatic souvenir videos straight to visitor smartphones.",
+    desc: "Put families inside imaginative animal and underwater stories through accessible self-service content creation.",
     image: kioskAquarium,
-    challenges: ["Challenging glass glare & low-light conditions", "Passive exhibit exit moments", "Desire for shareable eco-memories"],
+    challenges: ["Family-friendly interaction", "Exhibit and campaign themes", "No app required"],
   },
   {
     icon: Camera,
-    title: "Observation Decks & World Landmarks",
-    desc: "Roman and historic outdoor kiosks capturing breathtaking panoramic visitor memories at landmark elevation points.",
+    title: "Photographers",
+    desc: "Offer more than a traditional photo by turning portraits into short, story-driven videos using your own concepts.",
     image: kioskRome,
-    challenges: ["Extreme weather & high altitude conditions", "Fast-moving visitor foot traffic", "Instant digital sharing requirements"],
+    challenges: ["Desktop batch workflows", "Custom themes and shooting concepts", "A new digital product to offer clients"],
   },
   {
     icon: PartyPopper,
-    title: "World Heritage Wonders",
-    desc: "Custom architectural structures incorporating solar glass domes and multi-lingual touch interfaces.",
+    title: "Brands & Events",
+    desc: "Launch a branded campaign that lets people create personalized content at an event or from any web browser.",
     image: kioskIstanbul,
-    challenges: ["Off-grid power constraints", "Multi-cultural language barriers", "High throughput requirements"],
+    challenges: ["Campaign-specific branding", "Kiosk, web or both", "Shareable event content"],
   },
 ];
 
@@ -74,9 +74,9 @@ function Solutions() {
   return (
     <>
       <PageHero
-        eyebrow="Industry Solutions"
-        title="One platform. Every landmark venue."
-        description="From heritage monuments to theme parks and luxury resorts, ZoomSelfie powers the most memorable digital souvenir experiences worldwide."
+        eyebrow="Where ZoomSelfie fits"
+        title="Give people a story they can create themselves."
+        description="ZoomSelfie adapts to the place, audience and campaign while keeping the experience simple for the person using it."
       >
         <Button asChild size="lg" className="rounded-full px-8 shadow-[var(--shadow-glow)]">
           <Link to="/book-demo">Book a Venue Demo <ArrowRight className="ml-2 h-4 w-4" /></Link>
@@ -85,8 +85,8 @@ function Solutions() {
 
       <Section>
         <SectionTitle
-          eyebrow="Tailored Architectures"
-          title="Built for the Demands of World-Class Venues"
+          eyebrow="Use cases"
+          title="A flexible experience for places, people and campaigns."
         />
 
         <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -121,7 +121,7 @@ function Solutions() {
               </div>
 
               <div className="p-7 pt-0 border-t border-border/50 mt-4">
-                <div className="mt-4 text-[11px] font-bold uppercase tracking-wider text-primary">Key Solutions</div>
+                <div className="mt-4 text-[11px] font-bold uppercase tracking-wider text-primary">What ZoomSelfie brings</div>
                 <ul className="mt-3 space-y-2">
                   {ind.challenges.map((c) => (
                     <li key={c} className="flex items-center gap-2 text-xs text-foreground font-medium">

@@ -47,7 +47,7 @@ function BookDemo() {
       <PageHero
         eyebrow="Book a Demo"
         title="See ZoomSelfie live."
-        description="A 30-minute personalized walkthrough of the platform, the kiosk, and everything we can do for your venue."
+        description="A personalized walkthrough of the kiosk, campaign tool, web panel and API—focused on the experience you want to launch."
       />
       <Section className="pt-0">
         <div className="grid gap-16 lg:grid-cols-[1fr_1.2fr]">
@@ -55,11 +55,11 @@ function BookDemo() {
             <h3 className="text-2xl font-bold tracking-tight">What you'll get.</h3>
             <ul className="mt-8 space-y-4">
               {[
-                "A live walkthrough of the ZoomSelfie platform",
-                "Kiosk hardware demonstration and specs",
-                "Custom rollout plan for your venue",
-                "Pricing and packaging tailored to your operation",
-                "Q&A with a ZoomSelfie product expert",
+                "A live walkthrough of the ZoomSelfie user journey",
+                "Kiosk, web campaign and API options",
+                "Template and branding possibilities",
+                "A launch approach for your location or campaign",
+                "Q&A with the ZoomSelfie team",
               ].map((f) => (
                 <li key={f} className="flex items-start gap-3">
                   <span className="mt-1 grid h-5 w-5 place-items-center rounded-full bg-primary text-primary-foreground">

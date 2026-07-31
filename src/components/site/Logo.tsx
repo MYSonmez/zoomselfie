@@ -5,9 +5,10 @@ interface LogoProps {
   className?: string;
   iconOnly?: boolean;
   size?: "sm" | "md" | "lg" | "xl";
+  tone?: "default" | "light";
 }
 
-export function Logo({ className, iconOnly = false, size = "md" }: LogoProps) {
+export function Logo({ className, iconOnly = false, size = "md", tone = "default" }: LogoProps) {
   const sizeMap = {
     sm: "text-lg",
     md: "text-xl sm:text-2xl",
@@ -18,7 +19,7 @@ export function Logo({ className, iconOnly = false, size = "md" }: LogoProps) {
   return (
     <span className={cn(sizeMap[size], "font-extrabold tracking-tight select-none", className)}>
       <span className="text-primary">zoom</span>
-      <span className="text-foreground">selfie</span>
+      <span className={tone === "light" ? "text-white" : "text-foreground"}>selfie</span>
     </span>
   );
 }

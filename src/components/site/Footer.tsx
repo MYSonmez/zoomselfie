@@ -5,12 +5,12 @@ const cols = [
   {
     title: "Product",
     links: [
-      { to: "/products", label: "Platform" },
-      { to: "/products", label: "Desktop App" },
-      { to: "/products", label: "Dashboard" },
-      { to: "/products", label: "AI Engine" },
-      { to: "/products", label: "API" },
+      { to: "/products", label: "Campaign Tool" },
       { to: "/kiosk", label: "Kiosk" },
+      { to: "/products", label: "Web Panel" },
+      { to: "/products", label: "Desktop App" },
+      { to: "/products", label: "API" },
+      { to: "/photosoft", label: "PhotoSoft" },
     ],
   },
   {
@@ -46,8 +46,8 @@ export function Footer() {
               <Logo size="lg" />
             </Link>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
-              The AI-powered visitor experience platform. Turn every visit into a premium,
-              shareable digital memory — delivered instantly by QR.
+              A self-service photo and video experience. Take or upload a photo, choose a
+              template and receive a personalized memory ready to share.
             </p>
           </div>
           {cols.map((col) => (
@@ -76,7 +76,7 @@ export function Footer() {
             © {new Date().getFullYear()} ZoomSelfie. All rights reserved.
           </p>
           <p className="text-xs text-muted-foreground">
-            Designed for theme parks, museums, hotels, and attractions worldwide.
+            Available through kiosk, web campaigns, desktop workflows and API.
           </p>
         </div>
       </div>
