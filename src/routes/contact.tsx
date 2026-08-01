@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+"use client";
+
 import { useState } from "react";
 import { Mail, MessageSquare, MapPin, CheckCircle2, Loader2 } from "lucide-react";
 import { PageHero } from "@/components/site/PageHero";
@@ -8,19 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
-export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact - ZoomSelfie" },
-      { name: "description", content: "Get in touch with the ZoomSelfie team for sales, partnerships, or support." },
-      { property: "og:title", content: "Contact ZoomSelfie" },
-      { property: "og:description", content: "We'd love to hear from your venue." },
-    ],
-  }),
-  component: Contact,
-});
-
-function Contact() {
+export default function Contact() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",

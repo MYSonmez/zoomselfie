@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/site/AppLink";
 import { Logo } from "@/components/site/Logo";
 
 const cols = [

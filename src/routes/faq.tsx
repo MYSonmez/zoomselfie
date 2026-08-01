@@ -1,22 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/site/PageHero";
 import { Section } from "@/components/site/Section";
 import { CTASection } from "@/components/site/CTASection";
 import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
 } from "@/components/ui/accordion";
-
-export const Route = createFileRoute("/faq")({
-  head: () => ({
-    meta: [
-      { title: "FAQ | ZoomSelfie" },
-      { name: "description", content: "Answers about creating a ZoomSelfie, kiosk and web campaigns, product integrations, and PhotoSoft." },
-      { property: "og:title", content: "FAQ — ZoomSelfie" },
-      { property: "og:description", content: "How the ZoomSelfie experience and product family work." },
-    ],
-  }),
-  component: Faq,
-});
 
 const groups = [
   {
@@ -48,7 +35,7 @@ const groups = [
   },
 ];
 
-function Faq() {
+export default function Faq() {
   return (
     <>
       <PageHero

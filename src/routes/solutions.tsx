@@ -1,4 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+"use client";
+
+import Image from "@/components/site/ResponsiveImage";
+import { Link } from "@/components/site/AppLink";
 import { motion } from "framer-motion";
 import { ArrowRight, Landmark, Building2, TreePalm, Ticket, Camera, PartyPopper, Check, Sparkles } from "lucide-react";
 import { PageHero } from "@/components/site/PageHero";
@@ -12,18 +15,6 @@ import kioskRome from "@/assets/kiosk-rome.png";
 import kioskHotel from "@/assets/kiosk-hotel.png";
 import kioskPark from "@/assets/kiosk-park.png";
 import kioskAquarium from "@/assets/kiosk-aquarium.png";
-
-export const Route = createFileRoute("/solutions")({
-  head: () => ({
-    meta: [
-      { title: "Venue Industry Solutions — ZoomSelfie" },
-      { name: "description", content: "Self-service ZoomSelfie experiences for landmarks, events, photographers, hotels, museums, aquariums and attractions." },
-      { property: "og:title", content: "Solutions — ZoomSelfie" },
-      { property: "og:description", content: "Let people create personalized, shareable photo and video stories through kiosk or web experiences." },
-    ],
-  }),
-  component: Solutions,
-});
 
 const industries = [
   {
@@ -70,7 +61,7 @@ const industries = [
   },
 ];
 
-function Solutions() {
+export default function Solutions() {
   return (
     <>
       <PageHero
@@ -102,7 +93,7 @@ function Solutions() {
             >
               <div>
                 <div className="relative aspect-[16/10] overflow-hidden bg-slate-900">
-                  <img
+                  <Image
                     src={ind.image}
                     alt={ind.title}
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"

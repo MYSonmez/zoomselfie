@@ -1,4 +1,6 @@
-import { Link } from "@tanstack/react-router";
+"use client";
+
+import { Link } from "@/components/site/AppLink";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 

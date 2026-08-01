@@ -1,4 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+"use client";
+
+import Image from "@/components/site/ResponsiveImage";
+import { Link } from "@/components/site/AppLink";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   ArrowDown,
@@ -15,11 +18,12 @@ import {
 } from "lucide-react";
 import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { SmartVideo } from "@/components/site/SmartVideo";
 
 import heroVideo from "@/assets/hero-video.mp4";
-import galataVideo from "@/assets/Galata-web-1.mp4";
+import galataVideo from "@/assets/Galata-web-1.web.mp4";
 import galataWomanPortrait from "@/assets/galata-woman-portrait.png";
-import heroKiosk from "@/assets/hero-kiosk.jpg";
+import heroKiosk from "@/assets/hero-kiosk.svg";
 import kioskParis from "@/assets/kiosk-paris.png";
 import prodPlatform from "@/assets/prod-platform.png";
 import prodDeveloperApi from "@/assets/prod-developer-api.png";
@@ -28,20 +32,6 @@ import galleryAquarium from "@/assets/gallery-aquarium-family.png";
 import galleryCruise from "@/assets/gallery-cruise-sunset.png";
 import galleryIstanbul from "@/assets/gallery-istanbul-group.png";
 import galleryStadium from "@/assets/gallery-stadium-friends.png";
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "ZoomSelfie | Create and Share Your Moment" },
-      {
-        name: "description",
-        content:
-          "Take or upload a photo, choose a template and turn your moment into a personalized, shareable ZoomSelfie video through kiosk, web or API experiences.",
-      },
-    ],
-  }),
-  component: Home,
-});
 
 const experienceSteps = [
   {
@@ -114,7 +104,7 @@ const audiences = [
   { title: "Brands & venues", text: "Give your audience content they genuinely want to keep and share.", image: galleryCruise },
 ];
 
-function Home() {
+export default function Home() {
   const [isPlaying, setIsPlaying] = useState(true);
   const [activeStep, setActiveStep] = useState(0);
   const [activeChannel, setActiveChannel] = useState(0);
@@ -138,7 +128,7 @@ function Home() {
   return (
     <div className="zoomselfie-home overflow-hidden bg-white text-zinc-950">
       <section className="zoomselfie-screen items-end overflow-hidden bg-black pb-12 pt-24 sm:pb-16 lg:pb-20">
-        <video ref={videoRef} src={heroVideo} autoPlay loop muted playsInline className="absolute inset-0 h-full w-full object-cover" />
+        <SmartVideo ref={videoRef} src={heroVideo} eager autoPlay loop muted playsInline className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.05)_35%,rgba(0,0,0,.92)_100%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,.62),transparent_64%)]" />
         <div className="absolute -bottom-36 -left-28 h-96 w-96 rounded-full bg-primary/25 blur-3xl" />
@@ -214,8 +204,8 @@ function Home() {
             <motion.div {...reveal(.08)} className="zs-stage-visual relative min-h-[500px] overflow-hidden rounded-[2.2rem] bg-zinc-950 shadow-[0_28px_80px_-35px_rgba(0,0,0,.45)] lg:min-h-[560px]">
               <AnimatePresence mode="wait">
                 <motion.img
-                  key={experienceSteps[activeStep].image}
-                  src={experienceSteps[activeStep].image}
+                  key={experienceSteps[activeStep].image.src}
+                  src={experienceSteps[activeStep].image.src}
                   alt=""
                   initial={reduceMotion ? false : { opacity: 0, scale: 1.06 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -254,11 +244,11 @@ function Home() {
             <motion.div {...reveal(.1)} className="zs-phone-stage relative flex min-h-[540px] items-center justify-center">
               <div className="absolute h-[430px] w-[430px] rounded-full bg-primary/20 blur-3xl" />
               <motion.div animate={reduceMotion ? undefined : { y: [0, -10, 0], rotate: [-4, -3, -4] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }} className="relative z-10 w-[42%] max-w-[230px] -translate-x-5 overflow-hidden rounded-[2.2rem] border-[6px] border-white bg-white shadow-[0_28px_80px_rgba(0,0,0,.23)]">
-                <img src={galataWomanPortrait} alt="Original visitor portrait" className="aspect-[9/16] w-full object-cover" />
+                <Image src={galataWomanPortrait} alt="Original visitor portrait" className="aspect-[9/16] w-full object-cover" />
                 <div className="absolute bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-white/90 px-3 py-1 text-[10px] font-bold">Your photo</div>
               </motion.div>
               <motion.div animate={reduceMotion ? undefined : { y: [0, 12, 0], rotate: [4, 3, 4] }} transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }} className="relative z-20 -ml-8 w-[42%] max-w-[230px] translate-x-5 overflow-hidden rounded-[2.2rem] border-[6px] border-zinc-950 bg-black shadow-[0_32px_90px_rgba(0,0,0,.32)]">
-                <video src={galataVideo} autoPlay muted loop playsInline className="aspect-[9/16] w-full object-cover" />
+                <SmartVideo src={galataVideo} poster={galataWomanPortrait.src} autoPlay muted loop playsInline className="aspect-[9/16] w-full object-cover" />
                 <div className="absolute bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-primary px-3 py-1 text-[10px] font-bold text-zinc-950">Your ZoomSelfie</div>
               </motion.div>
             </motion.div>
@@ -285,7 +275,7 @@ function Home() {
                   className={`group relative isolate min-h-[300px] cursor-pointer overflow-hidden rounded-[2rem] transition-[flex] duration-700 ease-[cubic-bezier(.22,1,.36,1)] lg:min-h-0 ${active ? "lg:flex-[2.2]" : "lg:flex-1"}`}
                   tabIndex={0}
                 >
-                  <img src={channel.image} alt="" className={`absolute inset-0 -z-20 h-full w-full object-cover transition-transform duration-1000 ${active ? "scale-100" : "scale-105"}`} />
+                  <Image src={channel.image} alt="" sizes="(max-width: 768px) 100vw, 33vw" className={`absolute inset-0 -z-20 h-full w-full object-cover transition-transform duration-1000 ${active ? "scale-100" : "scale-105"}`} />
                   <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/95 via-black/20 to-black/10" />
                   <div className="flex h-full flex-col p-6 sm:p-8">
                     <div className="flex items-center justify-between"><span className="grid h-11 w-11 place-items-center rounded-full bg-primary text-zinc-950"><channel.icon className="h-5 w-5" /></span><span className="text-xs font-black text-white/55">0{index + 1}</span></div>
@@ -322,7 +312,7 @@ function Home() {
           <div className="mt-10 grid gap-4 lg:grid-cols-3">
             {audiences.map((audience, index) => (
               <motion.article key={audience.title} {...reveal(index * .07)} className="zs-audience-card group relative min-h-[390px] overflow-hidden rounded-[2rem] bg-zinc-950">
-                <img src={audience.image} alt="" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <Image src={audience.image} alt="" sizes="(max-width: 768px) 100vw, 25vw" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/5 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-7 text-white"><h3 className="text-2xl font-bold">{audience.title}</h3><p className="mt-2 max-w-sm text-sm leading-6 text-white/68">{audience.text}</p></div>
               </motion.article>
@@ -344,14 +334,14 @@ function Home() {
               </Button>
             </motion.div>
             <motion.div {...reveal(.1)} className="overflow-hidden rounded-[2rem] border border-white/10 bg-black p-2 shadow-2xl">
-              <img src={appDashboard} alt="PhotoSoft operations dashboard" className="zs-dashboard-image h-[420px] w-full rounded-[1.5rem] object-cover object-top sm:h-[500px]" />
+              <Image src={appDashboard} alt="PhotoSoft operations dashboard" className="zs-dashboard-image h-[420px] w-full rounded-[1.5rem] object-cover object-top sm:h-[500px]" />
             </motion.div>
           </div>
         </div>
       </section>
 
       <section className="zoomselfie-screen isolate overflow-hidden bg-black py-20 text-white">
-        <img src={galleryCruise} alt="" className="absolute inset-0 -z-20 h-full w-full object-cover opacity-55" />
+        <Image src={galleryCruise} alt="" sizes="100vw" className="absolute inset-0 -z-20 h-full w-full object-cover opacity-55" />
         <div className="absolute inset-0 -z-10 bg-black/70" />
         <div className="container-page w-full text-center">
           <motion.div {...reveal()} className="mx-auto max-w-4xl">

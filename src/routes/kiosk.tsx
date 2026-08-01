@@ -1,4 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+"use client";
+
+import Image from "@/components/site/ResponsiveImage";
+import { Link } from "@/components/site/AppLink";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 import type { ReactNode } from "react";
@@ -21,7 +24,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-import heroKiosk from "@/assets/hero-kiosk.jpg";
+import heroKiosk from "@/assets/hero-kiosk.svg";
 import kioskIsolatedCabin from "@/assets/kiosk-isolated-cabin.png";
 import kioskIsolatedStand from "@/assets/kiosk-isolated-stand.png";
 import kioskModelStandard from "@/assets/kiosk-model-standard.png";
@@ -29,20 +32,6 @@ import kioskModelPro from "@/assets/kiosk-model-pro.png";
 import kioskParis from "@/assets/kiosk-paris.png";
 import kioskIstanbul from "@/assets/kiosk-istanbul.png";
 import kioskAquarium from "@/assets/kiosk-aquarium.png";
-
-export const Route = createFileRoute("/kiosk")({
-  head: () => ({
-    meta: [
-      { title: "Configure & Buy a Kiosk | ZoomSelfie" },
-      {
-        name: "description",
-        content:
-          "Choose a ZoomSelfie kiosk model, installation format, finish and optional features, then request a tailored commercial quote.",
-      },
-    ],
-  }),
-  component: Kiosk,
-});
 
 const models = [
   {
@@ -144,7 +133,7 @@ const installations = [
   { title: "Family attractions", image: kioskAquarium },
 ];
 
-function Kiosk() {
+export default function Kiosk() {
   const reduceMotion = useReducedMotion();
   const [modelId, setModelId] = useState<(typeof models)[number]["id"]>("pro");
   const [formatId, setFormatId] = useState<(typeof formats)[number]["id"]>("open-air");
@@ -172,7 +161,7 @@ function Kiosk() {
   return (
     <div className="kiosk-page overflow-hidden bg-white pb-24 text-zinc-950 xl:pb-32">
       <section className="kiosk-screen items-end overflow-hidden bg-black pb-12 pt-24 text-white sm:pb-16 lg:pb-20">
-        <img src={heroKiosk} alt="ZoomSelfie kiosk at a destination" className="absolute inset-0 h-full w-full object-cover" />
+        <Image src={heroKiosk} alt="ZoomSelfie kiosk at a destination" sizes="100vw" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,.8),rgba(0,0,0,.28)_58%,rgba(0,0,0,.42))]" />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20" />
         <div className="container-page relative z-10 w-full">
@@ -215,9 +204,9 @@ function Kiosk() {
                     return (
                       <button key={model.id} type="button" onClick={() => setModelId(model.id)} className={`group overflow-hidden rounded-[1.6rem] border-2 bg-white text-left transition-all ${selected ? "border-primary shadow-[0_18px_55px_-30px_rgba(255,184,0,.8)]" : "border-transparent hover:border-zinc-300"}`}>
                         <div className="relative h-60 overflow-hidden bg-zinc-100">
-                          <img src={model.image} alt={model.name} className="h-full w-full object-contain p-3 transition-transform duration-500 group-hover:scale-105" />
+                          <Image src={model.image} alt={model.name} sizes="(max-width: 768px) 100vw, 33vw" className="h-full w-full object-contain p-3 transition-transform duration-500 group-hover:scale-105" />
                           <span className="absolute left-4 top-4 rounded-full bg-black/75 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-md">{model.label}</span>
-                          {model.popular && <span className="absolute right-4 top-4 rounded-full bg-primary px-3 py-1 text-[10px] font-black uppercase tracking-wider">Most popular</span>}
+                          {"popular" in model && model.popular && <span className="absolute right-4 top-4 rounded-full bg-primary px-3 py-1 text-[10px] font-black uppercase tracking-wider">Most popular</span>}
                           {selected && <span className="absolute bottom-4 right-4 grid h-9 w-9 place-items-center rounded-full bg-primary text-black"><Check className="h-5 w-5" /></span>}
                         </div>
                         <div className="p-6">
@@ -240,7 +229,7 @@ function Kiosk() {
                     const selected = format.id === formatId;
                     return (
                       <button key={format.id} type="button" onClick={() => setFormatId(format.id)} className={`grid min-h-44 grid-cols-[8rem_1fr] items-center overflow-hidden rounded-[1.5rem] border-2 bg-white text-left transition ${selected ? "border-primary" : "border-transparent hover:border-zinc-300"}`}>
-                        <div className="h-full bg-zinc-100"><img src={format.image} alt={format.name} className="h-full w-full object-contain p-2" /></div>
+                        <div className="h-full bg-zinc-100"><Image src={format.image} alt={format.name} sizes="(max-width: 768px) 100vw, 33vw" className="h-full w-full object-contain p-2" /></div>
                         <div className="p-5"><div className="flex items-center justify-between gap-3"><h3 className="text-base font-extrabold">{format.name}</h3>{selected && <CheckCircle2 className="h-5 w-5 shrink-0 text-primary" />}</div><p className="mt-2 text-xs leading-5 text-zinc-600">{format.description}</p></div>
                       </button>
                     );
@@ -282,7 +271,7 @@ function Kiosk() {
               <div className="overflow-hidden rounded-[2rem] bg-zinc-950 text-white shadow-[0_30px_80px_-35px_rgba(0,0,0,.55)]">
                 <div className="relative h-[360px] bg-[radial-gradient(circle_at_50%_45%,#353535,transparent_62%)]">
                   <AnimatePresence mode="wait">
-                    <motion.img key={`${modelId}-${formatId}`} initial={{ opacity: 0, scale: .96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.02 }} transition={{ duration: .25 }} src={formatId === "cabin" ? kioskIsolatedCabin : activeModel.image} alt="Your configured ZoomSelfie kiosk" className="absolute inset-0 h-full w-full object-contain p-6" />
+                    <motion.img key={`${modelId}-${formatId}`} initial={{ opacity: 0, scale: .96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.02 }} transition={{ duration: .25 }} src={(formatId === "cabin" ? kioskIsolatedCabin : activeModel.image).src} alt="Your configured ZoomSelfie kiosk" className="absolute inset-0 h-full w-full object-contain p-6" />
                   </AnimatePresence>
                   <span className="absolute left-5 top-5 rounded-full border border-white/15 bg-black/30 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider backdrop-blur-md">Live configuration</span>
                 </div>
@@ -324,7 +313,7 @@ function Kiosk() {
       <section className="kiosk-screen bg-[#f5f5f2] py-16 lg:py-24">
         <div className="mx-auto w-full max-w-[100rem] px-4 sm:px-6">
           <motion.div {...reveal()} className="mx-auto max-w-3xl text-center"><p className="text-xs font-bold uppercase tracking-[.2em] text-primary">Designed for the location</p><h2 className="mt-5 text-4xl font-extrabold tracking-[-.055em] sm:text-6xl">A product that belongs in the experience.</h2></motion.div>
-          <div className="mt-10 grid gap-4 md:grid-cols-3">{installations.map((item, index) => <motion.article key={item.title} {...reveal(index * .06)} className="kiosk-example-card group relative min-h-[420px] overflow-hidden rounded-[2rem] bg-black"><img src={item.image} alt={item.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" /><div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" /><h3 className="absolute inset-x-0 bottom-0 p-7 text-2xl font-extrabold text-white">{item.title}</h3></motion.article>)}</div>
+          <div className="mt-10 grid gap-4 md:grid-cols-3">{installations.map((item, index) => <motion.article key={item.title} {...reveal(index * .06)} className="kiosk-example-card group relative min-h-[420px] overflow-hidden rounded-[2rem] bg-black"><Image src={item.image} alt={item.title} sizes="(max-width: 768px) 100vw, 33vw" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" /><div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" /><h3 className="absolute inset-x-0 bottom-0 p-7 text-2xl font-extrabold text-white">{item.title}</h3></motion.article>)}</div>
         </div>
       </section>
 

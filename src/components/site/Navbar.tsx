@@ -1,11 +1,17 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+"use client";
+
+import Image from "@/components/site/ResponsiveImage";
+import { usePathname } from "next/navigation";
+import { Link } from "@/components/site/AppLink";
 import { useEffect, useState } from "react";
 import { useReducedMotion } from "framer-motion";
-import { ChevronDown, Code2, LayoutDashboard, Menu, Monitor, PanelsTopLeft, ScanFace, X } from "lucide-react";
+import { Check, ChevronDown, Code2, Languages, LayoutDashboard, Menu, Monitor, PanelsTopLeft, ScanFace, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/site/Logo";
 import { cn } from "@/lib/utils";
 import kioskModelPro from "@/assets/kiosk-model-pro.png";
+import { localeLabels, type Locale } from "@/i18n/messages";
+import { useI18n } from "@/i18n/I18nProvider";
 
 const mainLinks = [
   { to: "/solutions", label: "Solutions" },
@@ -57,7 +63,9 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
-  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const [languageOpen, setLanguageOpen] = useState(false);
+  const { locale, setLocale } = useI18n();
+  const pathname = usePathname();
   const reduceMotion = useReducedMotion();
   const isPhotoSoftRoute = pathname === "/photosoft";
   const [photoSoftVisualsReady, setPhotoSoftVisualsReady] = useState(false);
@@ -77,6 +85,7 @@ export function Navbar() {
     setOpen(false);
     setProductsOpen(false);
     setMobileProductsOpen(false);
+    setLanguageOpen(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -149,7 +158,7 @@ export function Navbar() {
                 <Link to="/kiosk" onClick={() => setProductsOpen(false)} className="group relative min-h-[350px] overflow-hidden rounded-[1.55rem] bg-zinc-950 text-white">
                   <div className="absolute -bottom-16 -right-12 h-72 w-72 rounded-full bg-primary/20 blur-3xl" />
                   <div className="absolute bottom-5 right-5 h-[76%] w-[40%] overflow-hidden rounded-[1.35rem] border border-white/10 bg-white shadow-[0_18px_45px_-20px_rgba(0,0,0,.7)]">
-                    <img src={kioskModelPro} alt="" className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.035]" />
+                    <Image src={kioskModelPro} alt="" sizes="180px" className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.035]" />
                   </div>
                   <div className="relative z-10 flex min-h-[350px] max-w-[52%] flex-col p-7 pr-0">
                     <span className="grid h-11 w-11 place-items-center rounded-full bg-primary text-black"><ScanFace className="h-5 w-5" /></span>
@@ -194,6 +203,44 @@ export function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
+          <div className="relative" data-no-translate>
+            <button
+              type="button"
+              onClick={() => setLanguageOpen((value) => !value)}
+              aria-label="Language"
+              aria-expanded={languageOpen}
+              className={cn(
+                "inline-flex h-10 items-center gap-2 rounded-full border px-3 text-xs font-extrabold uppercase tracking-[.08em] transition-colors",
+                isDarkTop ? "border-white/20 bg-white/10 text-white hover:bg-white/20" : "border-border bg-background text-foreground hover:bg-surface",
+              )}
+            >
+              <Languages className="h-4 w-4" />
+              {locale}
+              <ChevronDown className={cn("h-3 w-3 transition-transform", languageOpen && "rotate-180")} />
+            </button>
+            {languageOpen && (
+              <div className={cn(
+                "absolute right-0 top-full mt-3 w-44 overflow-hidden rounded-2xl border p-1.5 shadow-[0_20px_55px_-24px_rgba(0,0,0,.55)] backdrop-blur-xl",
+                isPhotoSoft ? "border-white/10 bg-[#0b0e10]" : "border-border bg-white",
+              )}>
+                {(Object.keys(localeLabels) as Locale[]).map((item) => (
+                  <button
+                    key={item}
+                    type="button"
+                    onClick={() => { setLocale(item); setLanguageOpen(false); }}
+                    className={cn(
+                      "flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-semibold transition-colors",
+                      isPhotoSoft ? "text-white/75 hover:bg-white/[.08]" : "text-zinc-700 hover:bg-zinc-100",
+                      locale === item && (isPhotoSoft ? "bg-white/[.08] text-cyan-300" : "bg-accent text-zinc-950"),
+                    )}
+                  >
+                    <span>{localeLabels[item]}</span>
+                    {locale === item && <Check className="h-4 w-4" />}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
           <Button asChild className={cn("rounded-full px-6 transition-all", isPhotoSoft ? "bg-cyan-300 text-zinc-950 shadow-[0_12px_30px_-12px_rgba(103,232,249,.8)] hover:bg-white" : "shadow-[var(--shadow-glow)] hover:scale-105")}>
             <Link to="/book-demo">{isPhotoSoft ? "PhotoSoft Demo" : "Book Demo"}</Link>
           </Button>
@@ -215,8 +262,8 @@ export function Navbar() {
             {mobileProductsOpen && (
               <div className={cn("mb-2 grid gap-1 rounded-2xl p-2", isPhotoSoft ? "bg-white/[.05]" : "bg-surface")}>
                 {productLinks.map((item, index) => (
-                  <Link key={`${item.label}-mobile-${index}`} to={item.to} hash={item.hash} onClick={() => setOpen(false)} className={cn("flex items-center gap-3 rounded-xl px-3 py-2.5", item.featured ? "bg-zinc-950 text-white" : isPhotoSoft ? "text-white/70" : "text-foreground")}>
-                    <item.icon className={cn("h-4 w-4", item.featured ? "text-primary" : isPhotoSoft ? "text-cyan-300" : "text-primary")} />
+                  <Link key={`${item.label}-mobile-${index}`} to={item.to} hash={item.hash} onClick={() => setOpen(false)} className={cn("flex items-center gap-3 rounded-xl px-3 py-2.5", "featured" in item && item.featured ? "bg-zinc-950 text-white" : isPhotoSoft ? "text-white/70" : "text-foreground")}>
+                    <item.icon className={cn("h-4 w-4", "featured" in item && item.featured ? "text-primary" : isPhotoSoft ? "text-cyan-300" : "text-primary")} />
                     <span className="text-sm font-semibold">{item.label}</span>
                   </Link>
                 ))}
@@ -228,6 +275,25 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
+
+            <div className={cn("mt-3 rounded-2xl border p-2", isPhotoSoft ? "border-white/10 bg-white/[.04]" : "border-border bg-surface")} data-no-translate>
+              <div className="grid grid-cols-3 gap-1">
+                {(Object.keys(localeLabels) as Locale[]).map((item) => (
+                  <button
+                    key={item}
+                    type="button"
+                    onClick={() => setLocale(item)}
+                    className={cn(
+                      "rounded-xl px-2 py-2.5 text-xs font-extrabold uppercase transition-colors",
+                      isPhotoSoft ? "text-white/50" : "text-muted-foreground",
+                      locale === item && (isPhotoSoft ? "bg-cyan-300 text-zinc-950" : "bg-primary text-primary-foreground"),
+                    )}
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+            </div>
 
             <Button asChild className={cn("mt-3 rounded-full", isPhotoSoft && "bg-cyan-300 text-zinc-950 hover:bg-white")}>
               <Link to="/book-demo" onClick={() => setOpen(false)}>{isPhotoSoft ? "PhotoSoft Demo" : "Book Demo"}</Link>

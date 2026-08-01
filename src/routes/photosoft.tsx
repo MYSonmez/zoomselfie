@@ -1,4 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+"use client";
+
+import Image from "@/components/site/ResponsiveImage";
+import { Link } from "@/components/site/AppLink";
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import {
@@ -19,9 +22,10 @@ import {
   Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SmartVideo } from "@/components/site/SmartVideo";
 
 import heroVideo from "@/assets/Create_a_premium_cinematic_web.mp4";
-import heroKiosk from "@/assets/hero-kiosk.jpg";
+import heroKiosk from "@/assets/hero-kiosk.svg";
 import appDashboard from "@/assets/app-dashboard.png";
 import galleryAquarium from "@/assets/gallery-aquarium-family.png";
 import galleryCruise from "@/assets/gallery-cruise-sunset.png";
@@ -31,25 +35,11 @@ import kioskAquarium from "@/assets/kiosk-aquarium.png";
 import kioskModelPro from "@/assets/kiosk-model-pro.png";
 import kioskStadium from "@/assets/kiosk-stadium.png";
 import prodPlatform from "@/assets/prod-platform.png";
-import museumImage from "@/assets/g-museum.jpg";
-import parkImage from "@/assets/g-park.jpg";
-import aquariumImage from "@/assets/g-aquarium.jpg";
-import eventImage from "@/assets/g-event.jpg";
-import hotelImage from "@/assets/g-hotel.jpg";
-
-export const Route = createFileRoute("/photosoft")({
-  head: () => ({
-    meta: [
-      { title: "PhotoSoft | Attraction Photography Operating System" },
-      {
-        name: "description",
-        content:
-          "PhotoSoft is an end-to-end attraction photography platform that manages the complete journey from capture and guest matching to sales, delivery and analytics.",
-      },
-    ],
-  }),
-  component: PhotoSoft,
-});
+import museumImage from "@/assets/kiosk-rome.png";
+import parkImage from "@/assets/kiosk-park.png";
+import aquariumImage from "@/assets/kiosk-aquarium.png";
+import eventImage from "@/assets/gallery-stadium-friends.png";
+import hotelImage from "@/assets/kiosk-hotel.png";
 
 const platformSteps = [
   {
@@ -163,7 +153,7 @@ const productFamilies = [
   },
 ];
 
-function PhotoSoft() {
+export default function PhotoSoft() {
   const [activeStep, setActiveStep] = useState(0);
   const reduceMotion = useReducedMotion();
 
@@ -177,9 +167,10 @@ function PhotoSoft() {
   return (
     <div className="photosoft-page overflow-hidden bg-black text-white">
       <section className="photosoft-screen items-end overflow-hidden bg-black pt-24 pb-12 sm:pb-16 lg:pb-20">
-        <video
+        <SmartVideo
           src={heroVideo}
-          poster={heroKiosk}
+          poster={heroKiosk.src}
+          eager
           autoPlay
           muted
           loop
@@ -235,7 +226,7 @@ function PhotoSoft() {
               { icon: BarChart3, label: "Intelligence", title: "Every result is visible.", text: "See the complete journey, from capture and conversion to product performance and location comparison.", image: appDashboard },
             ].map((pillar, index) => (
               <motion.article key={pillar.label} {...reveal(index * .07)} className="ps-pillar group relative min-h-[380px] overflow-hidden rounded-[2rem] bg-zinc-950 text-white lg:min-h-[360px]">
-                <img src={pillar.image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-65 transition-transform duration-700 group-hover:scale-105" />
+                <Image src={pillar.image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-65 transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent" />
                 <div className="relative flex h-full min-h-[380px] flex-col justify-end p-7 sm:p-8 lg:min-h-[360px]">
                   <div className="mb-auto grid h-11 w-11 place-items-center rounded-full bg-cyan-300 text-zinc-950"><pillar.icon className="h-5 w-5" /></div>
@@ -279,7 +270,7 @@ function PhotoSoft() {
                     aria-pressed={isActive}
                     className="group relative isolate min-h-[220px] w-full flex-1 overflow-hidden rounded-[1.8rem] text-left lg:min-h-0"
                   >
-                    <img
+                    <Image
                       src={step.image}
                       alt=""
                       className={`absolute inset-0 -z-20 h-full w-full object-cover transition-transform duration-1000 ${isActive ? "scale-100" : "scale-110"}`}
@@ -345,10 +336,10 @@ function PhotoSoft() {
               </div>
             </motion.div>
             <motion.div {...reveal(.1)} className="ps-product-collage grid grid-cols-2 gap-3 sm:gap-4">
-              <div className="overflow-hidden rounded-[2rem] bg-zinc-100"><img src={galleryAquarium} alt="Themed aquarium photo product" className="ps-collage-main h-full min-h-[340px] w-full object-cover transition-transform duration-700 hover:scale-105 lg:min-h-[420px]" /></div>
+              <div className="overflow-hidden rounded-[2rem] bg-zinc-100"><Image src={galleryAquarium} alt="Themed aquarium photo product" className="ps-collage-main h-full min-h-[340px] w-full object-cover transition-transform duration-700 hover:scale-105 lg:min-h-[420px]" /></div>
               <div className="grid gap-3 sm:gap-4">
-                <div className="overflow-hidden rounded-[2rem] bg-zinc-100"><img src={galleryCruise} alt="Digital memory product" className="ps-collage-small h-52 w-full object-cover transition-transform duration-700 hover:scale-105 lg:h-[202px]" /></div>
-                <div className="overflow-hidden rounded-[2rem] bg-zinc-100"><img src={galleryIstanbul} alt="City-themed photo product" className="ps-collage-small h-52 w-full object-cover transition-transform duration-700 hover:scale-105 lg:h-[202px]" /></div>
+                <div className="overflow-hidden rounded-[2rem] bg-zinc-100"><Image src={galleryCruise} alt="Digital memory product" className="ps-collage-small h-52 w-full object-cover transition-transform duration-700 hover:scale-105 lg:h-[202px]" /></div>
+                <div className="overflow-hidden rounded-[2rem] bg-zinc-100"><Image src={galleryIstanbul} alt="City-themed photo product" className="ps-collage-small h-52 w-full object-cover transition-transform duration-700 hover:scale-105 lg:h-[202px]" /></div>
               </div>
             </motion.div>
           </div>
@@ -364,7 +355,7 @@ function PhotoSoft() {
           </motion.div>
           <div className="mt-10 grid gap-4 lg:grid-cols-[1.15fr_.85fr]">
             <motion.div {...reveal()} className="ps-commerce-visual relative min-h-[440px] overflow-hidden rounded-[2.2rem] lg:min-h-[400px]">
-              <img src={kioskModelPro} alt="PhotoSoft self-service kiosk" className="absolute inset-0 h-full w-full object-cover" />
+              <Image src={kioskModelPro} alt="PhotoSoft self-service kiosk" className="absolute inset-0 h-full w-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/10" />
               <div className="absolute bottom-0 p-7 sm:p-10"><p className="text-xs font-bold uppercase tracking-[.18em] text-cyan-300">Kiosk · POS · Online</p><h3 className="mt-3 max-w-xl text-3xl font-bold tracking-tight sm:text-4xl">The sales opportunity does not end at the attraction exit.</h3></div>
             </motion.div>
@@ -394,14 +385,14 @@ function PhotoSoft() {
               </div>
             </motion.div>
             <motion.div {...reveal(.08)} className="overflow-hidden rounded-[2rem] border border-zinc-200/80 bg-zinc-950 p-2 shadow-2xl sm:p-3">
-              <img src={appDashboard} alt="PhotoSoft management and analytics dashboard" className="ps-dashboard-image h-[360px] w-full rounded-[1.5rem] object-cover object-top sm:h-[460px] lg:h-[520px]" />
+              <Image src={appDashboard} alt="PhotoSoft management and analytics dashboard" className="ps-dashboard-image h-[360px] w-full rounded-[1.5rem] object-cover object-top sm:h-[460px] lg:h-[520px]" />
             </motion.div>
           </div>
         </div>
       </section>
 
       <section className="photosoft-screen isolate overflow-hidden bg-zinc-950 py-14 sm:py-16 lg:pt-24 lg:pb-12">
-        <img src={prodPlatform} alt="" className="absolute inset-0 -z-20 h-full w-full object-cover opacity-15" />
+        <Image src={prodPlatform} alt="" sizes="100vw" className="absolute inset-0 -z-20 h-full w-full object-cover opacity-15" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-zinc-950/75 via-zinc-950/90 to-zinc-950" />
         <div className="container-page">
           <motion.div {...reveal()} className="max-w-4xl">
@@ -447,7 +438,7 @@ function PhotoSoft() {
               <div key={group} aria-hidden={group === 1} className="flex gap-4 pr-4">
                 {venues.map((venue) => (
                   <article key={`${group}-${venue.name}`} className="ps-venue-card group relative min-h-[360px] w-[78vw] max-w-[350px] shrink-0 overflow-hidden rounded-[2rem] bg-zinc-900 lg:min-h-[380px]">
-                    <img src={venue.image} alt={group === 0 ? venue.name : ""} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <Image src={venue.image} alt={group === 0 ? venue.name : ""} sizes="(max-width: 768px) 80vw, 25vw" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/5 to-transparent" />
                     <div className="absolute bottom-0 p-7 text-white"><h3 className="text-2xl font-bold">{venue.name}</h3><p className="mt-2 text-sm leading-6 text-white/70">{venue.text}</p></div>
                   </article>
@@ -459,7 +450,7 @@ function PhotoSoft() {
       </section>
 
       <section className="photosoft-screen isolate overflow-hidden bg-zinc-950 py-14 sm:py-16 lg:pt-24 lg:pb-12">
-        <img src={galleryCruise} alt="" className="absolute inset-0 -z-20 h-full w-full object-cover opacity-20" />
+        <Image src={galleryCruise} alt="" sizes="100vw" className="absolute inset-0 -z-20 h-full w-full object-cover opacity-20" />
         <div className="absolute inset-0 -z-10 bg-zinc-950/85" />
         <div className="container-page">
           <motion.div {...reveal()} className="mx-auto max-w-4xl text-center"><p className="text-xs font-bold uppercase tracking-[.2em] text-cyan-300">Why PhotoSoft?</p><h2 className="mt-5 text-4xl font-extrabold tracking-[-0.055em] sm:text-6xl">Grow the experience, revenue and operation together.</h2></motion.div>
@@ -472,7 +463,7 @@ function PhotoSoft() {
       </section>
 
       <section className="photosoft-screen isolate overflow-hidden bg-black py-20 sm:py-24 lg:py-28">
-        <img src={heroKiosk} alt="PhotoSoft attraction photography experience" className="absolute inset-0 -z-20 h-full w-full object-cover opacity-45" />
+        <Image src={heroKiosk} alt="PhotoSoft attraction photography experience" sizes="100vw" className="absolute inset-0 -z-20 h-full w-full object-cover opacity-45" />
         <div className="absolute inset-0 -z-10 bg-black/65" />
         <div className="container-page text-center">
           <motion.div {...reveal()} className="mx-auto max-w-4xl">

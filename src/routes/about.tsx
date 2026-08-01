@@ -1,21 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import Image from "@/components/site/ResponsiveImage";
 import { Globe2, Users, Rocket, Heart } from "lucide-react";
 import { PageHero } from "@/components/site/PageHero";
 import { Section, SectionTitle } from "@/components/site/Section";
 import { CTASection } from "@/components/site/CTASection";
 import heroAiMemory from "@/assets/hero-ai-memory.png";
-
-export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About — ZoomSelfie" },
-      { name: "description", content: "ZoomSelfie creates self-service photo and video experiences for people, brands, photographers and destinations." },
-      { property: "og:title", content: "About ZoomSelfie" },
-      { property: "og:description", content: "The story and principles behind the ZoomSelfie experience." },
-    ],
-  }),
-  component: About,
-});
 
 const values = [
   { icon: Heart, title: "Made for the person", desc: "The experience should feel simple, enjoyable and worth sharing from the first screen." },
@@ -24,7 +12,7 @@ const values = [
   { icon: Users, title: "Built together", desc: "Templates, campaigns and physical setups take shape around each audience and location." },
 ];
 
-function About() {
+export default function About() {
   return (
     <>
       <PageHero
@@ -41,7 +29,7 @@ function About() {
             <p className="mt-4 text-base leading-7 text-muted-foreground">The same core experience can live at a landmark kiosk, inside a branded web campaign, in a photographer’s workflow or within another product through the API.</p>
           </div>
           <div className="overflow-hidden rounded-[2rem] border border-border bg-zinc-950 shadow-[var(--shadow-elevated)]">
-            <img src={heroAiMemory} alt="A personalized ZoomSelfie memory" className="min-h-[460px] w-full object-cover" />
+            <Image src={heroAiMemory} alt="A personalized ZoomSelfie memory" className="min-h-[460px] w-full object-cover" />
           </div>
         </div>
       </Section>

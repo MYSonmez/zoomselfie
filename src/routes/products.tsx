@@ -1,4 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+"use client";
+
+import Image from "@/components/site/ResponsiveImage";
+import { Link } from "@/components/site/AppLink";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDown, ArrowRight, Check, Code2, LayoutDashboard, Monitor, PanelsTopLeft, ScanFace } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,16 +13,6 @@ import prodDeveloperApi from "@/assets/prod-developer-api.png";
 import kioskParis from "@/assets/kiosk-paris.png";
 import kioskModelPro from "@/assets/kiosk-model-pro.png";
 
-export const Route = createFileRoute("/products")({
-  head: () => ({
-    meta: [
-      { title: "Products | ZoomSelfie" },
-      { name: "description", content: "Explore ZoomSelfie kiosk, campaign, web panel, desktop and API products." },
-    ],
-  }),
-  component: Products,
-});
-
 const workflow = [
   { number: "01", title: "Create", text: "Build the visual experience." },
   { number: "02", title: "Publish", text: "Launch it on web or kiosk." },
@@ -27,7 +20,7 @@ const workflow = [
   { number: "04", title: "Deliver", text: "Send the finished content." },
 ];
 
-function Products() {
+export default function Products() {
   const reduceMotion = useReducedMotion();
   const reveal = (delay = 0) => ({
     initial: reduceMotion ? false : { opacity: 0, y: 26 },
@@ -50,15 +43,15 @@ function Products() {
           </motion.div>
 
           <motion.div initial={reduceMotion ? false : { opacity: 0, scale: .95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .8, delay: .1 }} className="relative mx-auto h-[480px] w-full max-w-[690px] sm:h-[590px]">
-            <div className="absolute left-[4%] top-[12%] h-[64%] w-[82%] rotate-[-3deg] overflow-hidden rounded-[2rem] border-[6px] border-zinc-950 bg-zinc-950 p-2 shadow-2xl"><img src={appDashboard} alt="ZoomSelfie Web Panel" className="h-full w-full rounded-[1.45rem] object-cover object-top" /></div>
-            <div className="absolute bottom-[2%] right-[1%] h-[45%] w-[58%] rotate-[4deg] overflow-hidden rounded-[1.75rem] border-[6px] border-white bg-white shadow-2xl"><img src={prodPlatform} alt="ZoomSelfie Campaign Tool" className="h-full w-full object-cover object-top" /></div>
-            <div className="absolute bottom-[2%] left-[2%] h-[43%] w-[28%] rotate-[-5deg] overflow-hidden rounded-[1.7rem] bg-zinc-950 shadow-2xl"><img src={kioskModelPro} alt="ZoomSelfie Kiosk" className="h-full w-full object-contain p-2" /></div>
+            <div className="absolute left-[4%] top-[12%] h-[64%] w-[82%] rotate-[-3deg] overflow-hidden rounded-[2rem] border-[6px] border-zinc-950 bg-zinc-950 p-2 shadow-2xl"><Image src={appDashboard} alt="ZoomSelfie Web Panel" className="h-full w-full rounded-[1.45rem] object-cover object-top" /></div>
+            <div className="absolute bottom-[2%] right-[1%] h-[45%] w-[58%] rotate-[4deg] overflow-hidden rounded-[1.75rem] border-[6px] border-white bg-white shadow-2xl"><Image src={prodPlatform} alt="ZoomSelfie Campaign Tool" className="h-full w-full object-cover object-top" /></div>
+            <div className="absolute bottom-[2%] left-[2%] h-[43%] w-[28%] rotate-[-5deg] overflow-hidden rounded-[1.7rem] bg-zinc-950 shadow-2xl"><Image src={kioskModelPro} alt="ZoomSelfie Kiosk" className="h-full w-full object-contain p-2" /></div>
           </motion.div>
         </div>
       </section>
 
       <section id="product-family" className="products-screen relative flex min-h-[100svh] items-center overflow-hidden bg-zinc-950 py-20 text-white lg:py-24">
-        <img src={kioskParis} alt="ZoomSelfie kiosk installation" className="absolute inset-0 h-full w-full object-cover opacity-62" />
+        <Image src={kioskParis} alt="ZoomSelfie kiosk installation" sizes="100vw" className="absolute inset-0 h-full w-full object-cover opacity-62" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,.96),rgba(0,0,0,.72)_48%,rgba(0,0,0,.18))]" />
         <div className="container-page relative z-10 w-full">
           <motion.div {...reveal()} className="max-w-2xl">
@@ -77,12 +70,12 @@ function Products() {
 
           <div className="mt-12 grid gap-5 lg:grid-cols-2">
             <motion.article id="campaign-tool" {...reveal()} className="overflow-hidden rounded-[2.25rem] bg-white shadow-[0_25px_75px_-55px_rgba(0,0,0,.55)]">
-              <div className="relative h-[430px] overflow-hidden bg-zinc-100"><img src={prodPlatform} alt="ZoomSelfie Campaign Tool" className="h-full w-full object-cover object-top transition-transform duration-700 hover:scale-[1.025]" /></div>
+              <div className="relative h-[430px] overflow-hidden bg-zinc-100"><Image src={prodPlatform} alt="ZoomSelfie Campaign Tool" className="h-full w-full object-cover object-top transition-transform duration-700 hover:scale-[1.025]" /></div>
               <div className="p-7 sm:p-9"><div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[.18em] text-primary"><PanelsTopLeft className="h-5 w-5" />Create and publish</div><h3 className="mt-5 text-3xl font-extrabold">Campaign Tool</h3><p className="mt-4 max-w-xl text-sm leading-7 text-zinc-600">Build a branded photo-to-video campaign and publish it on the web, a kiosk or both.</p><Link to="/book-demo" className="mt-7 inline-flex items-center gap-2 text-sm font-bold">Explore Campaign Tool <ArrowRight className="h-4 w-4 text-primary" /></Link></div>
             </motion.article>
 
             <motion.article id="web-panel" {...reveal(.08)} className="overflow-hidden rounded-[2.25rem] bg-zinc-950 text-white shadow-[0_25px_75px_-55px_rgba(0,0,0,.7)]">
-              <div className="relative h-[430px] overflow-hidden p-3"><img src={appDashboard} alt="ZoomSelfie Web Panel" className="h-full w-full rounded-[1.55rem] object-cover object-top transition-transform duration-700 hover:scale-[1.025]" /></div>
+              <div className="relative h-[430px] overflow-hidden p-3"><Image src={appDashboard} alt="ZoomSelfie Web Panel" className="h-full w-full rounded-[1.55rem] object-cover object-top transition-transform duration-700 hover:scale-[1.025]" /></div>
               <div className="p-7 sm:p-9"><div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[.18em] text-primary"><LayoutDashboard className="h-5 w-5" />Manage and measure</div><h3 className="mt-5 text-3xl font-extrabold">Web Panel</h3><p className="mt-4 max-w-xl text-sm leading-7 text-white/52">Control campaigns, kiosks, templates, usage and credits from one clear workspace.</p><Link to="/book-demo" className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-primary">Explore Web Panel <ArrowRight className="h-4 w-4" /></Link></div>
             </motion.article>
           </div>
@@ -93,8 +86,8 @@ function Products() {
         <div className="container-page">
           <motion.div {...reveal()} className="max-w-4xl"><p className="text-xs font-bold uppercase tracking-[.2em] text-primary">Professional and embedded</p><h2 className="mt-5 text-5xl font-extrabold leading-[.98] tracking-[-.06em] sm:text-7xl">For teams that need more control.</h2></motion.div>
           <div className="mt-12 grid gap-5 lg:grid-cols-[1.08fr_.92fr]">
-            <motion.article id="desktop-app" {...reveal()} className="group relative min-h-[620px] overflow-hidden rounded-[2.25rem] bg-zinc-950 text-white"><img src={prodDesktopApp} alt="ZoomSelfie Desktop App" className="absolute inset-0 h-full w-full object-cover opacity-75 transition-transform duration-700 group-hover:scale-105" /><div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" /><div className="absolute inset-x-0 bottom-0 p-8 sm:p-10"><span className="grid h-11 w-11 place-items-center rounded-full bg-primary text-black"><Monitor className="h-5 w-5" /></span><p className="mt-7 text-xs font-bold uppercase tracking-[.18em] text-primary">For photographers and event teams</p><h3 className="mt-3 text-4xl font-extrabold">Desktop App</h3><p className="mt-4 max-w-xl text-sm leading-7 text-white/58">Create larger sets of personalized photo and video content through an efficient desktop workflow.</p></div></motion.article>
-            <motion.article id="api" {...reveal(.08)} className="group relative min-h-[620px] overflow-hidden rounded-[2.25rem] bg-primary"><img src={prodDeveloperApi} alt="ZoomSelfie API" className="absolute inset-x-0 top-0 h-[58%] w-full object-cover object-top mix-blend-multiply transition-transform duration-700 group-hover:scale-105" /><div className="absolute inset-x-0 bottom-0 p-8 sm:p-10"><span className="grid h-11 w-11 place-items-center rounded-full bg-black text-white"><Code2 className="h-5 w-5" /></span><p className="mt-7 text-xs font-bold uppercase tracking-[.18em]">Inside your own product</p><h3 className="mt-3 text-4xl font-extrabold">ZoomSelfie API</h3><p className="mt-4 max-w-xl text-sm leading-7 text-black/58">Connect ZoomSelfie creation to your app, booking flow, loyalty platform or digital service.</p></div></motion.article>
+            <motion.article id="desktop-app" {...reveal()} className="group relative min-h-[620px] overflow-hidden rounded-[2.25rem] bg-zinc-950 text-white"><Image src={prodDesktopApp} alt="ZoomSelfie Desktop App" className="absolute inset-0 h-full w-full object-cover opacity-75 transition-transform duration-700 group-hover:scale-105" /><div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" /><div className="absolute inset-x-0 bottom-0 p-8 sm:p-10"><span className="grid h-11 w-11 place-items-center rounded-full bg-primary text-black"><Monitor className="h-5 w-5" /></span><p className="mt-7 text-xs font-bold uppercase tracking-[.18em] text-primary">For photographers and event teams</p><h3 className="mt-3 text-4xl font-extrabold">Desktop App</h3><p className="mt-4 max-w-xl text-sm leading-7 text-white/58">Create larger sets of personalized photo and video content through an efficient desktop workflow.</p></div></motion.article>
+            <motion.article id="api" {...reveal(.08)} className="group relative min-h-[620px] overflow-hidden rounded-[2.25rem] bg-primary"><Image src={prodDeveloperApi} alt="ZoomSelfie API" className="absolute inset-x-0 top-0 h-[58%] w-full object-cover object-top mix-blend-multiply transition-transform duration-700 group-hover:scale-105" /><div className="absolute inset-x-0 bottom-0 p-8 sm:p-10"><span className="grid h-11 w-11 place-items-center rounded-full bg-black text-white"><Code2 className="h-5 w-5" /></span><p className="mt-7 text-xs font-bold uppercase tracking-[.18em]">Inside your own product</p><h3 className="mt-3 text-4xl font-extrabold">ZoomSelfie API</h3><p className="mt-4 max-w-xl text-sm leading-7 text-black/58">Connect ZoomSelfie creation to your app, booking flow, loyalty platform or digital service.</p></div></motion.article>
           </div>
         </div>
       </section>

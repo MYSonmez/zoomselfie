@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+"use client";
+
 import { useState } from "react";
 import { Check, CheckCircle2, Loader2 } from "lucide-react";
 import { PageHero } from "@/components/site/PageHero";
@@ -8,19 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
-export const Route = createFileRoute("/book-demo")({
-  head: () => ({
-    meta: [
-      { title: "Book a Demo - ZoomSelfie" },
-      { name: "description", content: "See ZoomSelfie live. Book a personalized 30-minute demo with our team." },
-      { property: "og:title", content: "Book a ZoomSelfie Demo" },
-      { property: "og:description", content: "A 30-minute walkthrough tailored to your venue." },
-    ],
-  }),
-  component: BookDemo,
-});
-
-function BookDemo() {
+export default function BookDemo() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
