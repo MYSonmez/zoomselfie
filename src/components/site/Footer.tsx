@@ -28,6 +28,7 @@ const cols = [
     title: "Company",
     links: [
       { to: "/about", label: "About" },
+      { to: "/blog", label: "Blog" },
       { to: "/gallery", label: "Gallery" },
       { to: "/faq", label: "FAQ" },
       { to: "/contact", label: "Contact" },

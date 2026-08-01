@@ -16,6 +16,7 @@ import { useI18n } from "@/i18n/I18nProvider";
 const mainLinks = [
   { to: "/solutions", label: "Solutions" },
   { to: "/gallery", label: "Gallery" },
+  { to: "/blog", label: "Blog" },
   { to: "/photosoft", label: "PhotoSoft" },
 ] as const;
 

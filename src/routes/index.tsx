@@ -19,6 +19,7 @@ import {
 import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SmartVideo } from "@/components/site/SmartVideo";
+import { useI18n } from "@/i18n/I18nProvider";
 
 import heroVideo from "@/assets/hero-video.mp4";
 import galataVideo from "@/assets/Galata-web-1.web.mp4";
@@ -104,12 +105,53 @@ const audiences = [
   { title: "Brands & venues", text: "Give your audience content they genuinely want to keep and share.", image: galleryCruise },
 ];
 
+const localizedBlogPreview = {
+  en: {
+    eyebrow: "Stories & ideas",
+    title: "Look closer at the experience.",
+    text: "Creative inspiration, practical guides and lessons from the complete photo journey.",
+    cta: "Visit the journal",
+    read: "Read story",
+    posts: [
+      { title: "One photo can hold a much bigger story", excerpt: "How a person, place and moment become one memory worth keeping.", slug: "one-photo-a-bigger-story" },
+      { title: "Inside a ZoomSelfie kiosk experience", excerpt: "A closer look at the self-service journey from first tap to final QR.", slug: "inside-a-zoomselfie-kiosk-experience" },
+      { title: "What connects an attraction photography operation?", excerpt: "The PhotoSoft system behind capture, sales, delivery and insight.", slug: "connecting-an-attraction-photography-operation" },
+    ],
+  },
+  tr: {
+    eyebrow: "Hikâyeler ve fikirler",
+    title: "Deneyime daha yakından bakın.",
+    text: "Yaratıcı ilham, pratik rehberler ve fotoğraf yolculuğunun tamamından edinilen deneyimler.",
+    cta: "Blogu ziyaret et",
+    read: "Yazıyı oku",
+    posts: [
+      { title: "Tek bir fotoğraf çok daha büyük bir hikâye taşıyabilir", excerpt: "İnsan, mekân ve anın saklanmaya değer tek bir hatıraya dönüşmesi.", slug: "tek-fotograf-daha-buyuk-bir-hikaye" },
+      { title: "Bir ZoomSelfie kiosk deneyiminin içinde", excerpt: "İlk dokunuştan son QR koduna kadar self-servis yolculuğa yakından bakış.", slug: "zoomselfie-kiosk-deneyiminin-icinde" },
+      { title: "Turistik mekân fotoğraf operasyonunu ne birleştirir?", excerpt: "Çekim, satış, teslimat ve içgörünün arkasındaki PhotoSoft sistemi.", slug: "turistik-mekan-fotograf-operasyonunu-birlestirmek" },
+    ],
+  },
+  nl: {
+    eyebrow: "Verhalen en ideeën",
+    title: "Bekijk de ervaring van dichterbij.",
+    text: "Creatieve inspiratie, praktische gidsen en lessen uit de volledige fotoreis.",
+    cta: "Bezoek het journal",
+    read: "Lees verhaal",
+    posts: [
+      { title: "Eén foto kan een veel groter verhaal dragen", excerpt: "Hoe mens, plek en moment één herinnering worden die je wilt bewaren.", slug: "een-foto-een-groter-verhaal" },
+      { title: "Binnen in een ZoomSelfie-kioskervaring", excerpt: "Een blik op de selfservicereis van de eerste aanraking tot de laatste QR-code.", slug: "in-een-zoomselfie-kioskervaring" },
+      { title: "Wat verbindt een attractiefotografie-operatie?", excerpt: "Het PhotoSoft-systeem achter opname, verkoop, levering en inzicht.", slug: "een-attractiefotografie-operatie-verbinden" },
+    ],
+  },
+} as const;
+
 export default function Home() {
   const [isPlaying, setIsPlaying] = useState(true);
   const [activeStep, setActiveStep] = useState(0);
   const [activeChannel, setActiveChannel] = useState(0);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const reduceMotion = useReducedMotion();
+  const { locale } = useI18n();
+  const journal = localizedBlogPreview[locale];
 
   const reveal = (delay = 0) => ({
     initial: reduceMotion ? false : { opacity: 0, y: 28 },
@@ -317,6 +359,31 @@ export default function Home() {
                 <div className="absolute inset-x-0 bottom-0 p-7 text-white"><h3 className="text-2xl font-bold">{audience.title}</h3><p className="mt-2 max-w-sm text-sm leading-6 text-white/68">{audience.text}</p></div>
               </motion.article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section data-no-translate className="zoomselfie-screen overflow-hidden bg-[#f4f0e8] py-14 lg:pt-24 lg:pb-12">
+        <div className="container-page w-full">
+          <motion.div {...reveal()} className="grid gap-7 border-b border-black/15 pb-7 lg:grid-cols-[1fr_.65fr] lg:items-end">
+            <div><p className="text-xs font-bold uppercase tracking-[.2em] text-amber-600">{journal.eyebrow}</p><h2 className="mt-5 text-4xl font-extrabold leading-[1.02] tracking-[-0.055em] sm:text-6xl">{journal.title}</h2></div>
+            <div className="max-w-lg lg:justify-self-end"><p className="text-base leading-7 text-zinc-600">{journal.text}</p><Link to="/blog" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-zinc-950">{journal.cta}<ArrowRight className="h-4 w-4" /></Link></div>
+          </motion.div>
+          <div className="mt-8 grid gap-4 lg:grid-cols-12">
+            {journal.posts.map((post, index) => {
+              const images = [galleryIstanbul, kioskParis, appDashboard];
+              return (
+                <motion.article key={post.slug} {...reveal(index * .06)} className={`group ${index === 0 ? "lg:col-span-5" : index === 1 ? "lg:col-span-3" : "lg:col-span-4"}`}>
+                  <Link to={`/blog/${locale}/${post.slug}`} className="block">
+                    <div className={`relative overflow-hidden rounded-[1.75rem] bg-zinc-900 ${index === 1 ? "min-h-[300px] lg:min-h-[350px]" : "min-h-[340px] lg:min-h-[410px]"}`}>
+                      <Image src={images[index]} alt="" loading="lazy" sizes="(max-width: 1024px) 100vw, 40vw" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/5 to-black/5" />
+                      <div className="absolute inset-x-0 bottom-0 p-6 text-white sm:p-7"><p className="text-[9px] font-black uppercase tracking-[.18em] text-primary">0{index + 1} · {journal.read}</p><h3 className="mt-3 text-xl font-extrabold leading-[1.1] sm:text-2xl">{post.title}</h3><p className="mt-3 text-xs leading-5 text-white/60">{post.excerpt}</p></div>
+                    </div>
+                  </Link>
+                </motion.article>
+              );
+            })}
           </div>
         </div>
       </section>

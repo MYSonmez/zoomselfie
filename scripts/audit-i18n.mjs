@@ -46,6 +46,7 @@ for (const file of files) {
   const found = new Set();
   const add = (value) => { if (isVisible(value)) found.add(normalize(value)); };
   function visit(node) {
+    if (ts.isVariableDeclaration(node) && ts.isIdentifier(node.name) && (node.name.text.startsWith("localized") || node.name.text.endsWith("Keys"))) return;
     if (ts.isJsxText(node)) add(node.text);
     if (ts.isJsxAttribute(node) && node.initializer && visibleJsxProps.has(node.name.text)) {
       if (ts.isStringLiteral(node.initializer)) add(node.initializer.text);
