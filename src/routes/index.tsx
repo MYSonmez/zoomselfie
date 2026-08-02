@@ -2,7 +2,7 @@
 
 import Image from "@/components/site/ResponsiveImage";
 import { Link } from "@/components/site/AppLink";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowDown,
   ArrowRight,
@@ -10,6 +10,8 @@ import {
   Check,
   Code2,
   Globe2,
+  LayoutDashboard,
+  Monitor,
   MonitorSmartphone,
   Pause,
   Play,
@@ -26,9 +28,11 @@ import galataVideo from "@/assets/Galata-web-1.web.mp4";
 import galataWomanPortrait from "@/assets/galata-woman-portrait.png";
 import heroKiosk from "@/assets/hero-kiosk.svg";
 import kioskParis from "@/assets/kiosk-paris.png";
-import prodPlatform from "@/assets/prod-platform.png";
-import prodDeveloperApi from "@/assets/prod-developer-api.png";
+import prodPlatform from "@/assets/campaign-tool-placeholder.svg";
+import prodDeveloperApi from "@/assets/api-placeholder.svg";
+import prodDesktopApp from "@/assets/desktop-app-placeholder.svg";
 import appDashboard from "@/assets/app-dashboard.png";
+import webPanelPlaceholder from "@/assets/web-panel-placeholder.svg";
 import galleryAquarium from "@/assets/gallery-aquarium-family.png";
 import galleryCruise from "@/assets/gallery-cruise-sunset.png";
 import galleryIstanbul from "@/assets/gallery-istanbul-group.png";
@@ -85,8 +89,26 @@ const channels = [
     title: "Web Campaign",
     text: "Let people upload a photo, select a template and create branded content without visiting a physical kiosk.",
     image: prodPlatform,
-    to: "/products" as const,
+    to: "/products/campaign-tool" as const,
     cta: "Explore campaigns",
+  },
+  {
+    icon: LayoutDashboard,
+    label: "Behind every setup",
+    title: "Web Panel",
+    text: "Manage campaigns, kiosks, templates, teams and usage from one clear web workspace.",
+    image: webPanelPlaceholder,
+    to: "/products/web-panel" as const,
+    cta: "Explore the Web Panel",
+  },
+  {
+    icon: Monitor,
+    label: "For professional workflows",
+    title: "Desktop App",
+    text: "Create larger sets of personalized photo and video content for photography and creative projects.",
+    image: prodDesktopApp,
+    to: "/products/desktop-app" as const,
+    cta: "Explore the Desktop App",
   },
   {
     icon: Code2,
@@ -94,15 +116,15 @@ const channels = [
     title: "API",
     text: "Add the ZoomSelfie creation experience to your own app, booking flow, loyalty platform or digital product.",
     image: prodDeveloperApi,
-    to: "/products" as const,
+    to: "/products/api" as const,
     cta: "Explore the API",
   },
 ];
 
 const audiences = [
-  { title: "Visitors", text: "Create a personal memory of the place you are experiencing.", image: galleryAquarium },
-  { title: "Creators", text: "Turn your own concepts and portraits into a new digital product.", image: galleryStadium },
-  { title: "Brands & venues", text: "Give your audience content they genuinely want to keep and share.", image: galleryCruise },
+  { title: "Destinations & hospitality", text: "Turn the identity of a place into a personal memory visitors take with them.", image: galleryAquarium },
+  { title: "Brands & events", text: "Create participation, branded sharing and a more memorable audience touchpoint.", image: galleryStadium },
+  { title: "Photographers & creative teams", text: "Offer a distinctive digital product through a focused professional workflow.", image: prodDesktopApp },
 ];
 
 const localizedBlogPreview = {
@@ -149,9 +171,22 @@ export default function Home() {
   const [activeStep, setActiveStep] = useState(0);
   const [activeChannel, setActiveChannel] = useState(0);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const experienceRef = useRef<HTMLElement | null>(null);
   const reduceMotion = useReducedMotion();
   const { locale } = useI18n();
   const journal = localizedBlogPreview[locale];
+  const { scrollYProgress: experienceProgress } = useScroll({
+    target: experienceRef,
+    offset: ["start start", "end end"],
+  });
+  const experienceScale = useTransform(experienceProgress, [0, 1], [.9, 1]);
+  const experienceRadius = useTransform(experienceProgress, [0, 1], ["2.8rem", "1.25rem"]);
+
+  useMotionValueEvent(experienceProgress, "change", (latest) => {
+    if (reduceMotion) return;
+    const nextStep = Math.min(experienceSteps.length - 1, Math.floor(latest * experienceSteps.length));
+    setActiveStep((current) => current === nextStep ? current : nextStep);
+  });
 
   const reveal = (delay = 0) => ({
     initial: reduceMotion ? false : { opacity: 0, y: 28 },
@@ -168,16 +203,28 @@ export default function Home() {
   };
 
   return (
-    <div className="zoomselfie-home overflow-hidden bg-white text-zinc-950">
-      <section className="zoomselfie-screen items-end overflow-hidden bg-black pb-12 pt-24 sm:pb-16 lg:pb-20">
-        <SmartVideo ref={videoRef} src={heroVideo} eager autoPlay loop muted playsInline className="absolute inset-0 h-full w-full object-cover" />
+    <div className="zoomselfie-home overflow-x-clip bg-white text-zinc-950">
+      <section className="premium-grain zoomselfie-screen items-end overflow-hidden bg-black pb-12 pt-24 sm:pb-16 lg:pb-20">
+        <SmartVideo ref={videoRef} src={heroVideo} poster={galleryIstanbul.src} eager autoPlay loop muted playsInline className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.05)_35%,rgba(0,0,0,.92)_100%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,.62),transparent_64%)]" />
         <div className="absolute -bottom-36 -left-28 h-96 w-96 rounded-full bg-primary/25 blur-3xl" />
 
+        <div aria-hidden="true" className="ambient-drift absolute bottom-[16%] right-[5%] z-10 hidden items-center gap-3 2xl:flex">
+          <div className="premium-media relative h-44 w-28 -rotate-6 overflow-hidden rounded-[1.3rem] border-4 border-white bg-white shadow-2xl">
+            <Image src={galataWomanPortrait} alt="" sizes="112px" className="h-full w-full object-cover" />
+            <span className="absolute inset-x-2 bottom-2 rounded-full bg-white/90 py-1 text-center text-[8px] font-black uppercase tracking-[.12em] text-black">Portrait</span>
+          </div>
+          <div className="grid h-9 w-9 place-items-center rounded-full border border-white/20 bg-black/20 text-primary backdrop-blur"><ArrowRight className="h-4 w-4" /></div>
+          <div className="premium-media relative h-52 w-32 rotate-3 overflow-hidden rounded-[1.45rem] border-4 border-zinc-950 bg-black shadow-2xl">
+            <SmartVideo src={galataVideo} poster={galleryIstanbul.src} muted loop playsInline autoPlay className="h-full w-full object-cover" />
+            <span className="absolute inset-x-2 bottom-2 rounded-full bg-primary py-1 text-center text-[8px] font-black uppercase tracking-[.12em] text-black">ZoomSelfie</span>
+          </div>
+        </div>
+
         <div className="container-page relative z-10 w-full text-white">
           <motion.div
-            initial={reduceMotion ? false : { opacity: 0, y: 30 }}
+            initial={reduceMotion ? false : { opacity: 1, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="max-w-5xl"
@@ -210,7 +257,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="experience" className="zoomselfie-screen bg-[#f7f7f5] py-14 lg:pt-24 lg:pb-12">
+      <section ref={experienceRef} id="experience" className="relative bg-[#f7f7f5] lg:h-[240svh]">
+        <div className="home-experience-sticky zoomselfie-screen py-14 lg:pt-24 lg:pb-12">
         <div className="container-page w-full">
           <div className="grid items-center gap-10 lg:grid-cols-[.72fr_1.28fr] lg:gap-12">
             <motion.div {...reveal()}>
@@ -243,7 +291,8 @@ export default function Home() {
               </div>
             </motion.div>
 
-            <motion.div {...reveal(.08)} className="zs-stage-visual relative min-h-[500px] overflow-hidden rounded-[2.2rem] bg-zinc-950 shadow-[0_28px_80px_-35px_rgba(0,0,0,.45)] lg:min-h-[560px]">
+            <motion.div {...reveal(.08)} style={{ scale: experienceScale, borderRadius: experienceRadius }} className="premium-media frame-corners zs-stage-visual relative min-h-[500px] overflow-hidden bg-zinc-950 shadow-[0_28px_80px_-35px_rgba(0,0,0,.45)] lg:min-h-[560px]">
+              <motion.div aria-hidden="true" style={{ scaleX: experienceProgress }} className="absolute inset-x-0 top-0 z-20 h-1 origin-left bg-primary" />
               <AnimatePresence mode="wait">
                 <motion.img
                   key={experienceSteps[activeStep].image.src}
@@ -257,12 +306,14 @@ export default function Home() {
                 />
               </AnimatePresence>
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/5 to-black/10" />
+              <div className="absolute right-7 top-7 z-10 rounded-full border border-white/15 bg-black/20 px-3 py-1.5 text-[10px] font-black tracking-[.18em] text-white/70 backdrop-blur-md">0{activeStep + 1} / 04</div>
               <div className="absolute inset-x-0 bottom-0 p-7 text-white sm:p-9">
                 <p className="text-[10px] font-bold uppercase tracking-[.2em] text-primary">{experienceSteps[activeStep].label}</p>
                 <h3 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">{experienceSteps[activeStep].title}</h3>
               </div>
             </motion.div>
           </div>
+        </div>
         </div>
       </section>
 
@@ -285,11 +336,11 @@ export default function Home() {
 
             <motion.div {...reveal(.1)} className="zs-phone-stage relative flex min-h-[540px] items-center justify-center">
               <div className="absolute h-[430px] w-[430px] rounded-full bg-primary/20 blur-3xl" />
-              <motion.div animate={reduceMotion ? undefined : { y: [0, -10, 0], rotate: [-4, -3, -4] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }} className="relative z-10 w-[42%] max-w-[230px] -translate-x-5 overflow-hidden rounded-[2.2rem] border-[6px] border-white bg-white shadow-[0_28px_80px_rgba(0,0,0,.23)]">
+              <motion.div animate={reduceMotion ? undefined : { y: [0, -10, 0], rotate: [-4, -3, -4] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }} className="premium-media relative z-10 w-[42%] max-w-[230px] -translate-x-5 overflow-hidden rounded-[2.2rem] border-[6px] border-white bg-white shadow-[0_28px_80px_rgba(0,0,0,.23)]">
                 <Image src={galataWomanPortrait} alt="Original visitor portrait" className="aspect-[9/16] w-full object-cover" />
                 <div className="absolute bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-white/90 px-3 py-1 text-[10px] font-bold">Your photo</div>
               </motion.div>
-              <motion.div animate={reduceMotion ? undefined : { y: [0, 12, 0], rotate: [4, 3, 4] }} transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }} className="relative z-20 -ml-8 w-[42%] max-w-[230px] translate-x-5 overflow-hidden rounded-[2.2rem] border-[6px] border-zinc-950 bg-black shadow-[0_32px_90px_rgba(0,0,0,.32)]">
+              <motion.div animate={reduceMotion ? undefined : { y: [0, 12, 0], rotate: [4, 3, 4] }} transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }} className="premium-media relative z-20 -ml-8 w-[42%] max-w-[230px] translate-x-5 overflow-hidden rounded-[2.2rem] border-[6px] border-zinc-950 bg-black shadow-[0_32px_90px_rgba(0,0,0,.32)]">
                 <SmartVideo src={galataVideo} poster={galataWomanPortrait.src} autoPlay muted loop playsInline className="aspect-[9/16] w-full object-cover" />
                 <div className="absolute bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-primary px-3 py-1 text-[10px] font-bold text-zinc-950">Your ZoomSelfie</div>
               </motion.div>
@@ -302,7 +353,7 @@ export default function Home() {
         <div className="mx-auto w-full max-w-[100rem] px-4 sm:px-6">
           <motion.div {...reveal()} className="mx-auto max-w-4xl text-center">
             <p className="text-xs font-bold uppercase tracking-[.2em] text-primary">Where ZoomSelfie lives</p>
-            <h2 className="mt-5 text-4xl font-extrabold tracking-[-0.055em] sm:text-6xl">One experience. Three ways to meet your audience.</h2>
+            <h2 className="mt-5 text-4xl font-extrabold tracking-[-0.055em] sm:text-6xl">One creative engine. Five products with different jobs.</h2>
           </motion.div>
 
           <div className="zs-channel-row mt-10 flex min-h-[450px] flex-col gap-3 lg:h-[480px] lg:min-h-0 lg:flex-row">
@@ -314,7 +365,7 @@ export default function Home() {
                   onMouseEnter={() => setActiveChannel(index)}
                   onFocus={() => setActiveChannel(index)}
                   onClick={() => setActiveChannel(index)}
-                  className={`group relative isolate min-h-[300px] cursor-pointer overflow-hidden rounded-[2rem] transition-[flex] duration-700 ease-[cubic-bezier(.22,1,.36,1)] lg:min-h-0 ${active ? "lg:flex-[2.2]" : "lg:flex-1"}`}
+                  className={`premium-media group relative isolate min-h-[300px] cursor-pointer overflow-hidden rounded-[2rem] transition-[flex] duration-700 ease-[cubic-bezier(.22,1,.36,1)] lg:min-h-0 ${active ? "lg:flex-[2.2]" : "lg:flex-1"}`}
                   tabIndex={0}
                 >
                   <Image src={channel.image} alt="" sizes="(max-width: 768px) 100vw, 33vw" className={`absolute inset-0 -z-20 h-full w-full object-cover transition-transform duration-1000 ${active ? "scale-100" : "scale-105"}`} />
@@ -341,11 +392,11 @@ export default function Home() {
         <div className="container-page w-full">
           <motion.div {...reveal()} className="grid gap-8 lg:grid-cols-[1fr_.72fr] lg:items-end">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[.2em] text-primary">Made for people</p>
-              <h2 className="mt-5 text-4xl font-extrabold leading-[1.02] tracking-[-0.055em] sm:text-6xl">Personal to create.<br />Powerful when shared.</h2>
+              <p className="text-xs font-bold uppercase tracking-[.2em] text-primary">Value for every side</p>
+              <h2 className="mt-5 text-4xl font-extrabold leading-[1.02] tracking-[-0.055em] sm:text-6xl">Personal for the audience.<br />Valuable for the business.</h2>
             </div>
             <div className="max-w-lg lg:justify-self-end">
-              <p className="text-base leading-7 text-zinc-600">ZoomSelfie begins with the person in the frame, then creates value for photographers, destinations, events and brands around them.</p>
+              <p className="text-base leading-7 text-zinc-600">ZoomSelfie begins with the person in the frame, then creates engagement, visibility or a new creative product for the team behind the experience.</p>
               <Button asChild variant="outline" className="mt-6 rounded-full px-6">
                 <Link to="/solutions">Explore all solutions <ArrowRight className="ml-2 h-4 w-4" /></Link>
               </Button>
@@ -353,7 +404,7 @@ export default function Home() {
           </motion.div>
           <div className="mt-10 grid gap-4 lg:grid-cols-3">
             {audiences.map((audience, index) => (
-              <motion.article key={audience.title} {...reveal(index * .07)} className="zs-audience-card group relative min-h-[390px] overflow-hidden rounded-[2rem] bg-zinc-950">
+              <motion.article key={audience.title} {...reveal(index * .07)} className="premium-media frame-corners zs-audience-card group relative min-h-[390px] overflow-hidden rounded-[2rem] bg-zinc-950">
                 <Image src={audience.image} alt="" sizes="(max-width: 768px) 100vw, 25vw" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/5 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-7 text-white"><h3 className="text-2xl font-bold">{audience.title}</h3><p className="mt-2 max-w-sm text-sm leading-6 text-white/68">{audience.text}</p></div>
@@ -375,7 +426,7 @@ export default function Home() {
               return (
                 <motion.article key={post.slug} {...reveal(index * .06)} className={`group ${index === 0 ? "lg:col-span-5" : index === 1 ? "lg:col-span-3" : "lg:col-span-4"}`}>
                   <Link to={`/blog/${locale}/${post.slug}`} className="block">
-                    <div className={`relative overflow-hidden rounded-[1.75rem] bg-zinc-900 ${index === 1 ? "min-h-[300px] lg:min-h-[350px]" : "min-h-[340px] lg:min-h-[410px]"}`}>
+                    <div className={`premium-media relative overflow-hidden rounded-[1.75rem] bg-zinc-900 ${index === 1 ? "min-h-[300px] lg:min-h-[350px]" : "min-h-[340px] lg:min-h-[410px]"}`}>
                       <Image src={images[index]} alt="" loading="lazy" sizes="(max-width: 1024px) 100vw, 40vw" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/5 to-black/5" />
                       <div className="absolute inset-x-0 bottom-0 p-6 text-white sm:p-7"><p className="text-[9px] font-black uppercase tracking-[.18em] text-primary">0{index + 1} · {journal.read}</p><h3 className="mt-3 text-xl font-extrabold leading-[1.1] sm:text-2xl">{post.title}</h3><p className="mt-3 text-xs leading-5 text-white/60">{post.excerpt}</p></div>
@@ -388,7 +439,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="photosoft-preview" className="zoomselfie-screen overflow-hidden bg-[#111113] py-14 text-white lg:pt-24 lg:pb-12">
+      <section id="photosoft-preview" className="premium-grain zoomselfie-screen overflow-hidden bg-[#111113] py-14 text-white lg:pt-24 lg:pb-12">
         <div className="absolute right-0 top-0 h-full w-1/2 bg-cyan-300/[.025]" />
         <div className="container-page relative w-full">
           <div className="grid items-center gap-12 lg:grid-cols-[.78fr_1.22fr] lg:gap-20">
@@ -400,14 +451,15 @@ export default function Home() {
                 <Link to="/photosoft">Explore PhotoSoft <ArrowRight className="ml-2 h-4 w-4" /></Link>
               </Button>
             </motion.div>
-            <motion.div {...reveal(.1)} className="overflow-hidden rounded-[2rem] border border-white/10 bg-black p-2 shadow-2xl">
+            <motion.div {...reveal(.1)} className="premium-media frame-corners relative overflow-hidden rounded-[2rem] border border-white/10 bg-black p-2 shadow-2xl">
               <Image src={appDashboard} alt="PhotoSoft operations dashboard" className="zs-dashboard-image h-[420px] w-full rounded-[1.5rem] object-cover object-top sm:h-[500px]" />
+              <span className="interface-scan absolute inset-x-8 top-1/2 z-20 h-px bg-gradient-to-r from-transparent via-cyan-300/75 to-transparent" />
             </motion.div>
           </div>
         </div>
       </section>
 
-      <section className="zoomselfie-screen isolate overflow-hidden bg-black py-20 text-white">
+      <section className="premium-grain zoomselfie-screen isolate overflow-hidden bg-black py-20 text-white">
         <Image src={galleryCruise} alt="" sizes="100vw" className="absolute inset-0 -z-20 h-full w-full object-cover opacity-55" />
         <div className="absolute inset-0 -z-10 bg-black/70" />
         <div className="container-page w-full text-center">
@@ -416,8 +468,8 @@ export default function Home() {
             <h2 className="mt-5 text-5xl font-extrabold leading-[.98] tracking-[-0.055em] sm:text-7xl">Bring ZoomSelfie to your audience.</h2>
             <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-white/70 sm:text-lg">Launch a self-service experience through a purchasable kiosk system, a web campaign or your own integrated product.</p>
             <div className="mt-9 flex flex-wrap justify-center gap-3">
-              <Button asChild size="lg" className="h-13 rounded-full px-8 text-base"><Link to="/book-demo">Book a demo <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
-              <Button asChild variant="outline" size="lg" className="h-13 rounded-full border-white/30 bg-black/20 px-8 text-base text-white hover:bg-white hover:text-zinc-950"><Link to="/contact">Talk to our team</Link></Button>
+              <Button asChild size="lg" className="h-13 rounded-full px-8 text-base"><Link to="/contact">Contact us <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
+              <Button asChild variant="outline" size="lg" className="h-13 rounded-full border-white/30 bg-black/20 px-8 text-base text-white hover:bg-white hover:text-zinc-950"><Link to="/products">Explore products</Link></Button>
             </div>
           </motion.div>
         </div>

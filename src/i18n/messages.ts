@@ -1,5 +1,6 @@
 import { supplementalNl, supplementalTr } from "@/i18n/supplemental";
 import { generalNl, generalTr } from "@/i18n/supplemental-general";
+import { solutionsNl, solutionsTr } from "@/i18n/solutions";
 
 export type Locale = "en" | "tr" | "nl";
 
@@ -264,6 +265,8 @@ Object.assign(tr, supplementalTr);
 Object.assign(nl, supplementalNl);
 Object.assign(tr, generalTr);
 Object.assign(nl, generalNl);
+Object.assign(tr, solutionsTr);
+Object.assign(nl, solutionsNl);
 
 export const messages: Record<Locale, Messages> = { en: {}, tr, nl };
 

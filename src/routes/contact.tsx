@@ -1,163 +1,96 @@
 "use client";
 
-import { useState } from "react";
-import { Mail, MessageSquare, MapPin, CheckCircle2, Loader2 } from "lucide-react";
-import { PageHero } from "@/components/site/PageHero";
-import { Section } from "@/components/site/Section";
+import { useEffect, useState } from "react";
+import {
+  ArrowRight,
+  Code2,
+  Headphones,
+  Layers3,
+  Mail,
+  Monitor,
+  PanelsTopLeft,
+  ScanFace,
+  Sparkles,
+} from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
+const topics = [
+  { id: "general", label: "General information", short: "Start with an open question.", icon: Sparkles },
+  { id: "kiosk", label: "Kiosk quotation", short: "Discuss a model and configuration.", icon: ScanFace },
+  { id: "campaign-tool", label: "Campaign Tool", short: "Plan a branded web or kiosk journey.", icon: PanelsTopLeft },
+  { id: "web-panel", label: "Web Panel", short: "Talk about management and scale.", icon: Layers3 },
+  { id: "desktop-app", label: "Desktop App", short: "Explore a professional workflow.", icon: Monitor },
+  { id: "api", label: "API integration", short: "Bring ZoomSelfie into a product.", icon: Code2 },
+  { id: "support", label: "Technical support", short: "Get help with an existing setup.", icon: Headphones },
+  { id: "photosoft", label: "PhotoSoft", short: "Discuss attraction photo operations.", icon: Layers3 },
+] as const;
+
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    company: "",
-    message: "",
+  const [topic, setTopic] = useState<(typeof topics)[number]["id"]>("general");
+  const [previewNotice, setPreviewNotice] = useState(false);
+  const reduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    const applyHash = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (topics.some((item) => item.id === hash)) setTopic(hash as (typeof topics)[number]["id"]);
+    };
+    applyHash();
+    window.addEventListener("hashchange", applyHash);
+    return () => window.removeEventListener("hashchange", applyHash);
+  }, []);
+
+  const selected = topics.find((item) => item.id === topic) ?? topics[0];
+  const reveal = (delay = 0) => ({
+    initial: reduceMotion ? false : { opacity: 1, y: 22 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: .65, delay, ease: [0.22, 1, 0.36, 1] as const },
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-    }, 250);
-  };
 
   return (
-    <>
-      <PageHero
-        eyebrow="Contact"
-        title="Let's talk."
-        description="Sales, partnerships, or support - the ZoomSelfie team is here to help."
-      />
-      <Section className="pt-0">
-        <div className="grid gap-16 lg:grid-cols-[1fr_1.2fr]">
-          <div className="space-y-8">
-            {[
-              { icon: Mail, label: "Email", value: "hello@zoomselfie.com" },
-              { icon: MessageSquare, label: "Sales", value: "sales@zoomselfie.com" },
-              { icon: MapPin, label: "HQ", value: "Lisbon - Paris - New York" },
-            ].map((i) => (
-              <div key={i.label} className="flex items-start gap-4">
-                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-accent text-primary">
-                  <i.icon className="h-5 w-5" />
-                </span>
-                <div>
-                  <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{i.label}</div>
-                  <div className="mt-1 text-lg font-semibold">{i.value}</div>
-                </div>
-              </div>
-            ))}
-          </div>
+    <div className="contact-page bg-[#f6f1e7] text-zinc-950">
+      <section className="premium-grain product-screen flex items-center overflow-hidden pb-14 pt-28 md:pt-32">
+        <div className="container-page grid w-full items-center gap-12 lg:grid-cols-[.78fr_1.22fr] lg:gap-16">
+          <motion.div {...reveal()} className="max-w-xl">
+            <p className="text-xs font-black uppercase tracking-[.22em] text-amber-600">Contact ZoomSelfie</p>
+            <h1 className="mt-6 text-[clamp(3.5rem,6.4vw,7rem)] font-extrabold leading-[.88] tracking-[-.07em]">Tell us what you want to create.</h1>
+            <p className="mt-7 text-base leading-7 text-black/58 sm:text-lg sm:leading-8">Choose the product or conversation that fits. The form will adapt so you only share the information that matters.</p>
+            <a href="mailto:hello@zoomselfie.com" className="mt-9 inline-flex items-center gap-3 rounded-full border border-black/12 bg-white/70 px-5 py-3 text-sm font-bold transition-colors hover:bg-white"><Mail className="h-4 w-4 text-amber-600" /> hello@zoomselfie.com</a>
+            <div className="mt-12 border-t border-black/10 pt-7">
+              <p className="text-[10px] font-black uppercase tracking-[.2em] text-black/35">What happens next</p>
+              <p className="mt-3 max-w-md text-sm leading-7 text-black/52">We review the context, identify the right ZoomSelfie product and continue the conversation without pushing you into a purchase flow.</p>
+            </div>
+          </motion.div>
 
-          <div className="rounded-4xl border border-border bg-white p-8 md:p-10 shadow-[var(--shadow-soft)]">
-            {isSubmitted ? (
-              <div className="py-12 text-center flex flex-col items-center justify-center">
-                <div className="grid h-16 w-16 place-items-center rounded-full bg-emerald-100 text-emerald-600 mb-6">
-                  <CheckCircle2 className="h-8 w-8" />
-                </div>
-                <h3 className="text-2xl font-bold text-foreground">Message Received!</h3>
-                <p className="mt-2 text-sm text-muted-foreground max-w-sm">
-                  Thank you{formData.firstName ? `, ${formData.firstName}` : ""}. Our team has received your message and will respond within 24 hours.
-                </p>
-                <Button
-                  variant="outline"
-                  type="button"
-                  onClick={() => {
-                    setIsSubmitted(false);
-                    setFormData({ firstName: "", lastName: "", email: "", company: "", message: "" });
-                  }}
-                  className="mt-8 rounded-full border-border"
-                >
-                  Send another message
-                </Button>
+          <motion.div {...reveal(.08)} className="frame-corners rounded-[2.5rem] border border-black/8 bg-white p-5 shadow-[0_35px_90px_-50px_rgba(0,0,0,.45)] sm:p-8">
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-[.2em] text-black/38">01 · Choose a topic</p>
+              <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                {topics.map((item) => {
+                  const active = item.id === topic;
+                  return <button key={item.id} type="button" onClick={() => { setTopic(item.id); setPreviewNotice(false); }} className={`flex items-start gap-3 rounded-[1.25rem] border p-4 text-left transition-all ${active ? "border-primary bg-primary" : "border-black/8 bg-[#f8f8f6] hover:border-black/20"}`}><span className={`grid h-9 w-9 shrink-0 place-items-center rounded-full ${active ? "bg-black text-white" : "bg-white text-amber-600"}`}><item.icon className="h-4 w-4" /></span><span><span className="block text-sm font-bold">{item.label}</span><span className={`mt-1 block text-[11px] leading-4 ${active ? "text-black/60" : "text-black/42"}`}>{item.short}</span></span></button>;
+                })}
               </div>
-            ) : (
-              <form onSubmit={handleSubmit}>
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <div>
-                    <Label htmlFor="fn">First name</Label>
-                    <Input
-                      id="fn"
-                      required
-                      value={formData.firstName}
-                      onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                      className="mt-2 h-11 rounded-xl"
-                      placeholder="Jane"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="ln">Last name</Label>
-                    <Input
-                      id="ln"
-                      required
-                      value={formData.lastName}
-                      onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                      className="mt-2 h-11 rounded-xl"
-                      placeholder="Doe"
-                    />
-                  </div>
-                  <div className="sm:col-span-2">
-                    <Label htmlFor="em">Work email</Label>
-                    <Input
-                      id="em"
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="mt-2 h-11 rounded-xl"
-                      placeholder="jane@venue.com"
-                    />
-                  </div>
-                  <div className="sm:col-span-2">
-                    <Label htmlFor="co">Company / Venue</Label>
-                    <Input
-                      id="co"
-                      required
-                      value={formData.company}
-                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      className="mt-2 h-11 rounded-xl"
-                      placeholder="Your venue name"
-                    />
-                  </div>
-                  <div className="sm:col-span-2">
-                    <Label htmlFor="ms">Message</Label>
-                    <Textarea
-                      id="ms"
-                      rows={5}
-                      required
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="mt-2 rounded-xl"
-                      placeholder="Tell us about your venue and what you're looking for."
-                    />
-                  </div>
-                </div>
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="mt-6 w-full rounded-full h-12 text-base shadow-[var(--shadow-glow)] hover:scale-105 transition-transform"
-                >
-                  {isSubmitting ? (
-                    <span className="flex items-center gap-2">
-                      <Loader2 className="h-4 w-4 animate-spin" /> Sending...
-                    </span>
-                  ) : (
-                    "Send message"
-                  )}
-                </Button>
-              </form>
-            )}
-          </div>
+            </div>
+
+            <form className="mt-8 border-t border-black/8 pt-7" onSubmit={(event) => { event.preventDefault(); setPreviewNotice(true); }}>
+              <div className="flex items-center justify-between gap-4"><p className="text-[10px] font-black uppercase tracking-[.2em] text-black/38">02 · Your details</p><p className="text-xs font-bold text-amber-600">{selected.label}</p></div>
+              <div className="mt-5 grid gap-5 sm:grid-cols-2">
+                <div><Label htmlFor="contact-name">Name</Label><Input id="contact-name" required className="mt-2 h-12 rounded-xl bg-[#fafafa]" placeholder="Your name" /></div>
+                <div><Label htmlFor="contact-email">Email</Label><Input id="contact-email" type="email" required className="mt-2 h-12 rounded-xl bg-[#fafafa]" placeholder="you@company.com" /></div>
+                <div className="sm:col-span-2"><Label htmlFor="contact-company">Company, venue or project <span className="font-normal text-black/35">(optional)</span></Label><Input id="contact-company" className="mt-2 h-12 rounded-xl bg-[#fafafa]" placeholder="Add context if relevant" /></div>
+                <div className="sm:col-span-2"><Label htmlFor="contact-message">What would you like to discuss?</Label><Textarea id="contact-message" required rows={5} className="mt-2 rounded-xl bg-[#fafafa]" placeholder={`Tell us about your ${selected.label.toLowerCase()} needs.`} /></div>
+              </div>
+              <Button type="submit" className="mt-6 h-12 w-full rounded-full text-base">Send inquiry <ArrowRight className="ml-2 h-4 w-4" /></Button>
+              {previewNotice && <div role="status" className="mt-4 rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm leading-6 text-amber-950"><strong>Preview mode:</strong> submission delivery will be connected before launch. No form data has been sent.</div>}
+            </form>
+          </motion.div>
         </div>
-      </Section>
-    </>
+      </section>
+    </div>
   );
 }

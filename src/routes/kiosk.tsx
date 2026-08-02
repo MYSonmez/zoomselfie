@@ -160,12 +160,12 @@ export default function Kiosk() {
 
   return (
     <div className="kiosk-page overflow-hidden bg-white pb-24 text-zinc-950 xl:pb-32">
-      <section className="kiosk-screen items-end overflow-hidden bg-black pb-12 pt-24 text-white sm:pb-16 lg:pb-20">
+      <section className="premium-grain kiosk-screen items-end overflow-hidden bg-black pb-12 pt-24 text-white sm:pb-16 lg:pb-20">
         <Image src={heroKiosk} alt="ZoomSelfie kiosk at a destination" sizes="100vw" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,.8),rgba(0,0,0,.28)_58%,rgba(0,0,0,.42))]" />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20" />
         <div className="container-page relative z-10 w-full">
-          <motion.div initial={reduceMotion ? false : { opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75 }} className="max-w-4xl">
+          <motion.div initial={reduceMotion ? false : { opacity: 1, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }} className="max-w-4xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/25 px-4 py-2 text-[10px] font-bold uppercase tracking-[.18em] backdrop-blur-md">
               <span className="h-2 w-2 rounded-full bg-primary" /> Kiosk systems for sale
             </div>
@@ -202,8 +202,8 @@ export default function Kiosk() {
                   {models.map((model) => {
                     const selected = model.id === modelId;
                     return (
-                      <button key={model.id} type="button" onClick={() => setModelId(model.id)} className={`group overflow-hidden rounded-[1.6rem] border-2 bg-white text-left transition-all ${selected ? "border-primary shadow-[0_18px_55px_-30px_rgba(255,184,0,.8)]" : "border-transparent hover:border-zinc-300"}`}>
-                        <div className="relative h-60 overflow-hidden bg-zinc-100">
+                      <button key={model.id} type="button" onClick={() => setModelId(model.id)} className={`premium-card group overflow-hidden rounded-[1.6rem] border-2 bg-white text-left transition-all ${selected ? "border-primary shadow-[0_18px_55px_-30px_rgba(255,184,0,.8)]" : "border-transparent hover:border-zinc-300"}`}>
+                        <div className="premium-media relative h-60 overflow-hidden bg-zinc-100">
                           <Image src={model.image} alt={model.name} sizes="(max-width: 768px) 100vw, 33vw" className="h-full w-full object-contain p-3 transition-transform duration-500 group-hover:scale-105" />
                           <span className="absolute left-4 top-4 rounded-full bg-black/75 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-md">{model.label}</span>
                           {"popular" in model && model.popular && <span className="absolute right-4 top-4 rounded-full bg-primary px-3 py-1 text-[10px] font-black uppercase tracking-wider">Most popular</span>}
@@ -228,7 +228,7 @@ export default function Kiosk() {
                   {formats.map((format) => {
                     const selected = format.id === formatId;
                     return (
-                      <button key={format.id} type="button" onClick={() => setFormatId(format.id)} className={`grid min-h-44 grid-cols-[8rem_1fr] items-center overflow-hidden rounded-[1.5rem] border-2 bg-white text-left transition ${selected ? "border-primary" : "border-transparent hover:border-zinc-300"}`}>
+                      <button key={format.id} type="button" onClick={() => setFormatId(format.id)} className={`premium-card grid min-h-44 grid-cols-[8rem_1fr] items-center overflow-hidden rounded-[1.5rem] border-2 bg-white text-left transition ${selected ? "border-primary" : "border-transparent hover:border-zinc-300"}`}>
                         <div className="h-full bg-zinc-100"><Image src={format.image} alt={format.name} sizes="(max-width: 768px) 100vw, 33vw" className="h-full w-full object-contain p-2" /></div>
                         <div className="p-5"><div className="flex items-center justify-between gap-3"><h3 className="text-base font-extrabold">{format.name}</h3>{selected && <CheckCircle2 className="h-5 w-5 shrink-0 text-primary" />}</div><p className="mt-2 text-xs leading-5 text-zinc-600">{format.description}</p></div>
                       </button>
@@ -256,7 +256,7 @@ export default function Kiosk() {
                   {addOns.map((item) => {
                     const selected = selectedAddOns.includes(item.id);
                     return (
-                      <button key={item.id} type="button" onClick={() => toggleAddOn(item.id)} className={`flex min-h-44 flex-col rounded-[1.35rem] border-2 p-5 text-left transition ${selected ? "border-primary bg-[#fff9e7]" : "border-transparent bg-white hover:border-zinc-300"}`}>
+                      <button key={item.id} type="button" onClick={() => toggleAddOn(item.id)} className={`premium-card flex min-h-44 flex-col rounded-[1.35rem] border-2 p-5 text-left transition ${selected ? "border-primary bg-[#fff9e7]" : "border-transparent bg-white hover:border-zinc-300"}`}>
                         <div className="flex items-center justify-between"><span className={`grid h-10 w-10 place-items-center rounded-full ${selected ? "bg-primary text-black" : "bg-zinc-100 text-zinc-700"}`}><item.icon className="h-4.5 w-4.5" /></span><span className={`grid h-6 w-6 place-items-center rounded-full border ${selected ? "border-primary bg-primary text-black" : "border-zinc-300 text-transparent"}`}><Check className="h-3.5 w-3.5" /></span></div>
                         <h3 className="mt-5 text-sm font-extrabold">{item.title}</h3>
                         <p className="mt-2 text-[11px] leading-5 text-zinc-600">{item.description}</p>
@@ -268,11 +268,12 @@ export default function Kiosk() {
             </div>
 
             <aside className="xl:sticky xl:top-24">
-              <div className="overflow-hidden rounded-[2rem] bg-zinc-950 text-white shadow-[0_30px_80px_-35px_rgba(0,0,0,.55)]">
+              <div className="premium-media frame-corners overflow-hidden rounded-[2rem] bg-zinc-950 text-white shadow-[0_30px_80px_-35px_rgba(0,0,0,.55)]">
                 <div className="relative h-[360px] bg-[radial-gradient(circle_at_50%_45%,#353535,transparent_62%)]">
                   <AnimatePresence mode="wait">
                     <motion.img key={`${modelId}-${formatId}`} initial={{ opacity: 0, scale: .96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.02 }} transition={{ duration: .25 }} src={(formatId === "cabin" ? kioskIsolatedCabin : activeModel.image).src} alt="Your configured ZoomSelfie kiosk" className="absolute inset-0 h-full w-full object-contain p-6" />
                   </AnimatePresence>
+                  <span className="interface-scan absolute inset-x-8 top-1/2 z-20 h-px bg-gradient-to-r from-transparent via-primary/75 to-transparent" />
                   <span className="absolute left-5 top-5 rounded-full border border-white/15 bg-black/30 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider backdrop-blur-md">Live configuration</span>
                 </div>
                 <div className="border-t border-white/10 p-7">
@@ -297,7 +298,7 @@ export default function Kiosk() {
         <div className="container-page w-full">
           <motion.div {...reveal()} className="grid gap-8 lg:grid-cols-[1fr_.7fr] lg:items-end"><div><p className="text-xs font-bold uppercase tracking-[.2em] text-primary">Compare models</p><h2 className="mt-5 text-4xl font-extrabold tracking-[-.055em] sm:text-6xl">Two models.<br />Different demands.</h2></div><p className="max-w-lg text-base leading-7 text-zinc-600 lg:justify-self-end">Choose by placement and operating intensity. Exact components are finalized after your venue requirements are reviewed.</p></motion.div>
           <div className="mt-10 grid gap-5 lg:grid-cols-2">
-            {models.map((model) => <motion.article key={model.id} {...reveal()} className={`rounded-[2rem] border-2 p-7 sm:p-9 ${model.id === modelId ? "border-primary bg-[#fffaf0]" : "border-zinc-200"}`}><div className="flex items-start justify-between gap-5"><div><p className="text-[10px] font-bold uppercase tracking-[.18em] text-primary">{model.label}</p><h3 className="mt-2 text-2xl font-extrabold">{model.name}</h3></div>{model.id === modelId && <span className="rounded-full bg-primary px-3 py-1 text-[10px] font-black uppercase">Your selection</span>}</div><p className="mt-5 text-sm leading-6 text-zinc-600">{model.description}</p><ul className="mt-6 space-y-3">{model.highlights.map((highlight) => <li key={highlight} className="flex items-center gap-3 text-sm font-semibold"><span className="grid h-6 w-6 place-items-center rounded-full bg-zinc-950 text-white"><Check className="h-3.5 w-3.5" /></span>{highlight}</li>)}</ul><button type="button" onClick={() => { setModelId(model.id); document.querySelector("#configure")?.scrollIntoView({ behavior: "smooth" }); }} className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-primary">Choose {model.shortName} <ArrowRight className="h-4 w-4" /></button></motion.article>)}
+            {models.map((model) => <motion.article key={model.id} {...reveal()} className={`premium-card rounded-[2rem] border-2 p-7 sm:p-9 ${model.id === modelId ? "border-primary bg-[#fffaf0]" : "border-zinc-200"}`}><div className="flex items-start justify-between gap-5"><div><p className="text-[10px] font-bold uppercase tracking-[.18em] text-primary">{model.label}</p><h3 className="mt-2 text-2xl font-extrabold">{model.name}</h3></div>{model.id === modelId && <span className="rounded-full bg-primary px-3 py-1 text-[10px] font-black uppercase">Your selection</span>}</div><p className="mt-5 text-sm leading-6 text-zinc-600">{model.description}</p><ul className="mt-6 space-y-3">{model.highlights.map((highlight) => <li key={highlight} className="flex items-center gap-3 text-sm font-semibold"><span className="grid h-6 w-6 place-items-center rounded-full bg-zinc-950 text-white"><Check className="h-3.5 w-3.5" /></span>{highlight}</li>)}</ul><button type="button" onClick={() => { setModelId(model.id); document.querySelector("#configure")?.scrollIntoView({ behavior: "smooth" }); }} className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-primary">Choose {model.shortName} <ArrowRight className="h-4 w-4" /></button></motion.article>)}
           </div>
         </div>
       </section>
@@ -305,7 +306,7 @@ export default function Kiosk() {
       <section className="kiosk-screen bg-zinc-950 py-16 text-white lg:py-24">
         <div className="container-page w-full">
           <motion.div {...reveal()} className="mx-auto max-w-3xl text-center"><p className="text-xs font-bold uppercase tracking-[.2em] text-primary">Included with every system</p><h2 className="mt-5 text-4xl font-extrabold tracking-[-.055em] sm:text-6xl">Ready for the complete experience.</h2></motion.div>
-          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">{included.map((item, index) => <motion.article key={item.title} {...reveal(index * .06)} className="rounded-[1.75rem] border border-white/10 bg-white/[.045] p-6"><span className="grid h-11 w-11 place-items-center rounded-full bg-primary text-black"><item.icon className="h-5 w-5" /></span><h3 className="mt-8 text-xl font-bold">{item.title}</h3><p className="mt-3 text-sm leading-6 text-white/55">{item.text}</p></motion.article>)}</div>
+          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">{included.map((item, index) => <motion.article key={item.title} {...reveal(index * .06)} className="premium-card rounded-[1.75rem] border border-white/10 bg-white/[.045] p-6"><span className="grid h-11 w-11 place-items-center rounded-full bg-primary text-black"><item.icon className="h-5 w-5" /></span><h3 className="mt-8 text-xl font-bold">{item.title}</h3><p className="mt-3 text-sm leading-6 text-white/55">{item.text}</p></motion.article>)}</div>
           <div className="mt-8 flex items-start gap-3 rounded-[1.5rem] border border-white/10 bg-white/[.04] p-5 text-xs leading-6 text-white/50"><PackageCheck className="mt-0.5 h-5 w-5 shrink-0 text-primary" /> Final scope, installation, shipping, warranty and service terms are specified in the commercial proposal for your location.</div>
         </div>
       </section>
@@ -313,13 +314,13 @@ export default function Kiosk() {
       <section className="kiosk-screen bg-[#f5f5f2] py-16 lg:py-24">
         <div className="mx-auto w-full max-w-[100rem] px-4 sm:px-6">
           <motion.div {...reveal()} className="mx-auto max-w-3xl text-center"><p className="text-xs font-bold uppercase tracking-[.2em] text-primary">Designed for the location</p><h2 className="mt-5 text-4xl font-extrabold tracking-[-.055em] sm:text-6xl">A product that belongs in the experience.</h2></motion.div>
-          <div className="mt-10 grid gap-4 md:grid-cols-3">{installations.map((item, index) => <motion.article key={item.title} {...reveal(index * .06)} className="kiosk-example-card group relative min-h-[420px] overflow-hidden rounded-[2rem] bg-black"><Image src={item.image} alt={item.title} sizes="(max-width: 768px) 100vw, 33vw" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" /><div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" /><h3 className="absolute inset-x-0 bottom-0 p-7 text-2xl font-extrabold text-white">{item.title}</h3></motion.article>)}</div>
+          <div className="mt-10 grid gap-4 md:grid-cols-3">{installations.map((item, index) => <motion.article key={item.title} {...reveal(index * .06)} className="premium-media frame-corners kiosk-example-card group relative min-h-[420px] overflow-hidden rounded-[2rem] bg-black"><Image src={item.image} alt={item.title} sizes="(max-width: 768px) 100vw, 33vw" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" /><div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" /><h3 className="absolute inset-x-0 bottom-0 p-7 text-2xl font-extrabold text-white">{item.title}</h3></motion.article>)}</div>
         </div>
       </section>
 
-      <section className="kiosk-screen overflow-hidden bg-primary py-20">
+      <section className="premium-grain kiosk-screen overflow-hidden bg-primary py-20">
         <div className="container-page relative w-full text-center">
-          <motion.div {...reveal()} className="mx-auto max-w-4xl"><p className="text-xs font-black uppercase tracking-[.2em]">Your configured system</p><h2 className="mt-5 text-5xl font-extrabold leading-[.98] tracking-[-.06em] sm:text-7xl">From selection to installation.</h2><p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-black/65 sm:text-lg">Send your selected direction to the sales team. We’ll review the venue, confirm the hardware scope and prepare your proposal.</p><div className="mt-9 flex flex-wrap justify-center gap-3"><Button asChild size="lg" className="h-13 rounded-full bg-black px-8 text-base text-white hover:bg-zinc-800"><Link to="/contact">Request a commercial quote <ArrowRight className="ml-2 h-4 w-4" /></Link></Button><Button asChild variant="outline" size="lg" className="h-13 rounded-full border-black/25 bg-transparent px-8 text-base hover:bg-black hover:text-white"><Link to="/book-demo">Book a product demo</Link></Button></div></motion.div>
+          <motion.div {...reveal()} className="mx-auto max-w-4xl"><p className="text-xs font-black uppercase tracking-[.2em]">Your configured system</p><h2 className="mt-5 text-5xl font-extrabold leading-[.98] tracking-[-.06em] sm:text-7xl">From selection to installation.</h2><p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-black/65 sm:text-lg">Send your selected direction to our team. We will review the venue, confirm the hardware scope and continue the conversation with a suitable proposal.</p><div className="mt-9 flex flex-wrap justify-center gap-3"><Button asChild size="lg" className="h-13 rounded-full bg-black px-8 text-base text-white hover:bg-zinc-800"><Link to="/contact" hash="kiosk">Request kiosk information <ArrowRight className="ml-2 h-4 w-4" /></Link></Button><Button asChild variant="outline" size="lg" className="h-13 rounded-full border-black/25 bg-transparent px-8 text-base hover:bg-black hover:text-white"><Link to="/products">Explore all products</Link></Button></div></motion.div>
         </div>
       </section>
 
@@ -332,7 +333,7 @@ export default function Kiosk() {
 }
 
 function ConfiguratorStep({ number, title, children }: { number: string; title: string; children: ReactNode }) {
-  return <section className="rounded-[2rem] border border-black/[.06] bg-white/55 p-4 sm:p-6"><div className="mb-5 flex items-center gap-3"><span className="grid h-8 w-8 place-items-center rounded-full bg-zinc-950 text-[10px] font-black text-white">{number}</span><h3 className="text-lg font-extrabold">{title}</h3></div>{children}</section>;
+  return <section className="premium-card rounded-[2rem] border border-black/[.06] bg-white/55 p-4 sm:p-6"><div className="mb-5 flex items-center gap-3"><span className="grid h-8 w-8 place-items-center rounded-full bg-zinc-950 text-[10px] font-black text-white">{number}</span><h3 className="text-lg font-extrabold">{title}</h3></div>{children}</section>;
 }
 
 function SummaryRow({ label, value }: { label: string; value: string }) {

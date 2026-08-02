@@ -3,7 +3,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "Contact",
-  description: "Contact ZoomSelfie to discuss kiosks, campaigns, integrations or attraction photography operations.",
+  description: "Contact ZoomSelfie about kiosk systems, campaigns, the Web Panel, Desktop App, API integrations, support or PhotoSoft.",
   path: "/contact",
 });
 

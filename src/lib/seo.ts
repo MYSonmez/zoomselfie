@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const SITE_NAME = "ZoomSelfie";
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://zoomselfie.com";
 export const DEFAULT_DESCRIPTION =
-  "Create personalized photo and video memories through ZoomSelfie kiosks, web campaigns, desktop workflows and APIs.";
+  "Create personalized photo and video experiences through ZoomSelfie kiosks, web campaigns, desktop workflows and APIs.";
 
 export function pageMetadata({
   title,

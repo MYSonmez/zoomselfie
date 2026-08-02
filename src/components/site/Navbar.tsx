@@ -23,39 +23,39 @@ const mainLinks = [
 const productLinks = [
   {
     to: "/kiosk",
-    label: "Buy a Kiosk",
+    label: "Kiosk Systems",
     description: "Hardware systems & custom configurations",
     icon: ScanFace,
     featured: true,
     hash: undefined,
   },
   {
-    to: "/products",
+    to: "/products/campaign-tool",
     label: "Campaign Tool",
     description: "Publish on the web or kiosk",
     icon: PanelsTopLeft,
-    hash: "campaign-tool",
+    hash: undefined,
   },
   {
-    to: "/products",
+    to: "/products/web-panel",
     label: "Web Panel",
     description: "Manage campaigns and usage",
     icon: LayoutDashboard,
-    hash: "web-panel",
+    hash: undefined,
   },
   {
-    to: "/products",
+    to: "/products/desktop-app",
     label: "Desktop App",
     description: "Workflows for photographers",
     icon: Monitor,
-    hash: "desktop-app",
+    hash: undefined,
   },
   {
-    to: "/products",
+    to: "/products/api",
     label: "API",
     description: "Build ZoomSelfie into your product",
     icon: Code2,
-    hash: "api",
+    hash: undefined,
   },
 ] as const;
 
@@ -73,7 +73,7 @@ export function Navbar() {
   const isPhotoSoft = isPhotoSoftRoute && photoSoftVisualsReady;
   const isHome = pathname === "/";
   const isDarkTop = isPhotoSoft || (isHome && !scrolled);
-  const productsActive = pathname === "/products" || pathname === "/kiosk";
+  const productsActive = pathname === "/products" || pathname.startsWith("/products/") || pathname === "/kiosk";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -100,7 +100,7 @@ export function Navbar() {
       return;
     }
 
-    const timer = setTimeout(() => setPhotoSoftVisualsReady(true), 360);
+    const timer = setTimeout(() => setPhotoSoftVisualsReady(true), 290);
     return () => clearTimeout(timer);
   }, [isPhotoSoftRoute, reduceMotion]);
 
@@ -153,19 +153,19 @@ export function Navbar() {
               productsOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-2 opacity-0",
             )}>
               <div className={cn(
-                "grid grid-cols-[1.08fr_.92fr] gap-3 rounded-[2rem] border p-4 shadow-[0_30px_90px_-35px_rgba(0,0,0,.5)] backdrop-blur-xl",
+                "premium-grain grid grid-cols-[1.08fr_.92fr] gap-3 overflow-hidden rounded-[2rem] border p-4 shadow-[0_30px_90px_-35px_rgba(0,0,0,.5)] backdrop-blur-xl",
                 isPhotoSoft ? "border-white/10 bg-[#0b0e10]" : "border-border bg-white",
               )}>
-                <Link to="/kiosk" onClick={() => setProductsOpen(false)} className="group relative min-h-[350px] overflow-hidden rounded-[1.55rem] bg-zinc-950 text-white">
+                <Link to="/kiosk" onClick={() => setProductsOpen(false)} className="premium-media frame-corners group relative min-h-[350px] overflow-hidden rounded-[1.55rem] bg-zinc-950 text-white">
                   <div className="absolute -bottom-16 -right-12 h-72 w-72 rounded-full bg-primary/20 blur-3xl" />
                   <div className="absolute bottom-5 right-5 h-[76%] w-[40%] overflow-hidden rounded-[1.35rem] border border-white/10 bg-white shadow-[0_18px_45px_-20px_rgba(0,0,0,.7)]">
-                    <Image src={kioskModelPro} alt="" sizes="180px" className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.035]" />
+                    <Image src={kioskModelPro} alt="" sizes="180px" className="h-full w-full object-contain object-center p-3 transition-transform duration-500 group-hover:scale-[1.035]" />
                   </div>
                   <div className="relative z-10 flex min-h-[350px] max-w-[52%] flex-col p-7 pr-0">
                     <span className="grid h-11 w-11 place-items-center rounded-full bg-primary text-black"><ScanFace className="h-5 w-5" /></span>
                     <div className="mt-auto">
                       <span className="inline-flex rounded-full bg-primary px-2.5 py-1 text-[8px] font-black uppercase tracking-[.12em] text-black">Kiosk for sale</span>
-                      <h3 className="mt-3 text-[1.35rem] font-extrabold leading-[1.08]">Configure and buy your kiosk.</h3>
+                      <h3 className="mt-3 text-[1.35rem] font-extrabold leading-[1.08]">Configure your kiosk system.</h3>
                       <p className="mt-3 text-[10px] leading-[1.65] text-white/48">Choose a model, format, finish and optional features.</p>
                       <span className="mt-5 inline-flex items-center gap-2 text-[11px] font-bold text-primary">Open configurator <span aria-hidden="true">→</span></span>
                     </div>
@@ -184,7 +184,7 @@ export function Navbar() {
                   </div>
                   <div className={cn("mt-auto flex items-center justify-between border-t px-3 pt-3", isPhotoSoft ? "border-white/10" : "border-border")}>
                     <Link to="/products" onClick={() => setProductsOpen(false)} className={cn("text-xs font-bold", isPhotoSoft ? "text-cyan-300" : "text-primary")}>View all products →</Link>
-                    <Link to="/book-demo" onClick={() => setProductsOpen(false)} className={cn("text-[10px] font-bold", isPhotoSoft ? "text-white/45" : "text-zinc-500")}>Find your setup</Link>
+                    <Link to="/contact" onClick={() => setProductsOpen(false)} className={cn("text-[10px] font-bold", isPhotoSoft ? "text-white/45" : "text-zinc-500")}>Discuss your setup</Link>
                   </div>
                 </div>
               </div>
@@ -243,7 +243,7 @@ export function Navbar() {
             )}
           </div>
           <Button asChild className={cn("rounded-full px-6 transition-all", isPhotoSoft ? "bg-cyan-300 text-zinc-950 shadow-[0_12px_30px_-12px_rgba(103,232,249,.8)] hover:bg-white" : "shadow-[var(--shadow-glow)] hover:scale-105")}>
-            <Link to="/book-demo">{isPhotoSoft ? "PhotoSoft Demo" : "Book Demo"}</Link>
+            <Link to="/contact">{isPhotoSoft ? "Contact PhotoSoft" : "Contact"}</Link>
           </Button>
         </div>
 
@@ -297,7 +297,7 @@ export function Navbar() {
             </div>
 
             <Button asChild className={cn("mt-3 rounded-full", isPhotoSoft && "bg-cyan-300 text-zinc-950 hover:bg-white")}>
-              <Link to="/book-demo" onClick={() => setOpen(false)}>{isPhotoSoft ? "PhotoSoft Demo" : "Book Demo"}</Link>
+              <Link to="/contact" onClick={() => setOpen(false)}>{isPhotoSoft ? "Contact PhotoSoft" : "Contact"}</Link>
             </Button>
           </div>
         </div>

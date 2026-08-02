@@ -137,6 +137,10 @@
   scroll-snap-type: y proximity;
 }
 
+[data-page="zoomselfie-product"] {
+  scroll-snap-type: y proximity;
+}
+
 .zoomselfie-screen {
   position: relative;
   display: flex;
@@ -157,7 +161,19 @@
   scroll-snap-stop: normal;
 }
 
+.product-screen {
+  position: relative;
+  min-height: 100svh;
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}
+
 @media (min-width: 1024px) {
+  .home-experience-sticky {
+    position: sticky;
+    top: 0;
+  }
+
   .photosoft-screen {
     min-height: 100svh;
   }
@@ -177,6 +193,10 @@
   [data-page="zoomselfie-kiosk"] {
     scroll-snap-type: none;
   }
+
+  [data-page="zoomselfie-product"] {
+    scroll-snap-type: none;
+  }
 }
 
 /* Laptop composition: keep the full-screen rhythm without making each scene
@@ -193,19 +213,34 @@
 
   .zoomselfie-home .container-page,
   .photosoft-page .container-page,
-  .kiosk-page .container-page {
+  .kiosk-page .container-page,
+  .solutions-page .container-page,
+  .products-page .container-page,
+  .product-intro-page .container-page,
+  .about-page .container-page,
+  .contact-page .container-page {
     max-width: 72rem;
   }
 
   .zoomselfie-home h1,
   .photosoft-page h1,
-  .kiosk-page h1 {
+  .kiosk-page h1,
+  .solutions-page h1,
+  .products-page h1,
+  .product-intro-page h1,
+  .about-page h1,
+  .contact-page h1 {
     font-size: clamp(3.5rem, 5.5vw, 4.8rem) !important;
   }
 
   .zoomselfie-home h2,
   .photosoft-page h2,
-  .kiosk-page h2 {
+  .kiosk-page h2,
+  .solutions-page h2,
+  .products-page h2,
+  .product-intro-page h2,
+  .about-page h2,
+  .contact-page h2 {
     font-size: clamp(2.35rem, 3.55vw, 3.15rem) !important;
   }
 
@@ -277,11 +312,30 @@
   .kiosk-page .kiosk-example-card {
     min-height: 320px !important;
   }
+
+  .solutions-page .solutions-hero {
+    min-height: 42rem;
+  }
+
+  .solutions-page .solutions-section {
+    padding-top: 5.5rem !important;
+    padding-bottom: 5.5rem !important;
+  }
+
+  .solutions-page .solutions-showcase {
+    min-height: 590px !important;
+  }
 }
 
 .photosoft-marquee-window {
+  overflow: hidden;
+  overflow: clip;
   mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
   -webkit-mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
+}
+
+.photosoft-page {
+  overflow-x: clip;
 }
 
 .photosoft-marquee-track {
@@ -362,6 +416,141 @@ html {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Shared premium motion and media language */
+.premium-grain {
+  position: relative;
+  isolation: isolate;
+}
+
+.premium-grain::after {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  content: "";
+  opacity: 0.1;
+  mix-blend-mode: soft-light;
+  background-image:
+    radial-gradient(circle at 20% 30%, currentColor 0 0.55px, transparent 0.8px),
+    radial-gradient(circle at 75% 65%, currentColor 0 0.45px, transparent 0.75px);
+  background-size: 7px 7px, 9px 9px;
+}
+
+.premium-media {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  box-shadow: 0 34px 90px -46px rgba(0, 0, 0, 0.62);
+}
+
+.premium-media::after {
+  position: absolute;
+  inset: -35% auto -35% -55%;
+  z-index: 8;
+  width: 34%;
+  content: "";
+  pointer-events: none;
+  opacity: 0;
+  transform: rotate(14deg) translateX(-160%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+  transition: opacity 0.35s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.premium-media:hover::after {
+  opacity: 1;
+  transform: rotate(14deg) translateX(560%);
+}
+
+.premium-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.55s ease, border-color 0.4s ease;
+}
+
+.premium-card::before {
+  position: absolute;
+  inset: -45%;
+  z-index: -1;
+  content: "";
+  opacity: 0;
+  transform: translate3d(-12%, 12%, 0);
+  background: radial-gradient(circle at 50% 50%, rgba(255, 184, 0, 0.2), transparent 38%);
+  transition: opacity 0.45s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.premium-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 36px 90px -55px rgba(0, 0, 0, 0.58);
+}
+
+.premium-card:hover::before {
+  opacity: 1;
+  transform: translate3d(12%, -8%, 0);
+}
+
+.frame-corners::before,
+.frame-corners::after {
+  position: absolute;
+  z-index: 12;
+  width: 34px;
+  height: 34px;
+  content: "";
+  pointer-events: none;
+  border-color: var(--primary);
+}
+
+.frame-corners::before {
+  top: 18px;
+  left: 18px;
+  border-top-width: 2px;
+  border-left-width: 2px;
+}
+
+.frame-corners::after {
+  right: 18px;
+  bottom: 18px;
+  border-right-width: 2px;
+  border-bottom-width: 2px;
+}
+
+.ambient-orbit {
+  animation: ambient-orbit 16s linear infinite;
+  transform-origin: center;
+}
+
+.ambient-drift {
+  animation: ambient-drift 7s ease-in-out infinite;
+}
+
+.interface-scan {
+  position: absolute;
+  inset-inline: 5%;
+  top: 5%;
+  z-index: 9;
+  height: 1px;
+  pointer-events: none;
+  opacity: 0.55;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  animation: interface-scan 5.5s ease-in-out infinite;
+}
+
+@keyframes ambient-orbit {
+  to { rotate: 360deg; }
+}
+
+@keyframes ambient-drift {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -12px; }
+}
+
+@keyframes interface-scan {
+  0%, 12% { top: 7%; opacity: 0; }
+  22% { opacity: 0.55; }
+  78% { opacity: 0.55; }
+  90%, 100% { top: 92%; opacity: 0; }
+}
+
 /* Animations */
 @keyframes float {
   0%,
@@ -434,5 +623,15 @@ html {
 
   .photosoft-marquee-track {
     animation-play-state: paused;
+  }
+
+  .ambient-orbit,
+  .ambient-drift,
+  .interface-scan {
+    animation: none !important;
+  }
+
+  .premium-card:hover {
+    transform: none;
   }
 }

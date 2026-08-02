@@ -34,7 +34,6 @@ import galleryParis from "@/assets/gallery-paris-couple.png";
 import kioskAquarium from "@/assets/kiosk-aquarium.png";
 import kioskModelPro from "@/assets/kiosk-model-pro.png";
 import kioskStadium from "@/assets/kiosk-stadium.png";
-import prodPlatform from "@/assets/prod-platform.png";
 import museumImage from "@/assets/kiosk-rome.png";
 import parkImage from "@/assets/kiosk-park.png";
 import aquariumImage from "@/assets/kiosk-aquarium.png";
@@ -88,7 +87,7 @@ const platformSteps = [
     shortTitle: "Deliver",
     description: "Manage digital downloads, email delivery, prints, albums and souvenir products from one place.",
     icon: Download,
-    image: prodPlatform,
+    image: galleryCruise,
   },
   {
     index: "07",
@@ -166,7 +165,7 @@ export default function PhotoSoft() {
 
   return (
     <div className="photosoft-page overflow-hidden bg-black text-white">
-      <section className="photosoft-screen items-end overflow-hidden bg-black pt-24 pb-12 sm:pb-16 lg:pb-20">
+      <section className="premium-grain photosoft-screen items-end overflow-hidden bg-black pt-24 pb-12 sm:pb-16 lg:pb-20">
         <SmartVideo
           src={heroVideo}
           poster={heroKiosk.src}
@@ -196,7 +195,7 @@ export default function PhotoSoft() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" className="h-13 rounded-full bg-white px-7 text-base font-bold text-black hover:bg-cyan-200">
-                <Link to="/book-demo">Book a demo <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                <Link to="/contact" hash="photosoft">Contact PhotoSoft <ArrowRight className="ml-2 h-4 w-4" /></Link>
               </Button>
               <a href="#journey" className="inline-flex h-13 items-center gap-2 rounded-full border border-white/35 bg-black/15 px-7 text-sm font-bold text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-black">
                 See how it works <ArrowDown className="h-4 w-4" />
@@ -225,7 +224,7 @@ export default function PhotoSoft() {
               { icon: ShoppingBag, label: "Commerce", title: "Every product is ready to sell.", text: "Personal galleries, kiosks, POS and the online store share the same product, order and delivery structure.", image: kioskModelPro },
               { icon: BarChart3, label: "Intelligence", title: "Every result is visible.", text: "See the complete journey, from capture and conversion to product performance and location comparison.", image: appDashboard },
             ].map((pillar, index) => (
-              <motion.article key={pillar.label} {...reveal(index * .07)} className="ps-pillar group relative min-h-[380px] overflow-hidden rounded-[2rem] bg-zinc-950 text-white lg:min-h-[360px]">
+              <motion.article key={pillar.label} {...reveal(index * .07)} className="premium-media frame-corners ps-pillar group relative min-h-[380px] overflow-hidden rounded-[2rem] bg-zinc-950 text-white lg:min-h-[360px]">
                 <Image src={pillar.image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-65 transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent" />
                 <div className="relative flex h-full min-h-[380px] flex-col justify-end p-7 sm:p-8 lg:min-h-[360px]">
@@ -308,7 +307,7 @@ export default function PhotoSoft() {
 
           <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {productFamilies.map((family, index) => (
-              <motion.article key={family.title} {...reveal(index * .06)} className="group rounded-[2rem] border border-zinc-200 bg-white p-6 transition-all hover:-translate-y-1 hover:shadow-[0_24px_70px_-38px_rgba(0,0,0,.35)] sm:p-7">
+              <motion.article key={family.title} {...reveal(index * .06)} className="premium-card group rounded-[2rem] border border-zinc-200 bg-white p-6 sm:p-7">
                 <div className="flex items-start justify-between">
                   <span className="text-xs font-bold text-cyan-700">{family.number}</span>
                   <div className="grid h-11 w-11 place-items-center rounded-full bg-zinc-950 text-cyan-300"><family.icon className="h-5 w-5" /></div>
@@ -336,10 +335,10 @@ export default function PhotoSoft() {
               </div>
             </motion.div>
             <motion.div {...reveal(.1)} className="ps-product-collage grid grid-cols-2 gap-3 sm:gap-4">
-              <div className="overflow-hidden rounded-[2rem] bg-zinc-100"><Image src={galleryAquarium} alt="Themed aquarium photo product" className="ps-collage-main h-full min-h-[340px] w-full object-cover transition-transform duration-700 hover:scale-105 lg:min-h-[420px]" /></div>
+              <div className="premium-media frame-corners overflow-hidden rounded-[2rem] bg-zinc-100"><Image src={galleryAquarium} alt="Themed aquarium photo product" className="ps-collage-main h-full min-h-[340px] w-full object-cover transition-transform duration-700 hover:scale-105 lg:min-h-[420px]" /></div>
               <div className="grid gap-3 sm:gap-4">
-                <div className="overflow-hidden rounded-[2rem] bg-zinc-100"><Image src={galleryCruise} alt="Digital memory product" className="ps-collage-small h-52 w-full object-cover transition-transform duration-700 hover:scale-105 lg:h-[202px]" /></div>
-                <div className="overflow-hidden rounded-[2rem] bg-zinc-100"><Image src={galleryIstanbul} alt="City-themed photo product" className="ps-collage-small h-52 w-full object-cover transition-transform duration-700 hover:scale-105 lg:h-[202px]" /></div>
+                <div className="premium-media overflow-hidden rounded-[2rem] bg-zinc-100"><Image src={galleryCruise} alt="Digital memory product" className="ps-collage-small h-52 w-full object-cover transition-transform duration-700 hover:scale-105 lg:h-[202px]" /></div>
+                <div className="premium-media overflow-hidden rounded-[2rem] bg-zinc-100"><Image src={galleryIstanbul} alt="City-themed photo product" className="ps-collage-small h-52 w-full object-cover transition-transform duration-700 hover:scale-105 lg:h-[202px]" /></div>
               </div>
             </motion.div>
           </div>
@@ -354,14 +353,14 @@ export default function PhotoSoft() {
             <h2 className="mt-5 text-4xl font-extrabold tracking-[-0.055em] sm:text-6xl">Guests buy wherever<br />it suits them.</h2>
           </motion.div>
           <div className="mt-10 grid gap-4 lg:grid-cols-[1.15fr_.85fr]">
-            <motion.div {...reveal()} className="ps-commerce-visual relative min-h-[440px] overflow-hidden rounded-[2.2rem] lg:min-h-[400px]">
-              <Image src={kioskModelPro} alt="PhotoSoft self-service kiosk" className="absolute inset-0 h-full w-full object-cover" />
+            <motion.div {...reveal()} className="premium-media frame-corners ps-commerce-visual relative min-h-[440px] overflow-hidden rounded-[2.2rem] bg-[#e8e5df] lg:min-h-[400px]">
+              <Image src={kioskModelPro} alt="PhotoSoft self-service kiosk" className="absolute inset-0 h-full w-full object-contain p-7 sm:p-10" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/10" />
               <div className="absolute bottom-0 p-7 sm:p-10"><p className="text-xs font-bold uppercase tracking-[.18em] text-cyan-300">Kiosk · POS · Online</p><h3 className="mt-3 max-w-xl text-3xl font-bold tracking-tight sm:text-4xl">The sales opportunity does not end at the attraction exit.</h3></div>
             </motion.div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
               {channels.map((channel, index) => (
-                <motion.div key={channel.title} {...reveal(index * .05)} className="flex items-start gap-4 rounded-[1.7rem] border border-white/10 bg-white/[.045] p-6 transition-colors hover:bg-white/[.08]">
+                <motion.div key={channel.title} {...reveal(index * .05)} className="premium-card flex items-start gap-4 rounded-[1.7rem] border border-white/10 bg-white/[.045] p-6">
                   <div className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-cyan-300 text-zinc-950"><channel.icon className="h-5 w-5" /></div>
                   <div><h3 className="text-base font-bold">{channel.title}</h3><p className="mt-1.5 text-sm leading-6 text-zinc-400">{channel.text}</p></div>
                 </motion.div>
@@ -384,15 +383,16 @@ export default function PhotoSoft() {
                 ))}
               </div>
             </motion.div>
-            <motion.div {...reveal(.08)} className="overflow-hidden rounded-[2rem] border border-zinc-200/80 bg-zinc-950 p-2 shadow-2xl sm:p-3">
+            <motion.div {...reveal(.08)} className="premium-media frame-corners relative overflow-hidden rounded-[2rem] border border-zinc-200/80 bg-zinc-950 p-2 shadow-2xl sm:p-3">
               <Image src={appDashboard} alt="PhotoSoft management and analytics dashboard" className="ps-dashboard-image h-[360px] w-full rounded-[1.5rem] object-cover object-top sm:h-[460px] lg:h-[520px]" />
+              <span className="interface-scan absolute inset-x-8 top-1/2 z-20 h-px bg-gradient-to-r from-transparent via-cyan-300/75 to-transparent" />
             </motion.div>
           </div>
         </div>
       </section>
 
       <section className="photosoft-screen isolate overflow-hidden bg-zinc-950 py-14 sm:py-16 lg:pt-24 lg:pb-12">
-        <Image src={prodPlatform} alt="" sizes="100vw" className="absolute inset-0 -z-20 h-full w-full object-cover opacity-15" />
+        <Image src={appDashboard} alt="" sizes="100vw" className="absolute inset-0 -z-20 h-full w-full object-cover object-top opacity-15" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-zinc-950/75 via-zinc-950/90 to-zinc-950" />
         <div className="container-page">
           <motion.div {...reveal()} className="max-w-4xl">
@@ -400,19 +400,19 @@ export default function PhotoSoft() {
             <h2 className="mt-5 text-4xl font-extrabold tracking-[-0.055em] sm:text-6xl">Every decision starts from the same operational view.</h2>
           </motion.div>
           <div className="mt-10 grid gap-4 lg:grid-cols-3">
-            <motion.article {...reveal()} className="rounded-[2rem] bg-zinc-950 p-7 text-white sm:p-8">
+            <motion.article {...reveal()} className="premium-card rounded-[2rem] bg-zinc-950 p-7 text-white sm:p-8">
               <ShieldCheck className="h-7 w-7 text-cyan-300" />
               <p className="mt-10 text-xs font-bold uppercase tracking-[.16em] text-cyan-300">Quality Intelligence</p>
               <h3 className="mt-3 text-2xl font-bold">Prioritize content that is ready to sell.</h3>
               <p className="mt-3 text-sm leading-6 text-zinc-400">Identify blurred, flawed or closed-eye captures and improve the quality of the operation.</p>
             </motion.article>
-            <motion.article {...reveal(.06)} className="rounded-[2rem] bg-white p-7 text-zinc-950 ring-1 ring-zinc-200 sm:p-8">
+            <motion.article {...reveal(.06)} className="premium-card rounded-[2rem] bg-white p-7 text-zinc-950 ring-1 ring-zinc-200 sm:p-8">
               <BarChart3 className="h-7 w-7 text-cyan-700" />
               <p className="mt-10 text-xs font-bold uppercase tracking-[.16em] text-cyan-700">Revenue Analytics</p>
               <h3 className="mt-3 text-2xl font-bold">See the complete conversion journey.</h3>
               <p className="mt-3 text-sm leading-6 text-zinc-600">Measure capture, QR usage, gallery views, purchases, products and channel performance together.</p>
             </motion.article>
-            <motion.article {...reveal(.12)} className="rounded-[2rem] bg-cyan-300 p-7 text-zinc-950 sm:p-8">
+            <motion.article {...reveal(.12)} className="premium-card rounded-[2rem] bg-cyan-300 p-7 text-zinc-950 sm:p-8">
               <Building2 className="h-7 w-7" />
               <p className="mt-10 text-xs font-bold uppercase tracking-[.16em] text-zinc-700">Multi-Site Management</p>
               <h3 className="mt-3 text-2xl font-bold">Manage every location from one center.</h3>
@@ -437,7 +437,7 @@ export default function PhotoSoft() {
             {[0, 1].map((group) => (
               <div key={group} aria-hidden={group === 1} className="flex gap-4 pr-4">
                 {venues.map((venue) => (
-                  <article key={`${group}-${venue.name}`} className="ps-venue-card group relative min-h-[360px] w-[78vw] max-w-[350px] shrink-0 overflow-hidden rounded-[2rem] bg-zinc-900 lg:min-h-[380px]">
+                  <article key={`${group}-${venue.name}`} className="premium-media ps-venue-card group relative min-h-[360px] w-[78vw] max-w-[350px] shrink-0 overflow-hidden rounded-[2rem] bg-zinc-900 lg:min-h-[380px]">
                     <Image src={venue.image} alt={group === 0 ? venue.name : ""} sizes="(max-width: 768px) 80vw, 25vw" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/5 to-transparent" />
                     <div className="absolute bottom-0 p-7 text-white"><h3 className="text-2xl font-bold">{venue.name}</h3><p className="mt-2 text-sm leading-6 text-white/70">{venue.text}</p></div>
@@ -470,7 +470,7 @@ export default function PhotoSoft() {
             <p className="text-xs font-bold uppercase tracking-[.2em] text-cyan-300">From capture to commerce</p>
             <h2 className="mt-5 text-4xl font-extrabold leading-[1.02] tracking-[-0.055em] sm:text-6xl lg:text-7xl">Make every guest moment discoverable, purchasable and measurable.</h2>
             <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-white/70 sm:text-lg">Let’s plan how PhotoSoft can work for your operation.</p>
-            <div className="mt-9 flex flex-wrap justify-center gap-3"><Button asChild size="lg" className="h-13 rounded-full bg-cyan-300 px-8 text-base font-bold text-zinc-950 hover:bg-white"><Link to="/book-demo">Book a demo <ArrowRight className="ml-2 h-4 w-4" /></Link></Button><Button asChild variant="outline" size="lg" className="h-13 rounded-full border-white/30 bg-black/20 px-8 text-base text-white hover:bg-white hover:text-black"><Link to="/contact">Talk to sales</Link></Button></div>
+            <div className="mt-9 flex flex-wrap justify-center gap-3"><Button asChild size="lg" className="h-13 rounded-full bg-cyan-300 px-8 text-base font-bold text-zinc-950 hover:bg-white"><Link to="/contact" hash="photosoft">Contact PhotoSoft <ArrowRight className="ml-2 h-4 w-4" /></Link></Button><Button asChild variant="outline" size="lg" className="h-13 rounded-full border-white/30 bg-black/20 px-8 text-base text-white hover:bg-white hover:text-black"><Link to="/products">Explore ZoomSelfie</Link></Button></div>
           </motion.div>
         </div>
       </section>

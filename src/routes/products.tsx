@@ -1,108 +1,189 @@
 "use client";
 
+import { motion, useReducedMotion } from "framer-motion";
+import {
+  ArrowDown,
+  ArrowRight,
+  Code2,
+  LayoutDashboard,
+  Monitor,
+  PanelsTopLeft,
+  ScanFace,
+} from "lucide-react";
 import Image from "@/components/site/ResponsiveImage";
 import { Link } from "@/components/site/AppLink";
-import { motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, ArrowRight, Check, Code2, LayoutDashboard, Monitor, PanelsTopLeft, ScanFace } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-import prodPlatform from "@/assets/prod-platform.png";
-import prodDesktopApp from "@/assets/prod-desktop-app.png";
-import appDashboard from "@/assets/app-dashboard.png";
-import prodDeveloperApi from "@/assets/prod-developer-api.png";
-import kioskParis from "@/assets/kiosk-paris.png";
 import kioskModelPro from "@/assets/kiosk-model-pro.png";
+import campaignTool from "@/assets/campaign-tool-placeholder.svg";
+import webPanel from "@/assets/web-panel-placeholder.svg";
+import desktopApp from "@/assets/desktop-app-placeholder.svg";
+import apiProduct from "@/assets/api-placeholder.svg";
 
-const workflow = [
-  { number: "01", title: "Create", text: "Build the visual experience." },
-  { number: "02", title: "Publish", text: "Launch it on web or kiosk." },
-  { number: "03", title: "Manage", text: "Control every active experience." },
-  { number: "04", title: "Deliver", text: "Send the finished content." },
+const products = [
+  {
+    name: "Kiosk Systems",
+    label: "On-location self-service",
+    text: "A physical ZoomSelfie experience people can use where the moment happens.",
+    to: "/kiosk",
+    image: kioskModelPro,
+    icon: ScanFace,
+    fit: "contain" as const,
+    dark: true,
+  },
+  {
+    name: "Campaign Tool",
+    label: "Create and publish",
+    text: "Build a branded photo or video journey and make it available on the web, a kiosk or both.",
+    to: "/products/campaign-tool",
+    image: campaignTool,
+    icon: PanelsTopLeft,
+    fit: "cover" as const,
+  },
+  {
+    name: "Web Panel",
+    label: "Manage and organise",
+    text: "Keep campaigns, kiosks, templates, teams and usage visible in one web workspace.",
+    to: "/products/web-panel",
+    image: webPanel,
+    icon: LayoutDashboard,
+    fit: "cover" as const,
+    dark: true,
+  },
+  {
+    name: "Desktop App",
+    label: "Professional workflow",
+    text: "Produce larger sets of personalized photo and video content through a focused desktop flow.",
+    to: "/products/desktop-app",
+    image: desktopApp,
+    icon: Monitor,
+    fit: "cover" as const,
+    dark: true,
+  },
+  {
+    name: "API",
+    label: "Integrated creation",
+    text: "Bring ZoomSelfie creation into an existing app, platform or digital customer journey.",
+    to: "/products/api",
+    image: apiProduct,
+    icon: Code2,
+    fit: "cover" as const,
+  },
 ];
+
+const decisionRows = [
+  ["I need a physical experience", "Kiosk Systems", "/kiosk"],
+  ["I want to launch a branded web journey", "Campaign Tool", "/products/campaign-tool"],
+  ["I manage content, kiosks or campaigns", "Web Panel", "/products/web-panel"],
+  ["I process larger sets of photos", "Desktop App", "/products/desktop-app"],
+  ["I want ZoomSelfie inside my product", "API", "/products/api"],
+] as const;
 
 export default function Products() {
   const reduceMotion = useReducedMotion();
   const reveal = (delay = 0) => ({
-    initial: reduceMotion ? false : { opacity: 0, y: 26 },
+    initial: reduceMotion ? false : { opacity: 1, y: 24 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, amount: .15 },
-    transition: { duration: .65, delay },
+    viewport: { once: true, margin: "-70px" },
+    transition: { duration: .65, delay, ease: [0.22, 1, 0.36, 1] as const },
   });
 
   return (
-    <div className="products-page overflow-hidden bg-white text-zinc-950">
-      <section className="products-screen relative flex min-h-[100svh] items-center overflow-hidden bg-primary pb-14 pt-24 sm:pt-28 lg:pb-20">
-        <div className="absolute -left-36 top-16 h-[30rem] w-[30rem] rounded-full bg-white/30 blur-3xl" />
-        <div className="absolute -bottom-32 right-0 h-[34rem] w-[34rem] rounded-full bg-orange-500/25 blur-3xl" />
-        <div className="container-page relative z-10 grid w-full items-center gap-14 lg:grid-cols-[.82fr_1.18fr]">
-          <motion.div initial={reduceMotion ? false : { opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .75 }} className="max-w-3xl">
-            <p className="text-xs font-black uppercase tracking-[.22em]">ZoomSelfie products</p>
-            <h1 className="mt-6 text-6xl font-extrabold leading-[.9] tracking-[-.075em] sm:text-7xl lg:text-[6.4rem]">One experience.<br />Every way to launch it.</h1>
-            <p className="mt-6 max-w-xl text-base leading-7 text-black/60 sm:text-lg">From a physical kiosk to a web campaign or an API inside your own product—choose where the ZoomSelfie journey begins.</p>
-            <div className="mt-9 flex flex-wrap gap-3"><Button asChild size="lg" className="h-13 rounded-full bg-black px-8 text-white hover:bg-zinc-800"><a href="#product-family">Explore products <ArrowDown className="ml-2 h-4 w-4" /></a></Button><Button asChild variant="outline" size="lg" className="h-13 rounded-full border-black/25 bg-transparent px-8 hover:bg-black hover:text-white"><Link to="/book-demo">Find your setup</Link></Button></div>
+    <div className="products-page bg-white text-zinc-950">
+      <section className="premium-grain product-screen flex items-center overflow-hidden bg-primary pb-10 pt-24 md:pt-28">
+        <div className="container-page grid w-full items-center gap-12 lg:grid-cols-[.9fr_1.1fr]">
+          <motion.div {...reveal()} className="relative z-10 max-w-3xl">
+            <p className="text-xs font-black uppercase tracking-[.22em] text-black/55">The ZoomSelfie product family</p>
+            <h1 className="mt-6 text-[clamp(3.5rem,6.5vw,7rem)] font-extrabold leading-[.88] tracking-[-.07em]">One idea. Five ways to bring it to life.</h1>
+            <p className="mt-7 max-w-xl text-base leading-7 text-black/65 sm:text-lg">Start with a kiosk, publish a campaign, manage the setup, work through a desktop flow or integrate ZoomSelfie into another product.</p>
+            <div className="mt-9 flex flex-wrap gap-3">
+              <Button asChild size="lg" className="h-13 rounded-full bg-black px-8 text-white hover:bg-zinc-800"><a href="#product-family">Explore the family <ArrowDown className="ml-2 h-4 w-4" /></a></Button>
+              <Button asChild size="lg" variant="outline" className="h-13 rounded-full border-black/25 bg-transparent px-8 hover:bg-white"><Link to="/contact">Discuss your setup</Link></Button>
+            </div>
           </motion.div>
 
-          <motion.div initial={reduceMotion ? false : { opacity: 0, scale: .95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .8, delay: .1 }} className="relative mx-auto h-[480px] w-full max-w-[690px] sm:h-[590px]">
-            <div className="absolute left-[4%] top-[12%] h-[64%] w-[82%] rotate-[-3deg] overflow-hidden rounded-[2rem] border-[6px] border-zinc-950 bg-zinc-950 p-2 shadow-2xl"><Image src={appDashboard} alt="ZoomSelfie Web Panel" className="h-full w-full rounded-[1.45rem] object-cover object-top" /></div>
-            <div className="absolute bottom-[2%] right-[1%] h-[45%] w-[58%] rotate-[4deg] overflow-hidden rounded-[1.75rem] border-[6px] border-white bg-white shadow-2xl"><Image src={prodPlatform} alt="ZoomSelfie Campaign Tool" className="h-full w-full object-cover object-top" /></div>
-            <div className="absolute bottom-[2%] left-[2%] h-[43%] w-[28%] rotate-[-5deg] overflow-hidden rounded-[1.7rem] bg-zinc-950 shadow-2xl"><Image src={kioskModelPro} alt="ZoomSelfie Kiosk" className="h-full w-full object-contain p-2" /></div>
-          </motion.div>
-        </div>
-      </section>
-
-      <section id="product-family" className="products-screen relative flex min-h-[100svh] items-center overflow-hidden bg-zinc-950 py-20 text-white lg:py-24">
-        <Image src={kioskParis} alt="ZoomSelfie kiosk installation" sizes="100vw" className="absolute inset-0 h-full w-full object-cover opacity-62" />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,.96),rgba(0,0,0,.72)_48%,rgba(0,0,0,.18))]" />
-        <div className="container-page relative z-10 w-full">
-          <motion.div {...reveal()} className="max-w-2xl">
-            <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[.2em] text-primary"><span className="grid h-11 w-11 place-items-center rounded-full bg-primary text-black"><ScanFace className="h-5 w-5" /></span>Physical product · For sale</div>
-            <h2 className="mt-7 text-5xl font-extrabold leading-[.96] tracking-[-.06em] sm:text-7xl">ZoomSelfie Kiosk</h2>
-            <p className="mt-6 max-w-xl text-base leading-7 text-white/62 sm:text-lg">A complete self-service photo and video system configured around the venue, brand and visitor flow.</p>
-            <ul className="mt-7 space-y-3 text-sm font-semibold">{["Standard and Pro models", "Open-air or enclosed format", "Selectable finishes and optional features"].map((item) => <li key={item} className="flex items-center gap-3"><span className="grid h-6 w-6 place-items-center rounded-full bg-primary text-black"><Check className="h-3.5 w-3.5" /></span>{item}</li>)}</ul>
-            <div className="mt-9 flex flex-wrap gap-3"><Button asChild size="lg" className="h-13 rounded-full px-8"><Link to="/kiosk">Configure a kiosk <ArrowRight className="ml-2 h-4 w-4" /></Link></Button><Button asChild variant="outline" size="lg" className="h-13 rounded-full border-white/25 bg-black/20 px-8 text-white hover:bg-white hover:text-black"><Link to="/contact">Talk to sales</Link></Button></div>
+          <motion.div {...reveal(.08)} className="relative min-h-[440px] lg:min-h-[610px]">
+            <div className="premium-media frame-corners absolute left-[2%] top-[4%] h-[67%] w-[78%] -rotate-3 overflow-hidden rounded-[2.2rem] border-[7px] border-zinc-950 bg-zinc-950 p-2 shadow-2xl">
+              <Image src={webPanel} alt="ZoomSelfie Web Panel" priority sizes="(max-width:1024px) 90vw, 45vw" className="h-full w-full rounded-[1.55rem] object-cover object-top" />
+              <span className="interface-scan absolute inset-x-6 top-1/2 z-20 h-px bg-gradient-to-r from-transparent via-primary/70 to-transparent" />
+            </div>
+            <div className="premium-media absolute bottom-[2%] right-[1%] h-[49%] w-[58%] rotate-3 overflow-hidden rounded-[2rem] border-[7px] border-white bg-white shadow-2xl">
+              <Image src={kioskModelPro} alt="ZoomSelfie kiosk" priority sizes="(max-width:1024px) 55vw, 28vw" className="h-full w-full object-contain p-4" />
+            </div>
           </motion.div>
         </div>
       </section>
 
-      <section className="bg-[#f3f1ec] py-20 sm:py-24 lg:py-28">
+      <section id="product-family" className="py-20 lg:py-24">
         <div className="container-page">
-          <motion.div {...reveal()} className="grid gap-8 lg:grid-cols-[1fr_.7fr] lg:items-end"><div><p className="text-xs font-bold uppercase tracking-[.2em] text-primary">Create and operate</p><h2 className="mt-5 text-5xl font-extrabold leading-[.98] tracking-[-.06em] sm:text-7xl">The software behind every experience.</h2></div><p className="max-w-lg text-base leading-7 text-zinc-600 lg:justify-self-end">Build the campaign in one place, then manage every published experience from another.</p></motion.div>
+          <motion.div {...reveal()} className="max-w-4xl">
+            <p className="text-xs font-black uppercase tracking-[.22em] text-amber-600">Choose a starting point</p>
+            <h2 className="mt-5 text-[clamp(2.8rem,5vw,5.6rem)] font-extrabold leading-[.94] tracking-[-.065em]">Each product has one clear job.</h2>
+          </motion.div>
 
           <div className="mt-12 grid gap-5 lg:grid-cols-2">
-            <motion.article id="campaign-tool" {...reveal()} className="overflow-hidden rounded-[2.25rem] bg-white shadow-[0_25px_75px_-55px_rgba(0,0,0,.55)]">
-              <div className="relative h-[430px] overflow-hidden bg-zinc-100"><Image src={prodPlatform} alt="ZoomSelfie Campaign Tool" className="h-full w-full object-cover object-top transition-transform duration-700 hover:scale-[1.025]" /></div>
-              <div className="p-7 sm:p-9"><div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[.18em] text-primary"><PanelsTopLeft className="h-5 w-5" />Create and publish</div><h3 className="mt-5 text-3xl font-extrabold">Campaign Tool</h3><p className="mt-4 max-w-xl text-sm leading-7 text-zinc-600">Build a branded photo-to-video campaign and publish it on the web, a kiosk or both.</p><Link to="/book-demo" className="mt-7 inline-flex items-center gap-2 text-sm font-bold">Explore Campaign Tool <ArrowRight className="h-4 w-4 text-primary" /></Link></div>
-            </motion.article>
-
-            <motion.article id="web-panel" {...reveal(.08)} className="overflow-hidden rounded-[2.25rem] bg-zinc-950 text-white shadow-[0_25px_75px_-55px_rgba(0,0,0,.7)]">
-              <div className="relative h-[430px] overflow-hidden p-3"><Image src={appDashboard} alt="ZoomSelfie Web Panel" className="h-full w-full rounded-[1.55rem] object-cover object-top transition-transform duration-700 hover:scale-[1.025]" /></div>
-              <div className="p-7 sm:p-9"><div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[.18em] text-primary"><LayoutDashboard className="h-5 w-5" />Manage and measure</div><h3 className="mt-5 text-3xl font-extrabold">Web Panel</h3><p className="mt-4 max-w-xl text-sm leading-7 text-white/52">Control campaigns, kiosks, templates, usage and credits from one clear workspace.</p><Link to="/book-demo" className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-primary">Explore Web Panel <ArrowRight className="h-4 w-4" /></Link></div>
-            </motion.article>
+            {products.map((product, index) => (
+              <motion.article key={product.name} {...reveal(index * .05)} className={`premium-card group overflow-hidden rounded-[2.2rem] border border-black/8 ${product.dark ? "bg-zinc-950 text-white" : "bg-[#f7f7f5]"} ${index === 0 ? "lg:col-span-2 lg:grid lg:grid-cols-[.8fr_1.2fr]" : ""}`}>
+                <div className={`premium-media relative overflow-hidden ${index === 0 ? "min-h-[390px] lg:min-h-[540px]" : "h-[330px]"} ${product.fit === "contain" ? "bg-[#f1eee7]" : "bg-zinc-900"}`}>
+                  <Image src={product.image} alt={`${product.name} preview`} sizes={index === 0 ? "(max-width:1024px) 100vw, 55vw" : "(max-width:1024px) 100vw, 50vw"} className={product.fit === "contain" ? "h-full w-full object-contain p-7 sm:p-12" : "h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.025]"} />
+                </div>
+                <div className={`flex flex-col p-7 sm:p-9 ${index === 0 ? "justify-center sm:p-12" : "min-h-[290px]"}`}>
+                  <span className={`grid h-12 w-12 place-items-center rounded-full ${product.dark ? "bg-primary text-black" : "bg-black text-white"}`}><product.icon className="h-5 w-5" /></span>
+                  <p className={`mt-8 text-[10px] font-black uppercase tracking-[.2em] ${product.dark ? "text-primary" : "text-amber-600"}`}>{product.label}</p>
+                  <h3 className="mt-3 text-3xl font-extrabold tracking-[-.045em] sm:text-4xl">{product.name}</h3>
+                  <p className={`mt-4 max-w-xl text-sm leading-7 ${product.dark ? "text-white/52" : "text-black/58"}`}>{product.text}</p>
+                  <Link to={product.to} className={`mt-8 inline-flex items-center gap-2 text-sm font-bold ${product.dark ? "text-primary" : "text-zinc-950"}`}>Explore {product.name} <ArrowRight className="h-4 w-4" /></Link>
+                </div>
+              </motion.article>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-white py-20 sm:py-24 lg:py-28">
-        <div className="container-page">
-          <motion.div {...reveal()} className="max-w-4xl"><p className="text-xs font-bold uppercase tracking-[.2em] text-primary">Professional and embedded</p><h2 className="mt-5 text-5xl font-extrabold leading-[.98] tracking-[-.06em] sm:text-7xl">For teams that need more control.</h2></motion.div>
-          <div className="mt-12 grid gap-5 lg:grid-cols-[1.08fr_.92fr]">
-            <motion.article id="desktop-app" {...reveal()} className="group relative min-h-[620px] overflow-hidden rounded-[2.25rem] bg-zinc-950 text-white"><Image src={prodDesktopApp} alt="ZoomSelfie Desktop App" className="absolute inset-0 h-full w-full object-cover opacity-75 transition-transform duration-700 group-hover:scale-105" /><div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" /><div className="absolute inset-x-0 bottom-0 p-8 sm:p-10"><span className="grid h-11 w-11 place-items-center rounded-full bg-primary text-black"><Monitor className="h-5 w-5" /></span><p className="mt-7 text-xs font-bold uppercase tracking-[.18em] text-primary">For photographers and event teams</p><h3 className="mt-3 text-4xl font-extrabold">Desktop App</h3><p className="mt-4 max-w-xl text-sm leading-7 text-white/58">Create larger sets of personalized photo and video content through an efficient desktop workflow.</p></div></motion.article>
-            <motion.article id="api" {...reveal(.08)} className="group relative min-h-[620px] overflow-hidden rounded-[2.25rem] bg-primary"><Image src={prodDeveloperApi} alt="ZoomSelfie API" className="absolute inset-x-0 top-0 h-[58%] w-full object-cover object-top mix-blend-multiply transition-transform duration-700 group-hover:scale-105" /><div className="absolute inset-x-0 bottom-0 p-8 sm:p-10"><span className="grid h-11 w-11 place-items-center rounded-full bg-black text-white"><Code2 className="h-5 w-5" /></span><p className="mt-7 text-xs font-bold uppercase tracking-[.18em]">Inside your own product</p><h3 className="mt-3 text-4xl font-extrabold">ZoomSelfie API</h3><p className="mt-4 max-w-xl text-sm leading-7 text-black/58">Connect ZoomSelfie creation to your app, booking flow, loyalty platform or digital service.</p></div></motion.article>
+      <section className="product-screen flex items-center bg-[#f6f1e7] py-20 lg:py-24">
+        <div className="container-page grid w-full items-start gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20">
+          <motion.div {...reveal()}>
+            <p className="text-xs font-black uppercase tracking-[.22em] text-amber-600">Find your direction</p>
+            <h2 className="mt-5 text-[clamp(2.8rem,4.6vw,5rem)] font-extrabold leading-[.96] tracking-[-.06em]">Start with what you need to do.</h2>
+            <p className="mt-6 max-w-md text-base leading-7 text-black/58">The products can work independently or together. The right starting point depends on where the photo comes from and who controls the journey.</p>
+          </motion.div>
+          <div className="premium-card overflow-hidden rounded-[2rem] border border-black/8 bg-white">
+            {decisionRows.map(([need, product, to], index) => (
+              <Link key={need} to={to} className="group grid gap-2 border-b border-black/8 px-6 py-6 last:border-0 sm:grid-cols-[44px_1fr_auto] sm:items-center sm:gap-5 sm:px-8">
+                <span className="text-sm font-extrabold text-black/30">0{index + 1}</span>
+                <span><span className="block text-sm font-bold">{need}</span><span className="mt-1 block text-xs text-black/42">Best starting point: {product}</span></span>
+                <ArrowRight className="hidden h-5 w-5 text-amber-600 transition-transform group-hover:translate-x-1 sm:block" />
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-zinc-950 py-20 text-white sm:py-24">
-        <div className="container-page">
-          <motion.div {...reveal()} className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{workflow.map((item) => <article key={item.number} className="flex min-h-56 flex-col rounded-[1.75rem] border border-white/10 bg-white/[.04] p-6"><span className="text-xs font-black text-primary">{item.number}</span><div className="mt-auto"><h3 className="text-2xl font-extrabold">{item.title}</h3><p className="mt-2 text-sm text-white/42">{item.text}</p></div></article>)}</motion.div>
+      <section className="product-screen flex items-center overflow-hidden bg-[#061014] py-20 text-white lg:py-24">
+        <div className="container-page grid w-full items-center gap-10 lg:grid-cols-[1.05fr_.95fr] lg:gap-20">
+          <motion.div {...reveal()}>
+            <p className="text-xs font-black uppercase tracking-[.22em] text-cyan-300">A different operating layer</p>
+            <h2 className="mt-5 text-[clamp(2.8rem,4.8vw,5.2rem)] font-extrabold leading-[.95] tracking-[-.06em]">When self-service becomes a complete photo operation.</h2>
+            <p className="mt-6 max-w-xl text-base leading-7 text-white/54">ZoomSelfie products create personalized content. PhotoSoft manages the wider attraction photography business, from professional capture and guest matching to sales, delivery and analysis.</p>
+            <Link to="/photosoft" className="mt-8 inline-flex items-center gap-2 text-sm font-bold text-cyan-300">Explore PhotoSoft <ArrowRight className="h-4 w-4" /></Link>
+          </motion.div>
+          <motion.div {...reveal(.08)} className="premium-card rounded-[2.2rem] border border-cyan-300/15 bg-cyan-300/[.06] p-8 sm:p-10">
+            <p className="text-xs font-black uppercase tracking-[.2em] text-cyan-300">The shortest distinction</p>
+            <p className="mt-8 text-3xl font-extrabold leading-[1.08] tracking-[-.045em]">ZoomSelfie helps a person create the content.</p>
+            <div className="my-7 h-px bg-white/10" />
+            <p className="text-3xl font-extrabold leading-[1.08] tracking-[-.045em] text-white/52">PhotoSoft manages the entire photography operation.</p>
+          </motion.div>
         </div>
       </section>
 
-      <section className="bg-cyan-300 py-16 text-zinc-950 sm:py-20">
-        <div className="container-page"><motion.div {...reveal()} className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center"><div><p className="text-xs font-black uppercase tracking-[.2em] text-cyan-900">A different photography operation</p><h2 className="mt-4 text-4xl font-extrabold tracking-[-.05em] sm:text-5xl">Attraction photography runs on PhotoSoft.</h2><p className="mt-4 max-w-2xl text-sm leading-7 text-zinc-700">Capture points, guest matching, POS sales, delivery and analytics for museums and attractions.</p></div><Button asChild size="lg" className="h-13 rounded-full bg-zinc-950 px-8 text-white hover:bg-cyan-900"><Link to="/photosoft">Explore PhotoSoft <ArrowRight className="ml-2 h-4 w-4" /></Link></Button></motion.div></div>
+      <section className="premium-grain bg-primary py-20 text-center sm:py-24">
+        <div className="container-page">
+          <motion.div {...reveal()} className="mx-auto max-w-4xl">
+            <p className="text-xs font-black uppercase tracking-[.22em] text-black/50">Not sure where to start?</p>
+            <h2 className="mt-5 text-[clamp(2.8rem,5vw,5.4rem)] font-extrabold leading-[.95] tracking-[-.06em]">Tell us what you want the audience to experience.</h2>
+            <Button asChild size="lg" className="mt-9 h-13 rounded-full bg-black px-8 text-white hover:bg-zinc-800"><Link to="/contact">Contact us <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
+          </motion.div>
+        </div>
       </section>
-
-      <section className="bg-primary py-20 sm:py-24"><div className="container-page text-center"><motion.div {...reveal()} className="mx-auto max-w-4xl"><p className="text-xs font-black uppercase tracking-[.2em]">Choose your starting point</p><h2 className="mt-5 text-5xl font-extrabold leading-[.98] tracking-[-.06em] sm:text-7xl">Let’s build the right ZoomSelfie setup.</h2><div className="mt-9 flex flex-wrap justify-center gap-3"><Button asChild size="lg" className="h-13 rounded-full bg-black px-8 text-white hover:bg-zinc-800"><Link to="/book-demo">Book a demo <ArrowRight className="ml-2 h-4 w-4" /></Link></Button><Button asChild variant="outline" size="lg" className="h-13 rounded-full border-black/25 bg-transparent px-8 hover:bg-black hover:text-white"><Link to="/contact">Contact sales</Link></Button></div></motion.div></div></section>
     </div>
   );
 }

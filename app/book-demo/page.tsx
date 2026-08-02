@@ -1,12 +1,5 @@
-import BookDemo from "@/routes/book-demo";
-import { pageMetadata } from "@/lib/seo";
-
-export const metadata = pageMetadata({
-  title: "Book a Demo",
-  description: "Book a ZoomSelfie or PhotoSoft demo and find the right photo and video experience setup.",
-  path: "/book-demo",
-});
+import { redirect } from "next/navigation";
 
 export default function Page() {
-  return <BookDemo />;
+  redirect("/contact");
 }
