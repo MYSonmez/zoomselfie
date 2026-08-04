@@ -164,11 +164,11 @@ export default function PhotoSoft() {
   });
 
   return (
-    <div className="photosoft-page overflow-hidden bg-black text-white">
-      <section className="premium-grain photosoft-screen items-end overflow-hidden bg-black pt-24 pb-12 sm:pb-16 lg:pb-20">
+    <div className="photosoft-page overflow-x-clip bg-black text-white">
+      <section className="premium-grain photosoft-screen items-center overflow-hidden bg-black pb-8 pt-28 sm:pb-10 sm:pt-32 lg:pb-8 lg:pt-28">
         <SmartVideo
           src={heroVideo}
-          poster={heroKiosk.src}
+          poster={kioskStadium.src}
           eager
           autoPlay
           muted
@@ -176,25 +176,26 @@ export default function PhotoSoft() {
           playsInline
           className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.08)_35%,rgba(0,0,0,.88)_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,.45),transparent_58%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.28),rgba(0,0,0,.04)_38%,rgba(0,0,0,.88)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,.92)_0%,rgba(0,0,0,.72)_36%,rgba(0,0,0,.12)_76%,rgba(0,0,0,.42)_100%)]" />
+        <div className="absolute -bottom-32 -left-24 h-80 w-[34rem] rounded-full bg-cyan-300/15 blur-3xl" />
 
         <div className="container-page relative z-10 w-full">
           <motion.div
             initial={reduceMotion ? false : { opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="max-w-4xl"
+            className="max-w-[56rem]"
           >
-            <p className="text-xs font-bold uppercase tracking-[0.22em] text-cyan-300">The Operating System for Attraction Photography</p>
-            <h1 className="mt-5 max-w-6xl text-5xl font-extrabold leading-[.95] tracking-[-0.06em] sm:text-7xl lg:text-[6.2rem]">
+            <p className="inline-flex rounded-full border border-cyan-300/35 bg-black/35 px-4 py-2 text-[9px] font-bold uppercase tracking-[.2em] text-cyan-300 shadow-[0_0_30px_-10px_rgba(103,232,249,.65)] backdrop-blur-md sm:text-xs">The Operating System for Attraction Photography</p>
+            <h1 className="mt-6 max-w-[55rem] text-[clamp(3.15rem,5vw,5.45rem)] font-extrabold leading-[.92] tracking-[-0.06em]">
               From the moment it is captured<br />to the moment it is sold.
             </h1>
-            <p className="mt-6 max-w-2xl text-base leading-7 text-white/78 sm:text-xl sm:leading-8">
+            <p className="mt-6 max-w-[42rem] text-base leading-7 text-white/70 sm:text-lg sm:leading-8">
               Connect capture points, guest matching, automated content creation, personal galleries, kiosk, POS, online sales, delivery and analytics in one platform.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild size="lg" className="h-13 rounded-full bg-white px-7 text-base font-bold text-black hover:bg-cyan-200">
+              <Button asChild size="lg" className="h-13 rounded-full bg-cyan-300 px-8 text-base font-bold text-black hover:bg-white">
                 <Link to="/contact" hash="photosoft">Contact PhotoSoft <ArrowRight className="ml-2 h-4 w-4" /></Link>
               </Button>
               <a href="#journey" className="inline-flex h-13 items-center gap-2 rounded-full border border-white/35 bg-black/15 px-7 text-sm font-bold text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-black">

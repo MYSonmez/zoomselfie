@@ -7,9 +7,9 @@ const columns = [
     title: "Products",
     links: [
       { to: "/kiosk", label: "Kiosk Systems" },
-      { to: "/products/campaign-tool", label: "Campaign Tool" },
       { to: "/products/web-panel", label: "Web Panel" },
       { to: "/products/desktop-app", label: "Desktop App" },
+      { to: "/products/campaign-tool", label: "Campaign Tool" },
       { to: "/products/api", label: "API" },
     ],
   },

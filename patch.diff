@@ -1,0 +1,371 @@
+﻿diff --git a/src/components/site/Navbar.tsx b/src/components/site/Navbar.tsx
+index 811dccd..13cc104 100644
+--- a/src/components/site/Navbar.tsx
++++ b/src/components/site/Navbar.tsx
+@@ -63,6 +63,7 @@ export function Navbar() {
+   const [scrolled, setScrolled] = useState(false);
+   const [open, setOpen] = useState(false);
+   const [productsOpen, setProductsOpen] = useState(false);
++  const [, setProductsPinned] = useState(false);
+   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
+   const [languageOpen, setLanguageOpen] = useState(false);
+   const { locale, setLocale } = useI18n();
+@@ -85,6 +86,7 @@ export function Navbar() {
+   useEffect(() => {
+     setOpen(false);
+     setProductsOpen(false);
++    setProductsPinned(false);
+     setMobileProductsOpen(false);
+     setLanguageOpen(false);
+   }, [pathname]);
+@@ -137,11 +139,21 @@ export function Navbar() {
+         <nav className="hidden items-center gap-5 lg:flex xl:gap-7">
+           <Link to="/" hash="experience" className={desktopLinkClass()}>How It Works</Link>
+ 
+-          <div className="relative" onMouseEnter={() => setProductsOpen(true)} onMouseLeave={() => setProductsOpen(false)}>
++          <div
++            className="relative"
++            onMouseEnter={() => setProductsOpen(true)}
++            onMouseLeave={() => {
++              setProductsOpen(false);
++              setProductsPinned(false);
++            }}
++          >
+             <button
+               type="button"
+-              onClick={() => setProductsOpen((value) => !value)}
+-              onFocus={() => setProductsOpen(true)}
++              onClick={() => setProductsPinned((value) => {
++                const nextValue = !value;
++                setProductsOpen(nextValue);
++                return nextValue;
++              })}
+               aria-expanded={productsOpen}
+               className={cn(desktopLinkClass(), "flex items-center gap-1.5", productsActive && (isDarkTop ? "font-semibold text-white" : "font-semibold text-foreground"))}
+             >
+@@ -149,43 +161,50 @@ export function Navbar() {
+             </button>
+ 
+             <div className={cn(
+-              "absolute left-1/2 top-full w-[760px] -translate-x-1/2 pt-5 transition-all duration-300",
++              "absolute left-1/2 top-full w-[900px] max-w-[calc(100vw-2rem)] -translate-x-1/2 pt-5 transition-all duration-300",
+               productsOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-2 opacity-0",
+             )}>
+               <div className={cn(
+-                "premium-grain grid grid-cols-[1.08fr_.92fr] gap-3 overflow-hidden rounded-[2rem] border p-4 shadow-[0_30px_90px_-35px_rgba(0,0,0,.5)] backdrop-blur-xl",
+-                isPhotoSoft ? "border-white/10 bg-[#0b0e10]" : "border-border bg-white",
++                "premium-grain overflow-hidden rounded-[2.15rem] border p-3 shadow-[0_36px_100px_-38px_rgba(0,0,0,.58)] backdrop-blur-xl",
++                isPhotoSoft ? "border-white/10 bg-[#0b0e10]" : "border-black/8 bg-white",
+               )}>
+-                <Link to="/kiosk" onClick={() => setProductsOpen(false)} className="premium-media frame-corners group relative min-h-[350px] overflow-hidden rounded-[1.55rem] bg-zinc-950 text-white">
+-                  <div className="absolute -bottom-16 -right-12 h-72 w-72 rounded-full bg-primary/20 blur-3xl" />
+-                  <div className="absolute bottom-5 right-5 h-[76%] w-[40%] overflow-hidden rounded-[1.35rem] border border-white/10 bg-white shadow-[0_18px_45px_-20px_rgba(0,0,0,.7)]">
+-                    <Image src={kioskModelPro} alt="" sizes="180px" className="h-full w-full object-contain object-center p-3 transition-transform duration-500 group-hover:scale-[1.035]" />
++                <div className="flex items-center justify-between gap-5 px-3 pb-3 pt-1.5">
++                  <div>
++                    <p className={cn("text-[9px] font-black uppercase tracking-[.22em]", isPhotoSoft ? "text-cyan-300" : "text-amber-600")}>ZoomSelfie product ecosystem</p>
++                    <p className={cn("mt-1 text-xs", isPhotoSoft ? "text-white/38" : "text-zinc-500")}>Hardware and software for every way people create.</p>
+                   </div>
+-                  <div className="relative z-10 flex min-h-[350px] max-w-[52%] flex-col p-7 pr-0">
+-                    <span className="grid h-11 w-11 place-items-center rounded-full bg-primary text-black"><ScanFace className="h-5 w-5" /></span>
+-                    <div className="mt-auto">
+-                      <span className="inline-flex rounded-full bg-primary px-2.5 py-1 text-[8px] font-black uppercase tracking-[.12em] text-black">Kiosk for sale</span>
+-                      <h3 className="mt-3 text-[1.35rem] font-extrabold leading-[1.08]">Configure your kiosk system.</h3>
+-                      <p className="mt-3 text-[10px] leading-[1.65] text-white/48">Choose a model, format, finish and optional features.</p>
+-                      <span className="mt-5 inline-flex items-center gap-2 text-[11px] font-bold text-primary">Open configurator <span aria-hidden="true">ÔåÆ</span></span>
++                  <Link to="/products" onClick={() => setProductsOpen(false)} className={cn("shrink-0 text-xs font-bold", isPhotoSoft ? "text-cyan-300" : "text-zinc-950")}>View all products ÔåÆ</Link>
++                </div>
++
++                <div className="grid gap-3 lg:grid-cols-[.86fr_1.14fr]">
++                  <Link to="/kiosk" onClick={() => setProductsOpen(false)} className="premium-media frame-corners group relative overflow-hidden rounded-[1.65rem] bg-zinc-950 text-white">
++                    <div className="relative h-[218px] overflow-hidden bg-[radial-gradient(circle_at_50%_48%,#383838,transparent_65%)]">
++                      <div className="absolute inset-x-6 bottom-0 top-3 rounded-t-[1.5rem] bg-white/[.04] ring-1 ring-white/10" />
++                      <Image src={kioskModelPro} alt="ZoomSelfie kiosk system" sizes="320px" className="relative z-10 h-full w-full object-contain object-center p-4 transition-transform duration-700 group-hover:scale-[1.035]" />
++                      <span className="absolute left-5 top-5 z-20 rounded-full bg-primary px-3 py-1 text-[8px] font-black uppercase tracking-[.15em] text-black">Physical product</span>
+                     </div>
+-                  </div>
+-                </Link>
+-                <div className="flex flex-col">
+-                  <p className={cn("px-3 pb-2 pt-1 text-[9px] font-black uppercase tracking-[.2em]", isPhotoSoft ? "text-white/30" : "text-zinc-400")}>Software products</p>
+-                  <div className="grid gap-1">
++                    <div className="border-t border-white/10 p-5">
++                      <div className="flex items-start justify-between gap-4"><div><p className="text-[9px] font-black uppercase tracking-[.18em] text-primary">Kiosk Systems</p><h3 className="mt-2 text-xl font-extrabold tracking-[-.035em]">Choose, configure and own the experience.</h3></div><span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary text-black"><ScanFace className="h-4.5 w-4.5" /></span></div>
++                      <span className="mt-4 inline-flex items-center gap-2 text-[11px] font-bold text-primary">Open configurator <span aria-hidden="true">ÔåÆ</span></span>
++                    </div>
++                  </Link>
++
++                  <div className="grid grid-cols-2 gap-2.5">
+                     {productLinks.slice(1).map((item, index) => (
+-                      <Link key={`${item.label}-${index}`} to={item.to} hash={item.hash} onClick={() => setProductsOpen(false)} className={cn("group flex items-center gap-4 rounded-[1.15rem] p-3.5 transition-all", isPhotoSoft ? "text-white hover:bg-white/[.07]" : "text-zinc-950 hover:bg-zinc-100")}>
+-                        <span className={cn("grid h-10 w-10 shrink-0 place-items-center rounded-full transition-transform group-hover:scale-105", isPhotoSoft ? "bg-white/10 text-cyan-300" : "bg-accent text-primary")}><item.icon className="h-4.5 w-4.5" /></span>
+-                        <span className="min-w-0"><span className="block text-sm font-bold">{item.label}</span><span className={cn("mt-0.5 block truncate text-[10px]", isPhotoSoft ? "text-white/40" : "text-muted-foreground")}>{item.description}</span></span>
+-                        <span className={cn("ml-auto translate-x-1 text-sm opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100", isPhotoSoft ? "text-cyan-300" : "text-primary")}>ÔåÆ</span>
++                      <Link key={`${item.label}-${index}`} to={item.to} hash={item.hash} onClick={() => setProductsOpen(false)} className={cn("premium-card group flex min-h-[174px] flex-col rounded-[1.45rem] border p-4 transition-all", isPhotoSoft ? "border-white/10 bg-white/[.045] text-white hover:border-cyan-300/35" : "border-black/7 bg-[#f7f7f5] text-zinc-950 hover:border-primary/50")}>
++                        <div className="flex items-center justify-between gap-3">
++                          <span className={cn("grid h-10 w-10 place-items-center rounded-full transition-transform group-hover:scale-105", isPhotoSoft ? "bg-cyan-300 text-zinc-950" : "bg-primary text-zinc-950")}><item.icon className="h-4.5 w-4.5" /></span>
++                          <span className={cn("translate-x-1 text-sm opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100", isPhotoSoft ? "text-cyan-300" : "text-amber-600")}>ÔåÆ</span>
++                        </div>
++                        <div className="mt-auto"><h3 className="text-sm font-extrabold">{item.label}</h3><p className={cn("mt-1.5 text-[10px] leading-4", isPhotoSoft ? "text-white/40" : "text-zinc-500")}>{item.description}</p></div>
+                       </Link>
+                     ))}
+                   </div>
+-                  <div className={cn("mt-auto flex items-center justify-between border-t px-3 pt-3", isPhotoSoft ? "border-white/10" : "border-border")}>
+-                    <Link to="/products" onClick={() => setProductsOpen(false)} className={cn("text-xs font-bold", isPhotoSoft ? "text-cyan-300" : "text-primary")}>View all products ÔåÆ</Link>
+-                    <Link to="/contact" onClick={() => setProductsOpen(false)} className={cn("text-[10px] font-bold", isPhotoSoft ? "text-white/45" : "text-zinc-500")}>Discuss your setup</Link>
+-                  </div>
++                </div>
++
++                <div className={cn("mt-3 flex items-center justify-between gap-4 rounded-[1.2rem] border px-4 py-3", isPhotoSoft ? "border-white/10 bg-white/[.035]" : "border-black/7 bg-[#faf9f6]")}>
++                  <p className={cn("text-[10px]", isPhotoSoft ? "text-white/42" : "text-zinc-500")}><strong className={isPhotoSoft ? "text-white" : "text-zinc-950"}>Not sure where to begin?</strong> Start with what you want the audience or your team to do.</p>
++                  <Link to="/contact" onClick={() => setProductsOpen(false)} className={cn("shrink-0 text-[11px] font-bold", isPhotoSoft ? "text-cyan-300" : "text-amber-600")}>Discuss your setup ÔåÆ</Link>
+                 </div>
+               </div>
+             </div>
+diff --git a/src/routes/blog.tsx b/src/routes/blog.tsx
+index 5c39f75..11b6382 100644
+--- a/src/routes/blog.tsx
++++ b/src/routes/blog.tsx
+@@ -120,33 +120,33 @@ export default function Blog() {
+ 
+   return (
+     <div data-no-translate className="overflow-hidden bg-[#f4f0e8] text-zinc-950">
+-      <section className="relative min-h-[92svh] overflow-hidden pb-16 pt-28 sm:pt-32 lg:pb-20 lg:pt-36">
++      <section className="relative flex min-h-[100svh] items-center overflow-hidden pb-12 pt-24 sm:pt-28 lg:h-[100svh] lg:pb-10">
+         <div className="absolute inset-0 opacity-35 [background-image:linear-gradient(rgba(24,24,27,.055)_1px,transparent_1px),linear-gradient(90deg,rgba(24,24,27,.055)_1px,transparent_1px)] [background-size:48px_48px]" />
+         <div className="absolute -right-24 top-12 h-96 w-96 rounded-full bg-primary/24 blur-3xl" />
+-        <div className="container-page relative">
+-          <div className="grid gap-8 border-b border-black/15 pb-10 lg:grid-cols-[1fr_.7fr] lg:items-end">
++        <div className="container-page relative w-full">
++          <div className="grid gap-6 border-b border-black/15 pb-6 lg:grid-cols-[1fr_.7fr] lg:items-end">
+             <div>
+               <p className="text-xs font-black uppercase tracking-[.24em] text-amber-600">{copy.eyebrow}</p>
+-              <h1 className="mt-5 max-w-4xl text-5xl font-extrabold leading-[.94] tracking-[-.065em] sm:text-7xl lg:text-[5.75rem]">{copy.title}</h1>
++              <h1 className="mt-4 max-w-4xl text-[clamp(3.2rem,4.8vw,5rem)] font-extrabold leading-[.92] tracking-[-.065em]">{copy.title}</h1>
+             </div>
+             <p className="max-w-xl text-base leading-7 text-zinc-600 lg:justify-self-end lg:text-lg">{copy.intro}</p>
+           </div>
+ 
+-          <Link to={`/blog/${selectedLocale}/${featured.slug}`} className="group mt-8 grid overflow-hidden rounded-[2rem] bg-zinc-950 text-white shadow-[0_32px_90px_-48px_rgba(0,0,0,.8)] lg:grid-cols-[1.18fr_.82fr]">
+-            <div className="relative min-h-[360px] overflow-hidden sm:min-h-[470px] lg:min-h-[520px]">
++          <Link to={`/blog/${selectedLocale}/${featured.slug}`} className="premium-media group mt-6 grid overflow-hidden rounded-[2rem] bg-zinc-950 text-white shadow-[0_32px_90px_-48px_rgba(0,0,0,.8)] lg:h-[clamp(360px,44svh,480px)] lg:grid-cols-[1.18fr_.82fr]">
++            <div className="relative min-h-[340px] overflow-hidden sm:min-h-[420px] lg:min-h-0">
+               <Image src={featured.image} alt={featured.imageAlt} priority sizes="(max-width: 1024px) 100vw, 60vw" className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.025]" />
+               <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/10 lg:bg-gradient-to-r lg:from-transparent lg:to-black/10" />
+             </div>
+-            <div className="relative flex min-h-[360px] flex-col p-7 sm:p-10 lg:p-12">
++            <div className="relative flex min-h-[340px] flex-col p-7 sm:min-h-[380px] sm:p-9 lg:min-h-0 lg:p-10">
+               <div className="absolute right-8 top-8 h-3 w-3 rounded-full bg-primary shadow-[0_0_0_8px_rgba(255,184,0,.13)]" />
+               <p className="text-[10px] font-black uppercase tracking-[.24em] text-primary">{copy.featured}</p>
+               <div className="mt-auto">
+                 <div className="flex flex-wrap items-center gap-3 text-[11px] font-bold uppercase tracking-[.14em] text-white/45">
+                   <span>{categoryLabels[selectedLocale][featured.category]}</span><span className="h-1 w-1 rounded-full bg-white/25" /><span>{formatDate(featured.publishedAt, selectedLocale)}</span>
+                 </div>
+-                <h2 className="mt-5 text-3xl font-extrabold leading-[1.04] tracking-[-.045em] sm:text-4xl lg:text-5xl">{featured.title}</h2>
+-                <p className="mt-5 max-w-xl text-sm leading-7 text-white/62 sm:text-base">{featured.excerpt}</p>
+-                <span className="mt-8 inline-flex items-center gap-2 text-sm font-bold text-primary">{copy.readStory}<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
++                <h2 className="mt-4 text-3xl font-extrabold leading-[1.04] tracking-[-.045em] sm:text-4xl lg:text-[2.65rem]">{featured.title}</h2>
++                <p className="mt-4 max-w-xl text-sm leading-6 text-white/62 sm:text-base">{featured.excerpt}</p>
++                <span className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-primary">{copy.readStory}<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+               </div>
+             </div>
+           </Link>
+diff --git a/src/routes/gallery.tsx b/src/routes/gallery.tsx
+index 981f1c8..cc7615d 100644
+--- a/src/routes/gallery.tsx
++++ b/src/routes/gallery.tsx
+@@ -96,25 +96,25 @@ export default function Gallery() {
+ 
+   return (
+     <div className="gallery-page overflow-hidden bg-[#f2f0ea] text-zinc-950">
+-      <section className="premium-grain relative flex min-h-[100svh] items-center overflow-hidden bg-primary pb-14 pt-24 sm:pt-28 lg:pb-20">
++      <section className="premium-grain relative flex min-h-[100svh] items-center overflow-hidden bg-primary pb-12 pt-24 sm:pt-28 lg:pb-14">
+         <div className="absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-white/25 blur-3xl" />
+         <div className="absolute -right-24 bottom-0 h-[30rem] w-[30rem] rounded-full bg-orange-500/25 blur-3xl" />
+-        <div className="container-page relative z-10 grid w-full items-center gap-14 lg:grid-cols-[.82fr_1.18fr] lg:gap-10">
+-          <motion.div initial={reduceMotion ? false : { opacity: 1, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .65 }} className="max-w-2xl">
++        <div className="container-page relative z-10 grid w-full items-center gap-10 lg:grid-cols-2 lg:gap-8">
++          <motion.div initial={reduceMotion ? false : { opacity: 1, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .65 }} className="relative z-20 max-w-[42rem]">
+             <p className="text-xs font-black uppercase tracking-[.24em]">ZoomSelfie gallery</p>
+-            <h1 className="mt-6 text-6xl font-extrabold leading-[.9] tracking-[-.075em] sm:text-7xl lg:text-[6.5rem]">See what a moment can become.</h1>
++            <h1 className="mt-6 break-words text-[clamp(3.5rem,5vw,5.55rem)] font-extrabold leading-[.88] tracking-[-.075em]">See what a moment can become.</h1>
+             <div className="mt-9 flex flex-wrap gap-3">
+               <a href="#photos" className="inline-flex h-12 items-center gap-2 rounded-full bg-black px-7 text-sm font-bold text-white transition hover:bg-zinc-800">Photos <ArrowDown className="h-4 w-4" /></a>
+               <a href="#videos" className="inline-flex h-12 items-center gap-2 rounded-full border border-black/25 px-7 text-sm font-bold transition hover:bg-black hover:text-white">Videos <Play className="h-4 w-4" /></a>
+             </div>
+           </motion.div>
+ 
+-          <motion.div initial={reduceMotion ? false : { opacity: 1, scale: .97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .75, delay: .05 }} className="relative mx-auto h-[500px] w-full max-w-[680px] sm:h-[610px]">
+-            <div className="ambient-orbit absolute left-1/2 top-1/2 h-[88%] w-[88%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-black/15" />
+-            <div className="premium-media ambient-drift absolute left-[2%] top-[12%] h-[58%] w-[42%] rotate-[-5deg] overflow-hidden rounded-[1.8rem] border-[6px] border-white bg-white shadow-2xl"><Image src={galleryParisCouple} alt="ZoomSelfie photo example" className="h-full w-full object-cover" /></div>
+-            <div className="premium-media absolute right-[2%] top-[2%] h-[45%] w-[46%] rotate-[4deg] overflow-hidden rounded-[1.8rem] border-[6px] border-white bg-white shadow-2xl"><Image src={galleryIstanbulGroup} alt="ZoomSelfie photo example" className="h-full w-full object-cover" /></div>
+-            <div className="premium-media absolute bottom-[2%] right-[9%] h-[48%] w-[47%] rotate-[-2deg] overflow-hidden rounded-[1.8rem] border-[6px] border-white bg-white shadow-2xl"><Image src={galleryCruiseSunset} alt="ZoomSelfie photo example" className="h-full w-full object-cover" /></div>
+-            <div className="premium-media ambient-drift absolute bottom-[5%] left-[12%] h-[32%] w-[30%] rotate-[6deg] overflow-hidden rounded-[1.5rem] border-[5px] border-white bg-white shadow-2xl [animation-delay:-2s]"><Image src={gallerySkiSolo} alt="ZoomSelfie photo example" className="h-full w-full object-cover" /></div>
++          <motion.div initial={reduceMotion ? false : { opacity: 1, scale: .97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .75, delay: .05 }} className="relative mx-auto h-[min(62svh,610px)] min-h-[430px] w-full max-w-[720px]">
++            <div className="ambient-orbit absolute left-1/2 top-1/2 h-[82%] w-[82%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-black/15" />
++            <div className="premium-media ambient-drift absolute left-[3%] top-[16%] z-20 h-[58%] w-[39%] rotate-[-5deg] overflow-hidden rounded-[1.8rem] border-[6px] border-white bg-white shadow-2xl"><Image src={galleryParisCouple} alt="ZoomSelfie photo example" className="h-full w-full object-cover" /></div>
++            <div className="premium-media absolute right-[3%] top-[4%] z-10 h-[54%] w-[55%] rotate-[3deg] overflow-hidden rounded-[1.8rem] border-[6px] border-white bg-white shadow-2xl"><Image src={galleryIstanbulGroup} alt="ZoomSelfie photo example" className="h-full w-full object-cover" /></div>
++            <div className="premium-media absolute bottom-[4%] right-[8%] z-30 h-[43%] w-[52%] rotate-[-2deg] overflow-hidden rounded-[1.8rem] border-[6px] border-white bg-white shadow-2xl"><Image src={galleryCruiseSunset} alt="ZoomSelfie photo example" className="h-full w-full object-cover" /></div>
++            <div className="premium-media ambient-drift absolute bottom-[7%] left-[18%] z-40 h-[27%] w-[24%] rotate-[6deg] overflow-hidden rounded-[1.4rem] border-[5px] border-white bg-white shadow-2xl [animation-delay:-2s]"><Image src={gallerySkiSolo} alt="ZoomSelfie photo example" className="h-full w-full object-cover" /></div>
+           </motion.div>
+         </div>
+       </section>
+diff --git a/src/routes/index.tsx b/src/routes/index.tsx
+index d87bccd..6c5bca8 100644
+--- a/src/routes/index.tsx
++++ b/src/routes/index.tsx
+@@ -424,9 +424,9 @@ export default function Home() {
+             {journal.posts.map((post, index) => {
+               const images = [galleryIstanbul, kioskParis, appDashboard];
+               return (
+-                <motion.article key={post.slug} {...reveal(index * .06)} className={`group ${index === 0 ? "lg:col-span-5" : index === 1 ? "lg:col-span-3" : "lg:col-span-4"}`}>
++                <motion.article key={post.slug} {...reveal(index * .06)} className="group lg:col-span-4">
+                   <Link to={`/blog/${locale}/${post.slug}`} className="block">
+-                    <div className={`premium-media relative overflow-hidden rounded-[1.75rem] bg-zinc-900 ${index === 1 ? "min-h-[300px] lg:min-h-[350px]" : "min-h-[340px] lg:min-h-[410px]"}`}>
++                    <div className="premium-media relative min-h-[340px] overflow-hidden rounded-[1.75rem] bg-zinc-900 lg:min-h-[410px]">
+                       <Image src={images[index]} alt="" loading="lazy" sizes="(max-width: 1024px) 100vw, 40vw" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+                       <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/5 to-black/5" />
+                       <div className="absolute inset-x-0 bottom-0 p-6 text-white sm:p-7"><p className="text-[9px] font-black uppercase tracking-[.18em] text-primary">0{index + 1} ┬À {journal.read}</p><h3 className="mt-3 text-xl font-extrabold leading-[1.1] sm:text-2xl">{post.title}</h3><p className="mt-3 text-xs leading-5 text-white/60">{post.excerpt}</p></div>
+diff --git a/src/routes/solutions.tsx b/src/routes/solutions.tsx
+index f829371..5efc41a 100644
+--- a/src/routes/solutions.tsx
++++ b/src/routes/solutions.tsx
+@@ -24,6 +24,7 @@ import galleryStadium from "@/assets/gallery-stadium-friends.png";
+ import galleryAquarium from "@/assets/gallery-aquarium-family.png";
+ import galleryParis from "@/assets/gallery-paris-couple.png";
+ import desktopApp from "@/assets/desktop-app-placeholder.svg";
++import { useState } from "react";
+ 
+ const sharedBenefits = [
+   { icon: Users, title: "More participation", text: "Give people an active role instead of another screen to passively watch." },
+@@ -97,6 +98,7 @@ const groups = [
+ 
+ export default function Solutions() {
+   const reduceMotion = useReducedMotion();
++  const [activeGroup, setActiveGroup] = useState<(typeof groups)[number]["id"]>("destinations");
+   const reveal = (delay = 0) => ({
+     initial: reduceMotion ? false : { opacity: 1, y: 24 },
+     whileInView: { opacity: 1, y: 0 },
+@@ -106,16 +108,16 @@ export default function Solutions() {
+ 
+   return (
+     <div className="solutions-page bg-white text-zinc-950">
+-      <section className="premium-grain solutions-hero product-screen relative isolate flex items-end overflow-hidden bg-black pb-14 pt-28 text-white sm:pb-18 lg:pb-20">
++      <section className="premium-grain solutions-hero relative isolate flex min-h-[100svh] items-end overflow-hidden bg-black pb-12 pt-24 text-white sm:pt-28 lg:h-[100svh] lg:pb-14">
+         <Image src={galleryAquarium} alt="A family creating a ZoomSelfie experience" priority sizes="100vw" className="absolute inset-0 -z-30 h-full w-full object-cover object-center" />
+         <div className="absolute inset-0 -z-20 bg-gradient-to-r from-black via-black/62 to-black/18" />
+         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/80 via-transparent to-black/15" />
+         <div className="container-page w-full">
+-          <motion.div {...reveal()} className="max-w-4xl">
++          <motion.div {...reveal()} className="max-w-[72rem]">
+             <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/25 px-4 py-2 text-[10px] font-black uppercase tracking-[.2em] backdrop-blur"><Sparkles className="h-3.5 w-3.5 text-primary" /> Solutions for the teams behind the experience</div>
+-            <h1 className="mt-7 text-[clamp(3.5rem,7vw,7.5rem)] font-extrabold leading-[.87] tracking-[-.07em]">A better moment for people. More value for the business.</h1>
++            <h1 className="mt-6 max-w-[68rem] text-[clamp(3.35rem,5.8vw,6.15rem)] font-extrabold leading-[.88] tracking-[-.07em]">A better moment for people. More value for the business.</h1>
+             <p className="mt-7 max-w-2xl text-base leading-7 text-white/68 sm:text-lg sm:leading-8">ZoomSelfie helps organisations turn a location, campaign or creative service into personal content people want to keep and share.</p>
+-            <div className="mt-9 flex flex-wrap gap-3"><Button asChild size="lg" className="h-13 rounded-full px-8"><a href="#business-value">See the business value <ArrowDown className="ml-2 h-4 w-4" /></a></Button><Button asChild size="lg" variant="outline" className="h-13 rounded-full border-white/25 bg-black/15 px-8 text-white hover:bg-white hover:text-black"><Link to="/contact">Discuss your use case</Link></Button></div>
++            <div className="mt-8 flex flex-wrap gap-3"><Button asChild size="lg" className="h-13 rounded-full px-8"><a href="#audience-explorer">Explore your audience <ArrowDown className="ml-2 h-4 w-4" /></a></Button><Button asChild size="lg" variant="outline" className="h-13 rounded-full border-white/25 bg-black/15 px-8 text-white hover:bg-white hover:text-black"><Link to="/contact">Discuss your use case</Link></Button></div>
+           </motion.div>
+         </div>
+       </section>
+@@ -129,30 +131,59 @@ export default function Solutions() {
+         </div>
+       </section>
+ 
+-      {groups.map((group, index) => (
+-        <section key={group.id} id={group.id} className={`product-screen flex items-center py-20 lg:py-24 ${index % 2 === 0 ? "bg-white" : "bg-zinc-950 text-white"}`}>
+-          <div className={`container-page grid w-full items-center gap-10 lg:grid-cols-2 lg:gap-16 ${index % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""}`}>
+-            <motion.div {...reveal()} className={`premium-media frame-corners relative min-h-[430px] overflow-hidden rounded-[2.4rem] ${group.id === "photographers" ? "bg-[#101114]" : "bg-zinc-900"}`}>
+-              <Image src={group.image} alt={group.alt} sizes="(max-width:1024px) 100vw, 50vw" className={group.id === "photographers" ? "h-full w-full object-cover object-center" : "h-full w-full object-cover object-center transition-transform duration-700 hover:scale-[1.025]"} />
+-              <div className="absolute inset-0 bg-gradient-to-t from-black/64 via-transparent to-transparent" />
+-              <p className="absolute bottom-7 left-7 right-7 text-xs font-bold uppercase tracking-[.15em] text-white/72">{group.examples}</p>
+-            </motion.div>
++      <section id="audience-explorer" className="flex min-h-[100svh] items-center overflow-hidden bg-zinc-950 py-20 text-white lg:py-24">
++        <div className="mx-auto w-full max-w-[100rem] px-4 sm:px-6">
++          <motion.div {...reveal()} className="grid gap-7 lg:grid-cols-[1fr_.65fr] lg:items-end">
++            <div>
++              <p className="text-xs font-black uppercase tracking-[.22em] text-primary">Choose the audience</p>
++              <h2 className="mt-5 text-[clamp(2.8rem,4.8vw,5.25rem)] font-extrabold leading-[.94] tracking-[-.065em]">Five contexts. One personal experience.</h2>
++            </div>
++            <p className="max-w-xl text-base leading-7 text-white/52 lg:justify-self-end">Every solution stays visible. Hover, focus or select a group to see how ZoomSelfie creates value in that context.</p>
++          </motion.div>
++
++          <div className="mt-10 flex flex-col gap-3 lg:h-[clamp(500px,58svh,620px)] lg:flex-row">
++            {groups.map((group, index) => {
++              const active = activeGroup === group.id;
++              return (
++                <motion.article
++                  key={group.id}
++                  id={group.id}
++                  onMouseEnter={() => setActiveGroup(group.id)}
++                  onFocusCapture={() => setActiveGroup(group.id)}
++                  onClick={() => setActiveGroup(group.id)}
++                  className={`premium-media group relative isolate cursor-pointer overflow-hidden rounded-[2rem] border transition-[flex,min-height,border-color] duration-700 ease-[cubic-bezier(.22,1,.36,1)] ${active ? "min-h-[520px] border-primary/45 lg:flex-[2.65]" : "min-h-[170px] border-white/10 lg:flex-1"}`}
++                >
++                  <Image src={group.image} alt={group.alt} sizes={active ? "(max-width:1024px) 100vw, 48vw" : "(max-width:1024px) 100vw, 16vw"} className={`absolute inset-0 -z-30 h-full w-full object-cover object-center transition-all duration-1000 ${active ? "scale-100" : "scale-105 grayscale-[.2]"}`} />
++                  <div className={`absolute inset-0 -z-20 transition-colors duration-500 ${active ? "bg-gradient-to-t from-black via-black/28 to-black/5" : "bg-black/48"}`} />
++                  <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/90 via-transparent to-black/15" />
++
++                  <div className="flex h-full min-h-[inherit] flex-col p-5 sm:p-7">
++                    <div className="flex items-center justify-between gap-3">
++                      <span className={`grid h-11 w-11 place-items-center rounded-full transition-colors ${active ? "bg-primary text-black" : "border border-white/20 bg-black/20 text-white"}`}><group.icon className="h-5 w-5" /></span>
++                      <span className="text-[10px] font-black tracking-[.18em] text-white/50">0{index + 1}</span>
++                    </div>
+ 
+-            <motion.div {...reveal(.06)} className="max-w-xl">
+-              <span className={`grid h-12 w-12 place-items-center rounded-full ${index % 2 === 1 ? "bg-primary text-black" : "bg-black text-white"}`}><group.icon className="h-5 w-5" /></span>
+-              <p className={`mt-7 text-xs font-black uppercase tracking-[.22em] ${index % 2 === 1 ? "text-primary" : "text-amber-600"}`}>{group.audience}</p>
+-              <h2 className="mt-5 text-[clamp(2.7rem,4.4vw,4.9rem)] font-extrabold leading-[.95] tracking-[-.06em]">{group.title}</h2>
+-              <p className={`mt-6 text-base leading-7 ${index % 2 === 1 ? "text-white/52" : "text-black/58"}`}>{group.description}</p>
+-              <div className="mt-7 grid gap-3">
+-                {group.benefits.map((benefit) => <div key={benefit} className={`premium-card flex items-center gap-3 rounded-2xl border p-4 text-sm font-bold ${index % 2 === 1 ? "border-white/10 bg-white/[.045]" : "border-black/8 bg-[#f7f7f5]"}`}><span className="h-2 w-2 shrink-0 rounded-full bg-primary" />{benefit}</div>)}
+-              </div>
+-              <div className="mt-8 flex flex-wrap gap-2">
+-                {group.products.map(([label, to]) => <Link key={label} to={to} className={`inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-xs font-bold transition-colors ${index % 2 === 1 ? "border-white/15 text-white/72 hover:border-primary hover:text-primary" : "border-black/12 hover:border-black"}`}>{label}<ArrowRight className="h-3.5 w-3.5" /></Link>)}
+-              </div>
+-            </motion.div>
++                    <div className="mt-auto">
++                      <p className="text-[10px] font-black uppercase tracking-[.2em] text-primary">{group.audience}</p>
++                      <h3 className={`overflow-hidden font-extrabold leading-[1] tracking-[-.045em] transition-all duration-500 ${active ? "mt-3 max-h-32 max-w-2xl text-3xl opacity-100 sm:text-4xl" : "max-h-0 translate-y-2 text-xl opacity-0"}`}>{group.title}</h3>
++                      <span className={`mt-3 inline-flex items-center gap-2 text-sm font-bold text-white transition-all duration-300 ${active ? "max-h-0 opacity-0" : "max-h-8 opacity-75"}`}>View solution <ArrowRight className="h-3.5 w-3.5" /></span>
++                      <div className={`grid overflow-hidden transition-all duration-500 ${active ? "mt-5 max-h-[360px] opacity-100" : "max-h-0 opacity-0"}`}>
++                        <p className="max-w-2xl text-sm leading-6 text-white/68">{group.description}</p>
++                        <div className="mt-5 grid gap-2 sm:grid-cols-3">
++                          {group.benefits.map((benefit) => <div key={benefit} className="rounded-xl border border-white/12 bg-black/20 p-3 text-[11px] font-bold leading-5 text-white/75 backdrop-blur-sm"><span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-primary" />{benefit}</div>)}
++                        </div>
++                        <div className="mt-5 flex flex-wrap gap-2">
++                          {group.products.map(([label, to]) => <Link key={label} to={to} className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/15 px-3.5 py-2 text-[11px] font-bold text-white transition hover:border-primary hover:text-primary">{label}<ArrowRight className="h-3.5 w-3.5" /></Link>)}
++                        </div>
++                      </div>
++                    </div>
++                  </div>
++                </motion.article>
++              );
++            })}
+           </div>
+-        </section>
+-      ))}
++        </div>
++      </section>
+ 
+       <section className="premium-grain bg-primary py-20 text-center sm:py-24">
+         <div className="container-page"><motion.div {...reveal()} className="mx-auto max-w-4xl"><p className="text-xs font-black uppercase tracking-[.22em] text-black/50">A solution shaped around your audience</p><h2 className="mt-5 text-[clamp(2.8rem,5vw,5.4rem)] font-extrabold leading-[.95] tracking-[-.06em]">Tell us where the moment happens.</h2><p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-black/62">We will help map the audience journey to the right ZoomSelfie products without turning the experience into a complicated operation.</p><Button asChild size="lg" className="mt-9 h-13 rounded-full bg-black px-8 text-white hover:bg-zinc-800"><Link to="/contact">Contact us <ArrowRight className="ml-2 h-4 w-4" /></Link></Button></motion.div></div>
+diff --git a/src/styles.css b/src/styles.css
+index 156fc59..ce08d56 100644
+--- a/src/styles.css
++++ b/src/styles.css
+@@ -437,12 +437,15 @@ html {
+ }
+ 
+ .premium-media {
+-  position: relative;
+   isolation: isolate;
+   overflow: hidden;
+   box-shadow: 0 34px 90px -46px rgba(0, 0, 0, 0.62);
+ }
+ 
++.premium-media:not(.absolute):not(.fixed):not(.sticky) {
++  position: relative;
++}
++
+ .premium-media::after {
+   position: absolute;
+   inset: -35% auto -35% -55%;

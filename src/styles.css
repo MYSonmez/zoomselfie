@@ -169,14 +169,26 @@
 }
 
 @media (min-width: 1024px) {
-  .home-experience-sticky {
-    position: sticky;
-    top: 0;
-  }
-
   .photosoft-screen {
     min-height: 100svh;
   }
+}
+
+.admin-input {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  background: #fafaf9;
+  padding: 0.85rem 1rem;
+  color: #18181b;
+  outline: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.admin-input:focus {
+  border-color: rgba(245, 158, 11, 0.72);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12);
 }
 
 /* Short laptop screens need natural section height; snapping otherwise hides
@@ -437,10 +449,13 @@ html {
 }
 
 .premium-media {
-  position: relative;
   isolation: isolate;
   overflow: hidden;
   box-shadow: 0 34px 90px -46px rgba(0, 0, 0, 0.62);
+}
+
+.premium-media:not(.absolute):not(.fixed):not(.sticky) {
+  position: relative;
 }
 
 .premium-media::after {

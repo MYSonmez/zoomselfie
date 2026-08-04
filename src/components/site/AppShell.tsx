@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Navbar } from "@/components/site/Navbar";
@@ -11,6 +11,20 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const reduceMotion = useReducedMotion();
   const isPhotoSoft = pathname === "/photosoft";
+
+  useLayoutEffect(() => {
+    if (window.location.hash) return;
+    const root = document.documentElement;
+    const previousBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";
+    window.scrollTo(0, 0);
+
+    const restoreTimer = window.setTimeout(() => {
+      root.style.scrollBehavior = previousBehavior;
+    }, 700);
+
+    return () => window.clearTimeout(restoreTimer);
+  }, [pathname]);
 
   useEffect(() => {
     let themeTimer: ReturnType<typeof setTimeout> | undefined;
@@ -33,7 +47,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   }, [isPhotoSoft, pathname, reduceMotion]);
 
   return (
-    <div className="flex min-h-screen flex-col transition-colors duration-500">
+    <div className="relative flex min-h-screen flex-col overflow-x-clip transition-colors duration-500">
       <SiteProgress photoSoft={isPhotoSoft} />
       <Navbar />
       <motion.main
@@ -55,7 +69,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             initial={{ clipPath: "inset(0 100% 0 0)" }}
             animate={{ clipPath: ["inset(0 100% 0 0)", "inset(0 0% 0 0)", "inset(0 0% 0 0)", "inset(0 0 0 100%)"] }}
             transition={{ duration: 0.92, times: [0, 0.31, 0.58, 1], ease: [0.76, 0, 0.24, 1] }}
-            className="pointer-events-none fixed inset-0 z-[100] overflow-hidden bg-[#05080a]"
+            className="pointer-events-none absolute inset-x-0 top-0 z-[40] h-[100svh] overflow-hidden bg-[#05080a]"
           >
             <div className="absolute inset-y-0 left-0 w-2 bg-cyan-300 sm:w-3" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(34,211,238,.11),transparent_34rem)]" />

@@ -1,6 +1,8 @@
 import { supplementalNl, supplementalTr } from "@/i18n/supplemental";
 import { generalNl, generalTr } from "@/i18n/supplemental-general";
 import { solutionsNl, solutionsTr } from "@/i18n/solutions";
+import { solutionsPageNl, solutionsPageTr } from "@/i18n/solutions-page";
+import { completenessNl, completenessTr } from "@/i18n/completeness";
 
 export type Locale = "en" | "tr" | "nl";
 
@@ -40,6 +42,7 @@ const tr: Messages = {
   "Software products": "Yazılım ürünleri",
   "View all products →": "Tüm ürünleri görüntüle →",
   "Find your setup": "Size uygun sistemi bulun",
+  "Choose the product around where the experience begins, who manages it and how the finished content reaches the user.": "Ürünü; deneyimin nerede başladığına, kimin yönettiğine ve tamamlanan içeriğin kullanıcıya nasıl ulaştığına göre seçin.",
   "Toggle menu": "Menüyü aç veya kapat",
   Company: "Şirket",
   About: "Hakkımızda",
@@ -86,6 +89,7 @@ const nl: Messages = {
   "Software products": "Softwareproducten",
   "View all products →": "Bekijk alle producten →",
   "Find your setup": "Vind jouw opstelling",
+  "Choose the product around where the experience begins, who manages it and how the finished content reaches the user.": "Kies het product op basis van waar de ervaring begint, wie deze beheert en hoe de voltooide content de gebruiker bereikt.",
   "Toggle menu": "Menu openen of sluiten",
   Company: "Bedrijf",
   About: "Over ons",
@@ -109,7 +113,7 @@ Object.assign(tr, {
   "ZoomSelfie turns a simple photo into a personal video experience—created by the user, shaped by the location and ready to share.": "ZoomSelfie sıradan bir fotoğrafı; kullanıcı tarafından oluşturulan, bulunduğu mekânla şekillenen ve paylaşmaya hazır kişisel bir video deneyimine dönüştürür.",
   "Take a photo.": "Fotoğrafını çek.", "Choose it.": "Hikâyeni seç.", "Make it yours.": "Onu kendine özel kıl.",
   "Capture or upload your photo, choose a place or theme, and receive a personalized video ready to download and share.": "Fotoğrafını çek veya yükle, bir yer ya da tema seç ve indirip paylaşmaya hazır kişisel videonu al.",
-  Capture: "Çekim", Personalize: "Kişiselleştir", Create: "Oluştur", Keep: "Sakla",
+  Capture: "Çekim", Personalize: "Kişiselleştir", Create: "Oluştur", Share: "Paylaş", Keep: "Sakla",
   "Take your photo": "Fotoğrafını çek", "Choose your story": "Hikâyeni seç", "Watch it come alive": "Canlanışını izle", "Receive and share": "Al ve paylaş",
   "Pose at a ZoomSelfie kiosk or begin with a photo already on your phone.": "ZoomSelfie kioskunda poz ver veya telefonundaki bir fotoğrafla başla.",
   "Pick a landmark, visual theme or branded template that belongs to the moment.": "O ana yakışan bir simge yapı, görsel tema veya markalı şablon seç.",
@@ -129,7 +133,7 @@ Object.assign(tr, {
   Visitors: "Ziyaretçiler", Photographers: "Fotoğrafçılar", "Tourist destinations": "Turistik destinasyonlar", "Brands & venues": "Markalar ve mekânlar",
   "Create a personal memory of the place you are experiencing.": "Deneyimlediğin yere ait kişisel bir hatıra oluştur.",
   "A new digital product to offer clients": "Müşterilere sunulacak yeni bir dijital ürün", "Branded, shareable destination content": "Markalı ve paylaşılabilir destinasyon içeriği", "A memorable guest touchpoint": "Unutulmaz bir misafir temas noktası",
-  "See what a moment can become.": "Bir anın neye dönüşebileceğini gör.", Photos: "Fotoğraflar", Videos: "Videolar", "Still stories.": "Durağan hikâyeler.", "Moving moments.": "Hareketli anlar.",
+  "See what a moment can become.": "Bir anın neye dönüşebileceğini gör.", "Photos become personal stories. Moments become videos worth keeping and sharing.": "Fotoğraflar kişisel hikâyelere, anlar ise saklanıp paylaşmaya değer videolara dönüşür.", Photos: "Fotoğraflar", Videos: "Videolar", "Still stories.": "Durağan hikâyeler.", "Moving moments.": "Hareketli anlar.",
   "The collection continues": "Koleksiyon büyümeye devam ediyor", "More places.": "Daha fazla yer.", "More ways to remember them.": "Onları hatırlamanın daha fazla yolu.",
   "Create with ZoomSelfie": "ZoomSelfie ile oluştur", "Explore products": "Ürünleri keşfet", "Pause video": "Videoyu duraklat", "Play video": "Videoyu oynat", Close: "Kapat",
   "Every way to launch it.": "Hayata geçirmenin her yolu.", "The software behind every experience.": "Her deneyimin arkasındaki yazılım.",
@@ -172,7 +176,7 @@ Object.assign(tr, {
 Object.assign(nl, {
   "Your photo. Your place. Your story.": "Jouw foto. Jouw plek. Jouw verhaal.",
   "ZoomSelfie turns a simple photo into a personal video experience—created by the user, shaped by the location and ready to share.": "ZoomSelfie verandert een gewone foto in een persoonlijke video-ervaring—gemaakt door de gebruiker, gevormd door de locatie en klaar om te delen.",
-  "Take a photo.": "Maak een foto.", "Choose it.": "Kies je verhaal.", "Make it yours.": "Maak het van jou.", Capture: "Vastleggen", Personalize: "Personaliseren", Create: "Creëren", Keep: "Bewaren",
+  "Take a photo.": "Maak een foto.", "Choose it.": "Kies je verhaal.", "Make it yours.": "Maak het van jou.", Capture: "Vastleggen", Personalize: "Personaliseren", Create: "Creëren", Share: "Delen", Keep: "Bewaren",
   "Take your photo": "Maak je foto", "Choose your story": "Kies je verhaal", "Watch it come alive": "Zie het tot leven komen", "Receive and share": "Ontvang en deel",
   "Capture or upload your photo, choose a place or theme, and receive a personalized video ready to download and share.": "Maak of upload je foto, kies een plek of thema en ontvang een persoonlijke video die klaar is om te downloaden en te delen.",
   "Pose at a ZoomSelfie kiosk or begin with a photo already on your phone.": "Poseer bij een ZoomSelfie-kiosk of begin met een foto op je telefoon.", "Pick a landmark, visual theme or branded template that belongs to the moment.": "Kies een bezienswaardigheid, visueel thema of merksjabloon dat bij het moment past.", "Your portrait becomes part of a short visual journey built around the scene.": "Je portret wordt onderdeel van een korte visuele reis rond de scène.", "Open your ZoomSelfie by QR or link, download it and share it wherever you like.": "Open je ZoomSelfie via QR of link, download hem en deel hem waar je maar wilt.",
@@ -184,7 +188,7 @@ Object.assign(nl, {
   "ZoomSelfie begins with the person in the frame, then creates value for photographers, destinations, events and brands around them.": "ZoomSelfie begint bij de persoon in beeld en creëert vervolgens waarde voor fotografen, bestemmingen, evenementen en merken.",
   Visitors: "Bezoekers", Photographers: "Fotografen", "Tourist destinations": "Toeristische bestemmingen", "Brands & venues": "Merken en locaties", "Create a personal memory of the place you are experiencing.": "Maak een persoonlijke herinnering aan de plek die je beleeft.",
   "A new digital product to offer clients": "Een nieuw digitaal product voor klanten", "Branded, shareable destination content": "Deelbare bestemmingscontent in eigen huisstijl", "A memorable guest touchpoint": "Een memorabel contactmoment voor gasten",
-  "See what a moment can become.": "Zie wat een moment kan worden.", Photos: "Foto's", Videos: "Video's", "Still stories.": "Verhalen in beeld.", "Moving moments.": "Momenten in beweging.", "The collection continues": "De collectie groeit verder", "More places.": "Meer plekken.", "More ways to remember them.": "Meer manieren om ze te onthouden.", "Create with ZoomSelfie": "Creëer met ZoomSelfie", "Explore products": "Ontdek producten", "Pause video": "Video pauzeren", "Play video": "Video afspelen", Close: "Sluiten",
+  "See what a moment can become.": "Zie wat een moment kan worden.", "Photos become personal stories. Moments become videos worth keeping and sharing.": "Foto's worden persoonlijke verhalen. Momenten worden video's om te bewaren en te delen.", Photos: "Foto's", Videos: "Video's", "Still stories.": "Verhalen in beeld.", "Moving moments.": "Momenten in beweging.", "The collection continues": "De collectie groeit verder", "More places.": "Meer plekken.", "More ways to remember them.": "Meer manieren om ze te onthouden.", "Create with ZoomSelfie": "Creëer met ZoomSelfie", "Explore products": "Ontdek producten", "Pause video": "Video pauzeren", "Play video": "Video afspelen", Close: "Sluiten",
   "Every way to launch it.": "Elke manier om te lanceren.", "The software behind every experience.": "De software achter elke ervaring.",
   "Build a branded photo-to-video campaign and publish it on the web, a kiosk or both.": "Bouw een foto-naar-videocampagne in je huisstijl en publiceer die online, op een kiosk of op beide.", "Control campaigns, kiosks, templates, usage and credits from one clear workspace.": "Beheer campagnes, kiosken, sjablonen, gebruik en credits vanuit één overzichtelijke werkruimte.", "Create larger sets of personalized photo and video content through an efficient desktop workflow.": "Maak grotere sets persoonlijke foto- en videocontent met een efficiënte desktopworkflow.", "Add the ZoomSelfie creation experience to your own app, booking flow, loyalty platform or digital product.": "Voeg de ZoomSelfie-ervaring toe aan je app, boekingsproces, loyaliteitsplatform of digitale product.",
   "Explore Campaign Tool": "Ontdek de campagnetool", "Explore Web Panel": "Ontdek het webpaneel", "Launch it on web or kiosk.": "Publiceer online of op een kiosk.", "Control every active experience.": "Beheer elke actieve ervaring.", "For photographers and event teams": "Voor fotografen en evenemententeams", "Professional and embedded": "Professioneel en geïntegreerd", "Inside your own product": "In je eigen product",
@@ -267,6 +271,10 @@ Object.assign(tr, generalTr);
 Object.assign(nl, generalNl);
 Object.assign(tr, solutionsTr);
 Object.assign(nl, solutionsNl);
+Object.assign(tr, solutionsPageTr);
+Object.assign(nl, solutionsPageNl);
+Object.assign(tr, completenessTr);
+Object.assign(nl, completenessNl);
 
 export const messages: Record<Locale, Messages> = { en: {}, tr, nl };
 

@@ -2,7 +2,7 @@
 
 import Image from "@/components/site/ResponsiveImage";
 import { Link } from "@/components/site/AppLink";
-import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   ArrowDown,
   ArrowRight,
@@ -13,12 +13,11 @@ import {
   LayoutDashboard,
   Monitor,
   MonitorSmartphone,
-  Pause,
   Play,
   Share2,
   Sparkles,
 } from "lucide-react";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SmartVideo } from "@/components/site/SmartVideo";
 import { useI18n } from "@/i18n/I18nProvider";
@@ -167,26 +166,11 @@ const localizedBlogPreview = {
 } as const;
 
 export default function Home() {
-  const [isPlaying, setIsPlaying] = useState(true);
   const [activeStep, setActiveStep] = useState(0);
   const [activeChannel, setActiveChannel] = useState(0);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const experienceRef = useRef<HTMLElement | null>(null);
   const reduceMotion = useReducedMotion();
   const { locale } = useI18n();
   const journal = localizedBlogPreview[locale];
-  const { scrollYProgress: experienceProgress } = useScroll({
-    target: experienceRef,
-    offset: ["start start", "end end"],
-  });
-  const experienceScale = useTransform(experienceProgress, [0, 1], [.9, 1]);
-  const experienceRadius = useTransform(experienceProgress, [0, 1], ["2.8rem", "1.25rem"]);
-
-  useMotionValueEvent(experienceProgress, "change", (latest) => {
-    if (reduceMotion) return;
-    const nextStep = Math.min(experienceSteps.length - 1, Math.floor(latest * experienceSteps.length));
-    setActiveStep((current) => current === nextStep ? current : nextStep);
-  });
 
   const reveal = (delay = 0) => ({
     initial: reduceMotion ? false : { opacity: 0, y: 28 },
@@ -195,45 +179,27 @@ export default function Home() {
     transition: { duration: 0.65, delay },
   });
 
-  const toggleVideo = () => {
-    if (!videoRef.current) return;
-    if (isPlaying) videoRef.current.pause();
-    else videoRef.current.play();
-    setIsPlaying((value) => !value);
-  };
-
   return (
     <div className="zoomselfie-home overflow-x-clip bg-white text-zinc-950">
-      <section className="premium-grain zoomselfie-screen items-end overflow-hidden bg-black pb-12 pt-24 sm:pb-16 lg:pb-20">
-        <SmartVideo ref={videoRef} src={heroVideo} poster={galleryIstanbul.src} eager autoPlay loop muted playsInline className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.05)_35%,rgba(0,0,0,.92)_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,.62),transparent_64%)]" />
-        <div className="absolute -bottom-36 -left-28 h-96 w-96 rounded-full bg-primary/25 blur-3xl" />
-
-        <div aria-hidden="true" className="ambient-drift absolute bottom-[16%] right-[5%] z-10 hidden items-center gap-3 2xl:flex">
-          <div className="premium-media relative h-44 w-28 -rotate-6 overflow-hidden rounded-[1.3rem] border-4 border-white bg-white shadow-2xl">
-            <Image src={galataWomanPortrait} alt="" sizes="112px" className="h-full w-full object-cover" />
-            <span className="absolute inset-x-2 bottom-2 rounded-full bg-white/90 py-1 text-center text-[8px] font-black uppercase tracking-[.12em] text-black">Portrait</span>
-          </div>
-          <div className="grid h-9 w-9 place-items-center rounded-full border border-white/20 bg-black/20 text-primary backdrop-blur"><ArrowRight className="h-4 w-4" /></div>
-          <div className="premium-media relative h-52 w-32 rotate-3 overflow-hidden rounded-[1.45rem] border-4 border-zinc-950 bg-black shadow-2xl">
-            <SmartVideo src={galataVideo} poster={galleryIstanbul.src} muted loop playsInline autoPlay className="h-full w-full object-cover" />
-            <span className="absolute inset-x-2 bottom-2 rounded-full bg-primary py-1 text-center text-[8px] font-black uppercase tracking-[.12em] text-black">ZoomSelfie</span>
-          </div>
-        </div>
+      <section className="premium-grain zoomselfie-screen items-center overflow-hidden bg-black pb-8 pt-28 sm:pb-10 sm:pt-32 lg:pb-8 lg:pt-28">
+        <SmartVideo src={heroVideo} poster={galleryIstanbul.src} eager autoPlay loop muted playsInline className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.28),rgba(0,0,0,.04)_38%,rgba(0,0,0,.88)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,.92)_0%,rgba(0,0,0,.72)_34%,rgba(0,0,0,.12)_72%,rgba(0,0,0,.48)_100%)]" />
+        <div className="absolute -bottom-32 -left-24 h-80 w-[34rem] rounded-full bg-primary/20 blur-3xl" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(180deg,transparent,rgba(0,0,0,.72))]" />
 
         <div className="container-page relative z-10 w-full text-white">
           <motion.div
             initial={reduceMotion ? false : { opacity: 1, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="max-w-5xl"
+            className="max-w-[54rem]"
           >
-            <p className="text-xs font-bold uppercase tracking-[.22em] text-primary">Your photo. Your place. Your story.</p>
-            <h1 className="mt-5 max-w-5xl text-5xl font-extrabold leading-[.94] tracking-[-0.06em] sm:text-7xl lg:text-[6.3rem]">
+            <p className="inline-flex items-center gap-2 rounded-full border border-primary/35 bg-black/35 px-4 py-2 text-[10px] font-bold uppercase tracking-[.24em] text-primary shadow-[0_0_30px_-10px_rgba(255,184,0,.7)] backdrop-blur-md sm:text-xs"><Sparkles className="h-3.5 w-3.5" /> Your photo. Your place. Your story.</p>
+            <h1 className="mt-6 max-w-[52.5rem] text-[clamp(3.25rem,5.2vw,5.7rem)] font-extrabold leading-[.92] tracking-[-0.06em]">
               Take a photo.<br />Make the moment yours.
             </h1>
-            <p className="mt-6 max-w-2xl text-base leading-7 text-white/72 sm:text-xl sm:leading-8">
+            <p className="mt-6 max-w-[39rem] text-base leading-7 text-white/68 sm:text-lg sm:leading-8">
               Capture or upload your photo, choose a place or theme, and receive a personalized video ready to download and share.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -246,19 +212,28 @@ export default function Home() {
             </div>
           </motion.div>
 
-          <div className="mt-10 flex items-center justify-between">
-            <div className="hidden items-center gap-3 text-[10px] font-bold uppercase tracking-[.2em] text-white/45 sm:flex">
-              <span className="h-px w-12 bg-white/30" /> Capture · Personalize · Create · Share
+          <div className="mt-9 flex items-end gap-6 sm:mt-11">
+            <div className="hidden items-center gap-4 sm:flex lg:gap-6">
+              {[
+                { label: "Capture", icon: Camera },
+                { label: "Personalize", icon: Sparkles },
+                { label: "Create", icon: Play },
+                { label: "Share", icon: Share2 },
+              ].map((item, index) => (
+                <div key={item.label} className="flex items-center gap-4 lg:gap-6">
+                  {index > 0 && <span className="h-px w-4 bg-white/20 lg:w-7" />}
+                  <div className="flex flex-col items-center gap-2 text-white/60">
+                    <item.icon className="h-5 w-5 text-white/85" strokeWidth={1.5} />
+                    <span className="text-[8px] font-bold uppercase tracking-[.2em] lg:text-[9px]">{item.label}</span>
+                  </div>
+                </div>
+              ))}
             </div>
-            <button type="button" onClick={toggleVideo} className="grid h-11 w-11 place-items-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-md transition hover:bg-white hover:text-black" aria-label={isPlaying ? "Pause video" : "Play video"}>
-              {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" fill="currentColor" />}
-            </button>
           </div>
         </div>
       </section>
 
-      <section ref={experienceRef} id="experience" className="relative bg-[#f7f7f5] lg:h-[240svh]">
-        <div className="home-experience-sticky zoomselfie-screen py-14 lg:pt-24 lg:pb-12">
+      <section id="experience" className="zoomselfie-screen relative bg-[#f7f7f5] py-14 lg:py-20">
         <div className="container-page w-full">
           <div className="grid items-center gap-10 lg:grid-cols-[.72fr_1.28fr] lg:gap-12">
             <motion.div {...reveal()}>
@@ -291,8 +266,8 @@ export default function Home() {
               </div>
             </motion.div>
 
-            <motion.div {...reveal(.08)} style={{ scale: experienceScale, borderRadius: experienceRadius }} className="premium-media frame-corners zs-stage-visual relative min-h-[500px] overflow-hidden bg-zinc-950 shadow-[0_28px_80px_-35px_rgba(0,0,0,.45)] lg:min-h-[560px]">
-              <motion.div aria-hidden="true" style={{ scaleX: experienceProgress }} className="absolute inset-x-0 top-0 z-20 h-1 origin-left bg-primary" />
+            <motion.div {...reveal(.08)} className="premium-media frame-corners zs-stage-visual relative min-h-[500px] overflow-hidden rounded-[1.75rem] bg-zinc-950 shadow-[0_28px_80px_-35px_rgba(0,0,0,.45)] lg:min-h-[560px]">
+              <motion.div aria-hidden="true" animate={{ scaleX: (activeStep + 1) / experienceSteps.length }} className="absolute inset-x-0 top-0 z-20 h-1 origin-left bg-primary" />
               <AnimatePresence mode="wait">
                 <motion.img
                   key={experienceSteps[activeStep].image.src}
@@ -313,7 +288,6 @@ export default function Home() {
               </div>
             </motion.div>
           </div>
-        </div>
         </div>
       </section>
 
@@ -424,9 +398,9 @@ export default function Home() {
             {journal.posts.map((post, index) => {
               const images = [galleryIstanbul, kioskParis, appDashboard];
               return (
-                <motion.article key={post.slug} {...reveal(index * .06)} className={`group ${index === 0 ? "lg:col-span-5" : index === 1 ? "lg:col-span-3" : "lg:col-span-4"}`}>
+                <motion.article key={post.slug} {...reveal(index * .06)} className="group lg:col-span-4">
                   <Link to={`/blog/${locale}/${post.slug}`} className="block">
-                    <div className={`premium-media relative overflow-hidden rounded-[1.75rem] bg-zinc-900 ${index === 1 ? "min-h-[300px] lg:min-h-[350px]" : "min-h-[340px] lg:min-h-[410px]"}`}>
+                    <div className="premium-media relative min-h-[340px] overflow-hidden rounded-[1.75rem] bg-zinc-900 lg:min-h-[410px]">
                       <Image src={images[index]} alt="" loading="lazy" sizes="(max-width: 1024px) 100vw, 40vw" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/5 to-black/5" />
                       <div className="absolute inset-x-0 bottom-0 p-6 text-white sm:p-7"><p className="text-[9px] font-black uppercase tracking-[.18em] text-primary">0{index + 1} · {journal.read}</p><h3 className="mt-3 text-xl font-extrabold leading-[1.1] sm:text-2xl">{post.title}</h3><p className="mt-3 text-xs leading-5 text-white/60">{post.excerpt}</p></div>

@@ -30,13 +30,6 @@ const productLinks = [
     hash: undefined,
   },
   {
-    to: "/products/campaign-tool",
-    label: "Campaign Tool",
-    description: "Publish on the web or kiosk",
-    icon: PanelsTopLeft,
-    hash: undefined,
-  },
-  {
     to: "/products/web-panel",
     label: "Web Panel",
     description: "Manage campaigns and usage",
@@ -48,6 +41,13 @@ const productLinks = [
     label: "Desktop App",
     description: "Workflows for photographers",
     icon: Monitor,
+    hash: undefined,
+  },
+  {
+    to: "/products/campaign-tool",
+    label: "Campaign Tool",
+    description: "Publish on the web or kiosk",
+    icon: PanelsTopLeft,
     hash: undefined,
   },
   {
@@ -63,6 +63,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
+  const [, setProductsPinned] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
   const { locale, setLocale } = useI18n();
@@ -72,7 +73,8 @@ export function Navbar() {
   const [photoSoftVisualsReady, setPhotoSoftVisualsReady] = useState(false);
   const isPhotoSoft = isPhotoSoftRoute && photoSoftVisualsReady;
   const isHome = pathname === "/";
-  const isDarkTop = isPhotoSoft || (isHome && !scrolled);
+  const usesDarkHero = isHome || pathname === "/products" || pathname === "/kiosk" || pathname === "/solutions" || pathname === "/gallery";
+  const isDarkTop = isPhotoSoft || (usesDarkHero && !scrolled);
   const productsActive = pathname === "/products" || pathname.startsWith("/products/") || pathname === "/kiosk";
 
   useEffect(() => {
@@ -85,6 +87,7 @@ export function Navbar() {
   useEffect(() => {
     setOpen(false);
     setProductsOpen(false);
+    setProductsPinned(false);
     setMobileProductsOpen(false);
     setLanguageOpen(false);
   }, [pathname]);
@@ -118,17 +121,19 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-500",
-        isPhotoSoft
-          ? scrolled
-            ? "border-b border-cyan-300/15 bg-[#05080a]/92 text-white shadow-[0_12px_45px_-28px_rgba(34,211,238,.65)] backdrop-blur-xl"
-            : "border-b border-transparent bg-gradient-to-b from-black/75 to-transparent text-white"
-          : isHome && !scrolled
-            ? "border-b border-transparent bg-gradient-to-b from-black/70 to-transparent text-white"
-            : "border-b border-border bg-background/92 shadow-[0_1px_0_rgba(0,0,0,0.03)] backdrop-blur-xl",
+        "fixed inset-x-0 top-3 z-50 px-3 text-white transition-all duration-500 sm:px-4",
+        scrolled ? "sm:top-2" : "sm:top-4",
       )}
     >
-      <div className="container-page flex h-16 items-center justify-between md:h-20">
+      <div className={cn(
+        "container-page flex h-16 !max-w-[96rem] items-center justify-between rounded-[1.55rem] border !px-7 shadow-[0_22px_80px_-34px_rgba(0,0,0,.72)] backdrop-blur-xl transition-all duration-500 sm:rounded-[1.75rem] sm:!px-8 md:!px-10",
+        scrolled ? "md:h-16" : "md:h-[4.6rem]",
+        isDarkTop
+          ? isPhotoSoft
+            ? "border-cyan-300/15 bg-[#05080a]/82 text-white"
+            : "border-white/15 bg-black/55 text-white"
+          : "border-black/[.08] bg-white/88 text-zinc-950",
+      )}>
         <Link to="/" className="flex items-center gap-3 transition-opacity hover:opacity-90" aria-label="ZoomSelfie home">
           <Logo size="md" tone={isDarkTop ? "light" : "default"} />
           {isPhotoSoft && <span className="hidden rounded-full border border-cyan-300/25 bg-cyan-300/10 px-2.5 py-1 text-[9px] font-black uppercase tracking-[.18em] text-cyan-200 sm:inline-flex">PhotoSoft OS</span>}
@@ -137,56 +142,56 @@ export function Navbar() {
         <nav className="hidden items-center gap-5 lg:flex xl:gap-7">
           <Link to="/" hash="experience" className={desktopLinkClass()}>How It Works</Link>
 
-          <div className="relative" onMouseEnter={() => setProductsOpen(true)} onMouseLeave={() => setProductsOpen(false)}>
-            <button
-              type="button"
-              onClick={() => setProductsOpen((value) => !value)}
-              onFocus={() => setProductsOpen(true)}
-              aria-expanded={productsOpen}
+          <div
+            className="relative"
+            onMouseEnter={() => setProductsOpen(true)}
+            onMouseLeave={() => {
+              setProductsOpen(false);
+              setProductsPinned(false);
+            }}
+          >
+            <div
+              onClick={() => setProductsPinned((value) => {
+                const nextValue = !value;
+                setProductsOpen(nextValue);
+                return nextValue;
+              })}
               className={cn(desktopLinkClass(), "flex items-center gap-1.5", productsActive && (isDarkTop ? "font-semibold text-white" : "font-semibold text-foreground"))}
             >
-              Products <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", productsOpen && "rotate-180")} />
-            </button>
+              <Link to="/products" onClick={(event) => event.stopPropagation()} className="transition-colors">Products</Link>
+              <button type="button" aria-label="Open products menu" aria-expanded={productsOpen} className="grid h-6 w-6 place-items-center rounded-full transition hover:bg-current/10"><ChevronDown className={cn("h-3.5 w-3.5 transition-transform", productsOpen && "rotate-180")} /></button>
+            </div>
 
             <div className={cn(
-              "absolute left-1/2 top-full w-[760px] -translate-x-1/2 pt-5 transition-all duration-300",
+              "absolute left-1/2 top-full w-[900px] max-w-[calc(100vw-2rem)] -translate-x-1/2 pt-5 transition-all duration-300",
               productsOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-2 opacity-0",
             )}>
-              <div className={cn(
-                "premium-grain grid grid-cols-[1.08fr_.92fr] gap-3 overflow-hidden rounded-[2rem] border p-4 shadow-[0_30px_90px_-35px_rgba(0,0,0,.5)] backdrop-blur-xl",
-                isPhotoSoft ? "border-white/10 bg-[#0b0e10]" : "border-border bg-white",
-              )}>
-                <Link to="/kiosk" onClick={() => setProductsOpen(false)} className="premium-media frame-corners group relative min-h-[350px] overflow-hidden rounded-[1.55rem] bg-zinc-950 text-white">
-                  <div className="absolute -bottom-16 -right-12 h-72 w-72 rounded-full bg-primary/20 blur-3xl" />
-                  <div className="absolute bottom-5 right-5 h-[76%] w-[40%] overflow-hidden rounded-[1.35rem] border border-white/10 bg-white shadow-[0_18px_45px_-20px_rgba(0,0,0,.7)]">
-                    <Image src={kioskModelPro} alt="" sizes="180px" className="h-full w-full object-contain object-center p-3 transition-transform duration-500 group-hover:scale-[1.035]" />
-                  </div>
-                  <div className="relative z-10 flex min-h-[350px] max-w-[52%] flex-col p-7 pr-0">
-                    <span className="grid h-11 w-11 place-items-center rounded-full bg-primary text-black"><ScanFace className="h-5 w-5" /></span>
-                    <div className="mt-auto">
-                      <span className="inline-flex rounded-full bg-primary px-2.5 py-1 text-[8px] font-black uppercase tracking-[.12em] text-black">Kiosk for sale</span>
-                      <h3 className="mt-3 text-[1.35rem] font-extrabold leading-[1.08]">Configure your kiosk system.</h3>
-                      <p className="mt-3 text-[10px] leading-[1.65] text-white/48">Choose a model, format, finish and optional features.</p>
-                      <span className="mt-5 inline-flex items-center gap-2 text-[11px] font-bold text-primary">Open configurator <span aria-hidden="true">→</span></span>
+              <div className="premium-grain overflow-hidden rounded-[2rem] border border-black/[.08] bg-white p-3 text-zinc-950 shadow-[0_36px_100px_-38px_rgba(0,0,0,.68)] backdrop-blur-xl">
+                <div className="grid gap-3 lg:grid-cols-[1.06fr_.94fr]">
+                  <Link to="/kiosk" onClick={() => setProductsOpen(false)} className="group relative min-h-[390px] overflow-hidden rounded-[1.55rem] bg-[#090909] text-white">
+                    <div className="absolute inset-y-0 right-0 w-[52%] p-5">
+                      <div className="relative h-full overflow-hidden rounded-[1.35rem] bg-[#f6f6f4]"><Image src={kioskModelPro} alt="ZoomSelfie kiosk system" sizes="380px" className="h-full w-full object-contain object-center p-3 transition-transform duration-700 group-hover:scale-[1.04]" /></div>
                     </div>
-                  </div>
-                </Link>
-                <div className="flex flex-col">
-                  <p className={cn("px-3 pb-2 pt-1 text-[9px] font-black uppercase tracking-[.2em]", isPhotoSoft ? "text-white/30" : "text-zinc-400")}>Software products</p>
-                  <div className="grid gap-1">
+                    <div className="relative z-10 flex h-full max-w-[52%] flex-col p-7">
+                      <span className="w-fit rounded-full bg-primary px-3 py-1.5 text-[8px] font-black uppercase tracking-[.16em] text-black">Kiosk for sale</span>
+                      <h3 className="mt-6 text-3xl font-extrabold leading-[1.02] tracking-[-.05em]">Configure and buy your kiosk.</h3>
+                      <p className="mt-4 text-xs leading-5 text-white/50">Choose a model, format, finish and optional features.</p>
+                      <span className="mt-auto inline-flex items-center gap-2 text-xs font-bold text-primary">Open configurator <span aria-hidden="true">→</span></span>
+                    </div>
+                  </Link>
+
+                  <div className="overflow-hidden rounded-[1.55rem] border border-black/[.07] bg-[#faf9f6]">
+                    <div className="border-b border-black/[.07] px-5 py-4"><p className="text-[9px] font-black uppercase tracking-[.22em] text-zinc-400">Software products</p></div>
                     {productLinks.slice(1).map((item, index) => (
-                      <Link key={`${item.label}-${index}`} to={item.to} hash={item.hash} onClick={() => setProductsOpen(false)} className={cn("group flex items-center gap-4 rounded-[1.15rem] p-3.5 transition-all", isPhotoSoft ? "text-white hover:bg-white/[.07]" : "text-zinc-950 hover:bg-zinc-100")}>
-                        <span className={cn("grid h-10 w-10 shrink-0 place-items-center rounded-full transition-transform group-hover:scale-105", isPhotoSoft ? "bg-white/10 text-cyan-300" : "bg-accent text-primary")}><item.icon className="h-4.5 w-4.5" /></span>
-                        <span className="min-w-0"><span className="block text-sm font-bold">{item.label}</span><span className={cn("mt-0.5 block truncate text-[10px]", isPhotoSoft ? "text-white/40" : "text-muted-foreground")}>{item.description}</span></span>
-                        <span className={cn("ml-auto translate-x-1 text-sm opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100", isPhotoSoft ? "text-cyan-300" : "text-primary")}>→</span>
+                      <Link key={`${item.label}-${index}`} to={item.to} hash={item.hash} onClick={() => setProductsOpen(false)} className="group grid min-h-[76px] grid-cols-[auto_1fr_auto] items-center gap-4 border-b border-black/[.07] px-5 py-3 transition hover:bg-white last:border-b-0">
+                        <span className="grid h-10 w-10 place-items-center rounded-full bg-primary/15 text-amber-600 transition group-hover:bg-primary group-hover:text-black"><item.icon className="h-4.5 w-4.5" /></span>
+                        <span><strong className="block text-sm font-extrabold">{item.label}</strong><span className="mt-0.5 block text-[10px] text-zinc-500">{item.description}</span></span>
+                        <span className="translate-x-1 text-sm text-amber-600 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100">→</span>
                       </Link>
                     ))}
                   </div>
-                  <div className={cn("mt-auto flex items-center justify-between border-t px-3 pt-3", isPhotoSoft ? "border-white/10" : "border-border")}>
-                    <Link to="/products" onClick={() => setProductsOpen(false)} className={cn("text-xs font-bold", isPhotoSoft ? "text-cyan-300" : "text-primary")}>View all products →</Link>
-                    <Link to="/contact" onClick={() => setProductsOpen(false)} className={cn("text-[10px] font-bold", isPhotoSoft ? "text-white/45" : "text-zinc-500")}>Discuss your setup</Link>
-                  </div>
                 </div>
+                <div className="mt-3 flex items-center justify-between gap-4 px-3 py-2"><Link to="/products" onClick={() => setProductsOpen(false)} className="text-xs font-bold text-amber-600">View all products →</Link><Link to="/contact" onClick={() => setProductsOpen(false)} className="text-[11px] font-semibold text-zinc-500">Find your setup</Link></div>
               </div>
             </div>
           </div>
@@ -253,17 +258,18 @@ export function Navbar() {
       </div>
 
       {open && (
-        <div className={cn("border-t shadow-xl lg:hidden", isPhotoSoft ? "border-white/10 bg-[#070a0d]" : "border-border bg-background")}>
+        <div className={cn("mt-2 overflow-hidden rounded-[1.5rem] border shadow-xl backdrop-blur-xl lg:hidden", isDarkTop ? "border-white/15 bg-black/92 text-white" : "border-black/[.08] bg-white/95 text-zinc-950")}>
           <div className="container-page flex max-h-[calc(100svh-4rem)] flex-col overflow-y-auto py-4">
-            <Link to="/" hash="experience" onClick={() => setOpen(false)} className={cn("py-2.5 text-base font-medium", isPhotoSoft ? "text-white/75" : "text-foreground")}>How It Works</Link>
+            <Link to="/" hash="experience" onClick={() => setOpen(false)} className={cn("py-2.5 text-base font-medium", isDarkTop ? "text-white/75" : "text-foreground")}>How It Works</Link>
 
-            <button type="button" onClick={() => setMobileProductsOpen((value) => !value)} className={cn("flex items-center justify-between py-2.5 text-left text-base font-medium", isPhotoSoft ? "text-white/75" : "text-foreground")}>
-              Products <ChevronDown className={cn("h-4 w-4 transition-transform", mobileProductsOpen && "rotate-180")} />
-            </button>
+            <div className={cn("flex items-center justify-between text-base font-medium", isDarkTop ? "text-white/75" : "text-foreground")}>
+              <Link to="/products" onClick={() => setOpen(false)} className="flex-1 py-2.5">Products</Link>
+              <button type="button" onClick={() => setMobileProductsOpen((value) => !value)} aria-label="Open products menu" className="grid h-10 w-10 place-items-center rounded-full"><ChevronDown className={cn("h-4 w-4 transition-transform", mobileProductsOpen && "rotate-180")} /></button>
+            </div>
             {mobileProductsOpen && (
-              <div className={cn("mb-2 grid gap-1 rounded-2xl p-2", isPhotoSoft ? "bg-white/[.05]" : "bg-surface")}>
+              <div className={cn("mb-2 grid gap-1 rounded-2xl p-2", isDarkTop ? "bg-white/[.05]" : "bg-surface")}>
                 {productLinks.map((item, index) => (
-                  <Link key={`${item.label}-mobile-${index}`} to={item.to} hash={item.hash} onClick={() => setOpen(false)} className={cn("flex items-center gap-3 rounded-xl px-3 py-2.5", "featured" in item && item.featured ? "bg-zinc-950 text-white" : isPhotoSoft ? "text-white/70" : "text-foreground")}>
+                  <Link key={`${item.label}-mobile-${index}`} to={item.to} hash={item.hash} onClick={() => setOpen(false)} className={cn("flex items-center gap-3 rounded-xl px-3 py-2.5", "featured" in item && item.featured ? "bg-zinc-950 text-white" : isDarkTop ? "text-white/70" : "text-foreground")}>
                     <item.icon className={cn("h-4 w-4", "featured" in item && item.featured ? "text-primary" : isPhotoSoft ? "text-cyan-300" : "text-primary")} />
                     <span className="text-sm font-semibold">{item.label}</span>
                   </Link>
@@ -272,12 +278,12 @@ export function Navbar() {
             )}
 
             {mainLinks.map((link) => (
-              <Link key={link.to} to={link.to} onClick={() => setOpen(false)} className={cn("py-2.5 text-base font-medium", isPhotoSoft ? link.to === "/photosoft" ? "font-bold text-cyan-300" : "text-white/75" : link.to === "/photosoft" ? "font-bold text-cyan-600" : "text-foreground")}>
+              <Link key={link.to} to={link.to} onClick={() => setOpen(false)} className={cn("py-2.5 text-base font-medium", isDarkTop ? link.to === "/photosoft" ? "font-bold text-cyan-300" : "text-white/75" : link.to === "/photosoft" ? "font-bold text-cyan-600" : "text-foreground")}>
                 {link.label}
               </Link>
             ))}
 
-            <div className={cn("mt-3 rounded-2xl border p-2", isPhotoSoft ? "border-white/10 bg-white/[.04]" : "border-border bg-surface")} data-no-translate>
+            <div className={cn("mt-3 rounded-2xl border p-2", isDarkTop ? "border-white/10 bg-white/[.04]" : "border-border bg-surface")} data-no-translate>
               <div className="grid grid-cols-3 gap-1">
                 {(Object.keys(localeLabels) as Locale[]).map((item) => (
                   <button

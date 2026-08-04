@@ -4,12 +4,13 @@ import type { StaticImageData } from "next/image";
 import Image from "@/components/site/ResponsiveImage";
 import { Link } from "@/components/site/AppLink";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, ArrowRight, Expand, Pause, Play, X } from "lucide-react";
+import { ArrowDown, ArrowRight, Expand, Play, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SmartVideo } from "@/components/site/SmartVideo";
 
 import galataVideo from "@/assets/Galata-web-1.web.mp4";
+import ortakoyVideo from "@/assets/ortaköy-web-4.mp4";
 import galleryParisCouple from "@/assets/gallery-paris-couple.png";
 import galleryAquariumFamily from "@/assets/gallery-aquarium-family.png";
 import gallerySkiSolo from "@/assets/gallery-ski-solo.png";
@@ -57,8 +58,6 @@ const photoCells: PhotoCell[] = [
 export default function Gallery() {
   const reduceMotion = useReducedMotion();
   const [activePhoto, setActivePhoto] = useState<number | null>(null);
-  const [videoPlaying, setVideoPlaying] = useState(true);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     if (activePhoto === null) return;
@@ -76,17 +75,6 @@ export default function Gallery() {
     };
   }, [activePhoto]);
 
-  const toggleVideo = () => {
-    if (!videoRef.current) return;
-    if (videoRef.current.paused) {
-      void videoRef.current.play();
-      setVideoPlaying(true);
-    } else {
-      videoRef.current.pause();
-      setVideoPlaying(false);
-    }
-  };
-
   const reveal = (delay = 0) => ({
     initial: reduceMotion ? false : { opacity: 0, y: 28 },
     whileInView: { opacity: 1, y: 0 },
@@ -96,26 +84,22 @@ export default function Gallery() {
 
   return (
     <div className="gallery-page overflow-hidden bg-[#f2f0ea] text-zinc-950">
-      <section className="premium-grain relative flex min-h-[100svh] items-center overflow-hidden bg-primary pb-14 pt-24 sm:pt-28 lg:pb-20">
-        <div className="absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-white/25 blur-3xl" />
-        <div className="absolute -right-24 bottom-0 h-[30rem] w-[30rem] rounded-full bg-orange-500/25 blur-3xl" />
-        <div className="container-page relative z-10 grid w-full items-center gap-14 lg:grid-cols-[.82fr_1.18fr] lg:gap-10">
-          <motion.div initial={reduceMotion ? false : { opacity: 1, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .65 }} className="max-w-2xl">
-            <p className="text-xs font-black uppercase tracking-[.24em]">ZoomSelfie gallery</p>
-            <h1 className="mt-6 text-6xl font-extrabold leading-[.9] tracking-[-.075em] sm:text-7xl lg:text-[6.5rem]">See what a moment can become.</h1>
+      <section className="premium-grain relative flex min-h-[100svh] items-center overflow-hidden bg-black pb-8 pt-28 text-white sm:pb-10 sm:pt-32 lg:pb-8 lg:pt-28">
+        <Image src={galleryParisCouple} alt="" priority sizes="100vw" className="absolute inset-0 h-full w-full object-cover object-[62%_center]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,.96)_0%,rgba(0,0,0,.82)_34%,rgba(0,0,0,.18)_70%,rgba(0,0,0,.35)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.22),transparent_42%,rgba(0,0,0,.84)_100%)]" />
+        <div className="absolute -left-24 bottom-0 h-80 w-[34rem] rounded-full bg-primary/18 blur-3xl" />
+        <div className="container-page relative z-10 w-full">
+          <motion.div initial={reduceMotion ? false : { opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .75 }} className="relative z-20 max-w-[54rem]">
+            <p className="inline-flex rounded-full border border-primary/35 bg-black/30 px-4 py-2 text-[10px] font-black uppercase tracking-[.24em] text-primary backdrop-blur-md sm:text-xs">ZoomSelfie gallery</p>
+            <h1 className="mt-6 max-w-[52.5rem] text-[clamp(3.25rem,5.2vw,5.7rem)] font-extrabold leading-[.92] tracking-[-.06em]">See what a moment can become.</h1>
+            <p className="mt-6 max-w-xl text-base leading-7 text-white/62 sm:text-lg">Photos become personal stories. Moments become videos worth keeping and sharing.</p>
             <div className="mt-9 flex flex-wrap gap-3">
-              <a href="#photos" className="inline-flex h-12 items-center gap-2 rounded-full bg-black px-7 text-sm font-bold text-white transition hover:bg-zinc-800">Photos <ArrowDown className="h-4 w-4" /></a>
-              <a href="#videos" className="inline-flex h-12 items-center gap-2 rounded-full border border-black/25 px-7 text-sm font-bold transition hover:bg-black hover:text-white">Videos <Play className="h-4 w-4" /></a>
+              <a href="#photos" className="inline-flex h-13 items-center gap-2 rounded-full bg-primary px-7 text-sm font-bold text-black shadow-[0_18px_50px_-20px_rgba(255,184,0,.85)] transition hover:bg-white">Photos <ArrowDown className="h-4 w-4" /></a>
+              <a href="#videos" className="inline-flex h-13 items-center gap-2 rounded-full border border-white/25 bg-black/20 px-7 text-sm font-bold text-white backdrop-blur-md transition hover:bg-white hover:text-black">Videos <Play className="h-4 w-4" /></a>
             </div>
           </motion.div>
 
-          <motion.div initial={reduceMotion ? false : { opacity: 1, scale: .97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .75, delay: .05 }} className="relative mx-auto h-[500px] w-full max-w-[680px] sm:h-[610px]">
-            <div className="ambient-orbit absolute left-1/2 top-1/2 h-[88%] w-[88%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-black/15" />
-            <div className="premium-media ambient-drift absolute left-[2%] top-[12%] h-[58%] w-[42%] rotate-[-5deg] overflow-hidden rounded-[1.8rem] border-[6px] border-white bg-white shadow-2xl"><Image src={galleryParisCouple} alt="ZoomSelfie photo example" className="h-full w-full object-cover" /></div>
-            <div className="premium-media absolute right-[2%] top-[2%] h-[45%] w-[46%] rotate-[4deg] overflow-hidden rounded-[1.8rem] border-[6px] border-white bg-white shadow-2xl"><Image src={galleryIstanbulGroup} alt="ZoomSelfie photo example" className="h-full w-full object-cover" /></div>
-            <div className="premium-media absolute bottom-[2%] right-[9%] h-[48%] w-[47%] rotate-[-2deg] overflow-hidden rounded-[1.8rem] border-[6px] border-white bg-white shadow-2xl"><Image src={galleryCruiseSunset} alt="ZoomSelfie photo example" className="h-full w-full object-cover" /></div>
-            <div className="premium-media ambient-drift absolute bottom-[5%] left-[12%] h-[32%] w-[30%] rotate-[6deg] overflow-hidden rounded-[1.5rem] border-[5px] border-white bg-white shadow-2xl [animation-delay:-2s]"><Image src={gallerySkiSolo} alt="ZoomSelfie photo example" className="h-full w-full object-cover" /></div>
-          </motion.div>
         </div>
       </section>
 
@@ -149,19 +133,19 @@ export default function Gallery() {
             <span className="hidden text-sm font-bold text-white/30 sm:block">Collection / 001</span>
           </motion.header>
 
-          <div className="mt-7 grid gap-4 lg:grid-cols-12">
-            <motion.div {...reveal()} className="premium-media frame-corners relative min-h-[600px] overflow-hidden rounded-[2rem] bg-black lg:col-span-7 lg:row-span-2 lg:min-h-[696px]">
-              <SmartVideo ref={videoRef} src={galataVideo} poster={galleryIstanbulGroup.src} autoPlay muted loop playsInline className="absolute inset-0 h-full w-full object-cover" />
-              <button type="button" onClick={toggleVideo} aria-label={videoPlaying ? "Pause video" : "Play video"} className="absolute bottom-5 right-5 grid h-12 w-12 place-items-center rounded-full border border-white/20 bg-black/25 text-white backdrop-blur-md transition hover:bg-white hover:text-black">{videoPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}</button>
-            </motion.div>
-            <VideoFrame className="min-h-[340px] lg:col-span-5" index="02" />
-            <VideoFrame className="min-h-[340px] lg:col-span-5" index="03" />
-            <VideoFrame className="min-h-[260px] lg:col-span-3" index="04" />
-            <VideoFrame className="min-h-[260px] lg:col-span-4" index="05" />
-            <VideoFrame className="min-h-[260px] lg:col-span-5" index="06" />
-            <VideoFrame className="min-h-[230px] lg:col-span-5" index="07" />
-            <VideoFrame className="min-h-[230px] lg:col-span-3" index="08" />
-            <VideoFrame className="min-h-[230px] lg:col-span-4" index="09" />
+          <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+            <HoverVideo src={galataVideo} index="01" />
+            <HoverVideo src={ortakoyVideo} index="02" />
+            <VideoFrame index="03" />
+            <VideoFrame index="04" />
+            <VideoFrame index="05" />
+            <VideoFrame index="06" />
+            <VideoFrame index="07" />
+            <VideoFrame index="08" />
+            <VideoFrame index="09" />
+            <VideoFrame index="10" />
+            <VideoFrame index="11" />
+            <VideoFrame index="12" />
           </div>
         </div>
       </section>
@@ -202,9 +186,57 @@ function FutureFrame({ className, index }: { className: string; index: number })
   );
 }
 
-function VideoFrame({ className, index }: { className: string; index: string }) {
+function HoverVideo({ src, index }: { src: string; index: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const reduceMotion = useReducedMotion();
+
+  const play = () => {
+    if (reduceMotion) return;
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.readyState === 0) video.load();
+    void video.play().catch(() => undefined);
+  };
+
+  const pause = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.pause();
+    video.currentTime = 0;
+  };
+
   return (
-    <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className={`premium-card relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[.035] ${className}`} aria-hidden="true">
+    <motion.div
+      initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: .2 }}
+      tabIndex={0}
+      aria-label={`ZoomSelfie video ${index}`}
+      onMouseEnter={play}
+      onMouseLeave={pause}
+      onFocus={play}
+      onBlur={pause}
+      className="premium-media group relative aspect-[9/16] overflow-hidden rounded-[1.6rem] border border-white/10 bg-black outline-none ring-primary transition focus-visible:ring-2"
+    >
+      <SmartVideo
+        ref={videoRef}
+        src={src}
+        eager
+        muted
+        loop
+        playsInline
+        onLoadedData={(event) => { event.currentTarget.currentTime = 0; }}
+        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-black/10 opacity-80 transition-opacity group-hover:opacity-30" />
+      <span className="pointer-events-none absolute left-4 top-4 text-[10px] font-bold tabular-nums text-white/45">{index}</span>
+    </motion.div>
+  );
+}
+
+function VideoFrame({ index }: { index: string }) {
+  return (
+    <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="premium-card relative aspect-[9/16] overflow-hidden rounded-[1.6rem] border border-white/10 bg-white/[.035]" aria-hidden="true">
       <div className="absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] [background-size:40px_40px]" />
       <span className="absolute left-5 top-5 text-[10px] font-bold tabular-nums text-white/20">{index}</span>
       <span className="absolute left-1/2 top-1/2 grid h-12 w-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-white/10 text-white/15"><Play className="h-4 w-4" /></span>
